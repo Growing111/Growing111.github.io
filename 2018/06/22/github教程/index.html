@@ -86,16 +86,16 @@
 <meta property="og:site_name" content="Liuy">
 <meta property="og:description" content="#前言 折腾了好几回，才搞定，总结下 #正文 首先进入github官网进行注册，对于一些英语小白，那么谷歌浏览器和百度翻译可以帮助你！注册完了，登录增加一些主页信息就搞定了，你就拥有一个属于你自己的github。 gitHub是一个面向开源及私有软件项目的托管平台，因为只支持git 作为唯一的版本库格式进行托管，故名gitHub。github是一个托管平台那么你就需要创建一个属于你自己的仓库进入你">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/github_teach1.png">
+<meta property="og:image" content="http://yoursite.com/images/github_teach1.png">
 <meta property="og:image" content="http://yoursite.com/images/github_teach3.png">
 <meta property="og:image" content="http://yoursite.com/images/github_teach4.png">
 <meta property="og:image" content="http://yoursite.com/images/github_teach5.png">
 <meta property="og:image" content="http://yoursite.com/images/github_teach6.png">
-<meta property="og:updated_time" content="2018-06-24T12:17:31.572Z">
+<meta property="og:updated_time" content="2018-06-24T12:19:36.491Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="github教程">
 <meta name="twitter:description" content="#前言 折腾了好几回，才搞定，总结下 #正文 首先进入github官网进行注册，对于一些英语小白，那么谷歌浏览器和百度翻译可以帮助你！注册完了，登录增加一些主页信息就搞定了，你就拥有一个属于你自己的github。 gitHub是一个面向开源及私有软件项目的托管平台，因为只支持git 作为唯一的版本库格式进行托管，故名gitHub。github是一个托管平台那么你就需要创建一个属于你自己的仓库进入你">
-<meta name="twitter:image" content="http://yoursite.com/github_teach1.png">
+<meta name="twitter:image" content="http://yoursite.com/images/github_teach1.png">
 
 
 
@@ -309,7 +309,7 @@
 <pre><code>折腾了好几回，才搞定，总结下
 </code></pre><p>#正文</p>
 <p>首先进入github官网进行注册，对于一些英语小白，<br>那么谷歌浏览器和百度翻译可以帮助你！<br>注册完了，登录增加一些主页信息就搞定了，<br>你就拥有一个属于你自己的github。</p>
-<p><table><tr><td bgcolor="#F5F5DC">gitHub是一个面向开源及私有软件项目的托管平台，因为只支持git 作为唯一的版本库格式进行托管，故名gitHub。<br></td></tr></table>github是一个托管平台那么你就需要创建一个属于你自己的仓库<br>进入你的github新建一个仓库(repository)<br><img src="/github_teach1.png" width="400"><br>然后新建仓库<br><img src="/images/github_teach3.png" width="500"><br>接下来就在git官网下载git,并安装。<br>安装成功后,鼠标右键会多git Bash Here，或者cmd输入 git –version<br>接下来生成一个本地ssh key<br>进入git输入</p>
+<p><table><tr><td bgcolor="#F5F5DC">gitHub是一个面向开源及私有软件项目的托管平台，因为只支持git 作为唯一的版本库格式进行托管，故名gitHub。<br></td></tr></table>github是一个托管平台那么你就需要创建一个属于你自己的仓库<br>进入你的github新建一个仓库(repository)<br><img src="/images/github_teach1.png" width="400"><br>然后新建仓库<br><img src="/images/github_teach3.png" width="500"><br>接下来就在git官网下载git,并安装。<br>安装成功后,鼠标右键会多git Bash Here，或者cmd输入 git –version<br>接下来生成一个本地ssh key<br>进入git输入</p>
 <p><table><tr><td bgcolor="#F5F5DC"> ssh-keygen-t rsa-C “<a href="mailto:your_email@youremail.com" target="_blank" rel="noopener">your_email@youremail.com</a>“ </td></tr></table><br>然后就可以看到下面的图，第一个箭头处直接回车，第二个箭头处是输入你SSH key密码<br><img src="/images/github_teach4.png" width="400"><br>然后就会在C:\Users\administrator路径下生成一个.ssh文件夹。<br>接下来要在github上创建一个SSH key，将本地的key复制进去。<br>进入github界面点击右上角头像，然后进入Setting，点击左边的 SSH and GPG keys<br>然后点击New SSH keys新建一个,title随便写。<br>key值就复制.ssh文件夹里id_rsa.pub文件里的信息(记事本打开);然后add SSh key,这样就创建完成了。<br>下面测试下ssh是否安装成功，进入git bash上输入</p>
 <p><table><tr><td bgcolor="#F5F5DC">ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a></td></tr></table><br>出现successfully字样说明成功了，<br>接下来设置用户和email。</p>
 <p><table><tr><td bgcolor="#F5F5DC">git config –global user.name “你的用户名”<br>git config –global user.email “你的邮箱”<br></td></tr></table>输入上边的代码，name最好和GitHub上边的一样，email是一定要是注册GitHub的那个邮箱地址。<br>这样就建好了本地与github仓库的联系。<br>接下来就是上传本地项目到github仓库里了，<br>首先找个盘下或者文件夹下，然后进入git bash下</p>
