@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://yoursite.com/images/github_teach4.png">
 <meta property="og:image" content="http://yoursite.com/images/github_teach5.png">
 <meta property="og:image" content="http://yoursite.com/images/github_teach6.png">
-<meta property="og:updated_time" content="2018-06-24T12:19:36.491Z">
+<meta property="og:updated_time" content="2018-07-02T06:28:20.295Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="github教程">
 <meta name="twitter:description" content="#前言 折腾了好几回，才搞定，总结下 #正文 首先进入github官网进行注册，对于一些英语小白，那么谷歌浏览器和百度翻译可以帮助你！注册完了，登录增加一些主页信息就搞定了，你就拥有一个属于你自己的github。 gitHub是一个面向开源及私有软件项目的托管平台，因为只支持git 作为唯一的版本库格式进行托管，故名gitHub。github是一个托管平台那么你就需要创建一个属于你自己的仓库进入你">
@@ -281,6 +281,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/22/github教程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/06/22/github教程/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -314,7 +324,7 @@
 <p><table><tr><td bgcolor="#F5F5DC">ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a></td></tr></table><br>出现successfully字样说明成功了，<br>接下来设置用户和email。</p>
 <p><table><tr><td bgcolor="#F5F5DC">git config –global user.name “你的用户名”<br>git config –global user.email “你的邮箱”<br></td></tr></table>输入上边的代码，name最好和GitHub上边的一样，email是一定要是注册GitHub的那个邮箱地址。<br>这样就建好了本地与github仓库的联系。<br>接下来就是上传本地项目到github仓库里了，<br>首先找个盘下或者文件夹下，然后进入git bash下</p>
 <p><table><tr><td bgcolor="#F5F5DC">git clone 仓库路径</td></tr></table>仓库路径是你进入github点击仓库<br><img src="/images/github_teach5.png">然后刷新文件夹，你会发现新建了一个以仓库名为文件夹名的文件夹<br>这样你就把github仓库拷贝到了本地，然后将你需要上传的文件加入到这个文件夹。<br>添加成功后,<font color="#DC143C">在文件夹里git bash here</font>输入</p>
-<p><table><tr><td bgcolor="#F5F5DC">git add -A<br>git commmit -m “标记内容”</td></tr></table>之后和你可以看到显示修改的文件<br><img src="/images/github_teach6.png"><br>最后上传<table><tr><td bgcolor="#F5F5DC">git push</td></tr></table>然后你在你的github仓库就能看到上传的文件了</p>
+<p><table><tr><td bgcolor="#F5F5DC">git add -A<br>git commit -m “标记内容”</td></tr></table>之后和你可以看到显示修改的文件<br><img src="/images/github_teach6.png"><br>最后上传<table><tr><td bgcolor="#F5F5DC">git push</td></tr></table>然后你在你的github仓库就能看到上传的文件了</p>
 
       
     </div>
@@ -389,6 +399,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
 
   
 
@@ -493,7 +510,8 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -504,6 +522,8 @@
 
 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
 
 
 
@@ -664,6 +684,43 @@
 
 
 
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'Growing111',
+            repo: 'Growing111.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b2c0cdd96f37abdd526c2cd2ccc9638fac557872',
+            
+                client_id: '4ce7e377487beee14b17'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
 
 
 
