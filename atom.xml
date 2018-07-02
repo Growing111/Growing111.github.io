@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-07-02T12:37:25.215Z</updated>
+  <updated>2018-07-02T12:58:48.344Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://yoursite.com/2018/07/01/tortoisegit%E4%BD%BF%E7%94%A8/"/>
     <id>http://yoursite.com/2018/07/01/tortoisegit使用/</id>
     <published>2018-07-01T02:01:06.000Z</published>
-    <updated>2018-07-02T12:37:25.215Z</updated>
+    <updated>2018-07-02T12:58:48.344Z</updated>
     
     <content type="html"><![CDATA[<p>#正文<br>    <table><tr><td bgcolor="#F5F5DC">Git 的分支模型</td></tr></table><br>    分支模型就是你可以把你的工作从开发主线上分离开来，以免影响开发主线。<br>    当一个版本库被创建成功时，它会默认的为我们创建一个 master 分支仓库。<br>    一个版本库中可以包含很多个分支仓库,一个分支仓库中存放着不同时间的版本备份文件。<br>    注意：多分支可以提高团队开发效率。项目会将功能拆分，每个人都拉分支，然后写各自的部分，然后合并都主分支上。<br>    拉分支能够回退，比如你写了半天发现逻辑错了，你就可以根据时间，回到你没修改之前。<br>    <table><tr><td bgcolor="#F5F5DC">TortoiseGit</td></tr></table><br>    TortoiseGit是一个开放的git版本控制系统的源客户端.<br>    创建一个分支<br>    <img src="/images/to1.png"><br>    切换到分支<br>    <img src="/images/to2.png"><br>    查看记录<br>    <img src="/images/to4.png"><br>    回退版本<br>    <img src="/images/to5.png"><br>    合并分支<br>    <img src="/images/to3.png"></p>]]></content>
     
