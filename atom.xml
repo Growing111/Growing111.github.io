@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-07-01T03:12:22.956Z</updated>
+  <updated>2018-07-02T12:37:25.215Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://yoursite.com/2018/07/01/tortoisegit%E4%BD%BF%E7%94%A8/"/>
     <id>http://yoursite.com/2018/07/01/tortoisegit使用/</id>
     <published>2018-07-01T02:01:06.000Z</published>
-    <updated>2018-07-01T03:12:22.956Z</updated>
+    <updated>2018-07-02T12:37:25.215Z</updated>
     
     <content type="html"><![CDATA[<p>#正文<br>    <table><tr><td bgcolor="#F5F5DC">Git 的分支模型</td></tr></table><br>    分支模型就是你可以把你的工作从开发主线上分离开来，以免影响开发主线。<br>    当一个版本库被创建成功时，它会默认的为我们创建一个 master 分支仓库。<br>    一个版本库中可以包含很多个分支仓库,一个分支仓库中存放着不同时间的版本备份文件。<br>    注意：多分支可以提高团队开发效率。项目会将功能拆分，每个人都拉分支，然后写各自的部分，然后合并都主分支上。<br>    拉分支能够回退，比如你写了半天发现逻辑错了，你就可以根据时间，回到你没修改之前。<br>    <table><tr><td bgcolor="#F5F5DC">TortoiseGit</td></tr></table><br>    TortoiseGit是一个开放的git版本控制系统的源客户端.<br>    创建一个分支<br>    <img src="/images/to1.png"><br>    切换到分支<br>    <img src="/images/to2.png"><br>    查看记录<br>    <img src="/images/to4.png"><br>    回退版本<br>    <img src="/images/to5.png"><br>    合并分支<br>    <img src="/images/to3.png"></p>]]></content>
     
@@ -34,6 +34,10 @@
     
     </summary>
     
+      <category term="git" scheme="http://yoursite.com/categories/git/"/>
+    
+    
+      <category term="git" scheme="http://yoursite.com/tags/git/"/>
     
   </entry>
   
@@ -42,7 +46,7 @@
     <link href="http://yoursite.com/2018/06/23/github%E4%BD%BF%E7%94%A8/"/>
     <id>http://yoursite.com/2018/06/23/github使用/</id>
     <published>2018-06-23T12:44:05.000Z</published>
-    <updated>2018-07-02T00:56:54.441Z</updated>
+    <updated>2018-07-02T12:37:15.005Z</updated>
     
     <content type="html"><![CDATA[<p>#前言</p><p>绝大数刚开始使用github的人是不知道怎么使用</p><p>#正文</p><p><table><tr><td bgcolor="#F5F5DC">github里的watch,star,fork是什么？</td></tr></table><br>    watch翻译是观察，这里可以看作是观看，默认是没有观看的，<br>    你可以选择观看中，然后只要这个这个项目发生变动，你个人中心就会有通知。<br>    star翻译是星，这里解释为点赞，github里有个列表，里面会记录你所有点赞的项目。<br>    这个就跟qq的收藏差不多的效果。<br>    fork翻译为餐叉，在github里的作用是拷贝一份项目到你的github上。<br>    你搜索别人的项目，然后fork，这样你的github里就会多一个仓库，<br>    这就拷贝到自己的仓库里，然后你再拷贝到你的本地，自己修改后，发布修改，<br>    如果你觉得你修改的不错，给这个项目的主人，发生pull request。如果他同意，这样他就把那些修改<br>    拉到他自己的仓库里了。</p><p><table><tr><td bgcolor="#F5F5DC">向github里的大牛学习</td></tr></table><br> 1.watch、fork大牛的项目<br> 2.对他们的项目提交pull request。</p><p><table><tr><td bgcolor="#F5F5DC">Github Pages</td></tr></table><br>    GitHub Pages 是一个静态网站托管服务,GitHub Pages是设计用来托管你的个人页面,组织页面,或者Github仓库的项目页面<br>    比如hexo与github搭建的博客，就是一个应用<br>    我们GitHub Pages用户遵循一下标准：<br>        GitHub Pages源代码存储库限制不超过1GB。<br>        发布的GitHub Pages限制不超过1GB。<br>        GitHub Pages网站限制每月不超过100GB的带宽或每月100000个请求。<br>        GitHub Pages网站每小时最多构建10次。</p>]]></content>
     
@@ -58,6 +62,10 @@
     
     </summary>
     
+      <category term="github" scheme="http://yoursite.com/categories/github/"/>
+    
+    
+      <category term="github" scheme="http://yoursite.com/tags/github/"/>
     
   </entry>
   
@@ -66,7 +74,7 @@
     <link href="http://yoursite.com/2018/06/22/github%E6%95%99%E7%A8%8B/"/>
     <id>http://yoursite.com/2018/06/22/github教程/</id>
     <published>2018-06-22T00:56:18.000Z</published>
-    <updated>2018-07-02T06:28:20.295Z</updated>
+    <updated>2018-07-02T12:36:52.096Z</updated>
     
     <content type="html"><![CDATA[<p>#前言</p><pre><code>折腾了好几回，才搞定，总结下</code></pre><p>#正文</p><p>首先进入github官网进行注册，对于一些英语小白，<br>那么谷歌浏览器和百度翻译可以帮助你！<br>注册完了，登录增加一些主页信息就搞定了，<br>你就拥有一个属于你自己的github。</p><p><table><tr><td bgcolor="#F5F5DC">gitHub是一个面向开源及私有软件项目的托管平台，因为只支持git 作为唯一的版本库格式进行托管，故名gitHub。<br></td></tr></table>github是一个托管平台那么你就需要创建一个属于你自己的仓库<br>进入你的github新建一个仓库(repository)<br><img src="/images/github_teach1.png" width="400"><br>然后新建仓库<br><img src="/images/github_teach3.png" width="500"><br>接下来就在git官网下载git,并安装。<br>安装成功后,鼠标右键会多git Bash Here，或者cmd输入 git –version<br>接下来生成一个本地ssh key<br>进入git输入</p><p><table><tr><td bgcolor="#F5F5DC"> ssh-keygen-t rsa-C “<a href="mailto:your_email@youremail.com" target="_blank" rel="noopener">your_email@youremail.com</a>“ </td></tr></table><br>然后就可以看到下面的图，第一个箭头处直接回车，第二个箭头处是输入你SSH key密码<br><img src="/images/github_teach4.png" width="400"><br>然后就会在C:\Users\administrator路径下生成一个.ssh文件夹。<br>接下来要在github上创建一个SSH key，将本地的key复制进去。<br>进入github界面点击右上角头像，然后进入Setting，点击左边的 SSH and GPG keys<br>然后点击New SSH keys新建一个,title随便写。<br>key值就复制.ssh文件夹里id_rsa.pub文件里的信息(记事本打开);然后add SSh key,这样就创建完成了。<br>下面测试下ssh是否安装成功，进入git bash上输入</p><p><table><tr><td bgcolor="#F5F5DC">ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a></td></tr></table><br>出现successfully字样说明成功了，<br>接下来设置用户和email。</p><p><table><tr><td bgcolor="#F5F5DC">git config –global user.name “你的用户名”<br>git config –global user.email “你的邮箱”<br></td></tr></table>输入上边的代码，name最好和GitHub上边的一样，email是一定要是注册GitHub的那个邮箱地址。<br>这样就建好了本地与github仓库的联系。<br>接下来就是上传本地项目到github仓库里了，<br>首先找个盘下或者文件夹下，然后进入git bash下</p><p><table><tr><td bgcolor="#F5F5DC">git clone 仓库路径</td></tr></table>仓库路径是你进入github点击仓库<br><img src="/images/github_teach5.png">然后刷新文件夹，你会发现新建了一个以仓库名为文件夹名的文件夹<br>这样你就把github仓库拷贝到了本地，然后将你需要上传的文件加入到这个文件夹。<br>添加成功后,<font color="#DC143C">在文件夹里git bash here</font>输入</p><p><table><tr><td bgcolor="#F5F5DC">git add -A<br>git commit -m “标记内容”</td></tr></table>之后和你可以看到显示修改的文件<br><img src="/images/github_teach6.png"><br>最后上传<table><tr><td bgcolor="#F5F5DC">git push</td></tr></table>然后你在你的github仓库就能看到上传的文件了</p>]]></content>
     
@@ -82,6 +90,10 @@
     
     </summary>
     
+      <category term="github" scheme="http://yoursite.com/categories/github/"/>
+    
+    
+      <category term="github" scheme="http://yoursite.com/tags/github/"/>
     
   </entry>
   
@@ -90,7 +102,7 @@
     <link href="http://yoursite.com/2018/06/19/%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/"/>
     <id>http://yoursite.com/2018/06/19/注意事项/</id>
     <published>2018-06-19T11:56:33.000Z</published>
-    <updated>2018-06-21T14:48:25.595Z</updated>
+    <updated>2018-07-02T12:37:40.918Z</updated>
     
     <content type="html"><![CDATA[<p>#前言<br>更新hexo的时候入了坑，记录下！！</p><p>#注意<br>在本地修改后要部署到github，<br>那么很自然的输入命令：<table><tr><td bgcolor="#F5F5DC">hexo g -d</td></tr></table><br>但是输入后没反应。<br>这就要在这命令之前清理下</p><table><tr><td bgcolor="#F5F5DC">hexo clean</td></tr></table><br>如果出现下面错误<table><tr><td bgcolor="#F5F5DC">error deployer not found:git</td></tr></table><br>就输入<table><tr><td bgcolor="#F5F5DC">npm install hexo-deployer-git –save</td></tr></table><br>如果还是没用就更改站点配置的repository路径，<br>然后再输入<table><tr><td bgcolor="#F5F5DC">hexo g -d</td></tr></table><p>观看是否部署成功,观看博客更改样式，<br>也可以去github仓库上看修改时间。</p><p>如果都修改好了发现还没改变，那么就需要手动<br>修改浏览器的缓存，然后再刷新一下。</p>]]></content>
     
@@ -104,6 +116,10 @@
     
     </summary>
     
+      <category term="git" scheme="http://yoursite.com/categories/git/"/>
+    
+    
+      <category term="git" scheme="http://yoursite.com/tags/git/"/>
     
   </entry>
   
