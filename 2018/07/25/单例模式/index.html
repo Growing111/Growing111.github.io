@@ -81,7 +81,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="设计模式," />
 
 
 
@@ -92,16 +92,22 @@
 
 
 
-<meta name="description" content="现实很残酷，加油！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Liuy">
-<meta property="og:url" content="http://yoursite.com/categories/github/index.html">
+<meta name="description" content="#前言    今天写demo的时候对单例有些疑问，就查资料总结下 #正文    单例模式是一种常用的设计模式，单例是某个类只能有一个实例，而且必须是它自己创建的一个实例。它必须对外提供一个静态方法来实现实例。单例分懒汉和饿汉。   饿汉式      饿汉式主要缺点，使用多线程的时候，就会实例化多次，占用资源。   懒汉式      懒汉式的缺点是线程不安全，一般情况下是不加锁的，第一个线程还没实例">
+<meta name="keywords" content="设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单例模式">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/单例模式/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="现实很残酷，加油！">
+<meta property="og:description" content="#前言    今天写demo的时候对单例有些疑问，就查资料总结下 #正文    单例模式是一种常用的设计模式，单例是某个类只能有一个实例，而且必须是它自己创建的一个实例。它必须对外提供一个静态方法来实现实例。单例分懒汉和饿汉。   饿汉式      饿汉式主要缺点，使用多线程的时候，就会实例化多次，占用资源。   懒汉式      懒汉式的缺点是线程不安全，一般情况下是不加锁的，第一个线程还没实例">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/dan1.png">
+<meta property="og:image" content="http://yoursite.com/images/dan2.png">
+<meta property="og:image" content="http://yoursite.com/images/dan3.png">
+<meta property="og:updated_time" content="2018-07-25T11:51:19.724Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Liuy">
-<meta name="twitter:description" content="现实很残酷，加油！">
+<meta name="twitter:title" content="单例模式">
+<meta name="twitter:description" content="#前言    今天写demo的时候对单例有些疑问，就查资料总结下 #正文    单例模式是一种常用的设计模式，单例是某个类只能有一个实例，而且必须是它自己创建的一个实例。它必须对外提供一个静态方法来实现实例。单例分懒汉和饿汉。   饿汉式      饿汉式主要缺点，使用多线程的时候，就会实例化多次，占用资源。   懒汉式      懒汉式的缺点是线程不安全，一般情况下是不加锁的，第一个线程还没实例">
+<meta name="twitter:image" content="http://yoursite.com/images/dan1.png">
 
 
 
@@ -131,13 +137,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/github/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/单例模式/"/>
 
 
 
 
 
-  <title>分类: github | Liuy</title>
+  <title>单例模式 | Liuy</title>
   
 
 
@@ -156,7 +162,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -250,83 +256,190 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>github<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/单例模式/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liuy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liuy">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/06/23/github使用/" itemprop="url">
-              
-                <span itemprop="name">github使用</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">单例模式</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-23T20:44:05+08:00"
-              content="2018-06-23" >
-          06-23
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T19:11:00+08:00">
+                2018-07-25
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/25/单例模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/07/25/单例模式/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/22/github教程/" itemprop="url">
-              
-                <span itemprop="name">github教程</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-22T08:56:18+08:00"
-              content="2018-06-22" >
-          06-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <p>#前言<br>    今天写demo的时候对单例有些疑问，就查资料总结下</p>
+<p>#正文<br>    单例模式是一种常用的设计模式，单例是某个类只能有一个实例，而且必须是它自己创建的一个实例。它必须对外提供一个静态方法来实现实例。单例分懒汉和饿汉。<br>   饿汉式<br>   <img src="/images/dan1.png"><br>   饿汉式主要缺点，使用多线程的时候，就会实例化多次，占用资源。<br>   懒汉式<br>   <img src="/images/dan2.png"><br>   懒汉式的缺点是线程不安全，一般情况下是不加锁的，第一个线程还没实例化，第二个线程就加进来了，这样就不属于单例的情况。但是加锁就会出现一个线程进去就加锁判断，再释放，再加锁释放，这样就造成了性能低下，所以使用双重判空。<br>   使用volatile可见性，是使Dome类创建的时候有序，在堆中创建一个对象，然后dome指向这个对象，最后赋值。避免还没赋值，cpu被强占，直接下一个进程进行判空，但dome还没有被赋值，导致程序崩溃了。这就是一个DCL失效问题。<br>   下面使用一种静态内部类使用单例<br>   <img src="/images/dan3.png"><br>   外部类加载时并不需要立即加载内部类，所以不占用内存。只用第一次被调用的时候，才会去初始化Dome。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+	
+	<div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+		
+	</div>
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" i class="fa fa-tag"></i> 设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/01/tortoisegit使用/" rel="next" title="tortoisegit使用">
+                <i class="fa fa-chevron-left"></i> tortoisegit使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -334,6 +447,17 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
 
         </div>
         
@@ -588,6 +712,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -634,6 +762,30 @@
 
     
 
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'Growing111',
+            repo: 'Growing111.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b2c0cdd96f37abdd526c2cd2ccc9638fac557872',
+            
+                client_id: '4ce7e377487beee14b17'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
     
 
 
