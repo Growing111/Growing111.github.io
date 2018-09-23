@@ -81,7 +81,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="jvm," />
 
 
 
@@ -92,17 +92,18 @@
 
 
 
-<meta name="description" content="现实很残酷，加油！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="#前言    jvm  java虚拟机 #正文    java运行时数据区划分为几部分，程序计数器，java栈，本地方法栈，堆，方法区五个部分; 程序计数器    程序计数器也有称做pc寄存器;程序计数器是用来指示执行哪条指令的，所以是线程私有的。    当多线程运行时，每个线程切换后需要知道上一次所运行的状态、位置。 java栈    java栈也称虚拟机栈；java栈是由一个一个的栈帧组成，栈">
+<meta name="keywords" content="jvm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM内存">
+<meta property="og:url" content="http://yoursite.com/2018/09/22/JVM内存/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="现实很残酷，加油！">
+<meta property="og:description" content="#前言    jvm  java虚拟机 #正文    java运行时数据区划分为几部分，程序计数器，java栈，本地方法栈，堆，方法区五个部分; 程序计数器    程序计数器也有称做pc寄存器;程序计数器是用来指示执行哪条指令的，所以是线程私有的。    当多线程运行时，每个线程切换后需要知道上一次所运行的状态、位置。 java栈    java栈也称虚拟机栈；java栈是由一个一个的栈帧组成，栈">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-02T12:40:26.535Z">
+<meta property="og:updated_time" content="2018-09-23T08:46:51.330Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description" content="现实很残酷，加油！">
+<meta name="twitter:title" content="JVM内存">
+<meta name="twitter:description" content="#前言    jvm  java虚拟机 #正文    java运行时数据区划分为几部分，程序计数器，java栈，本地方法栈，堆，方法区五个部分; 程序计数器    程序计数器也有称做pc寄存器;程序计数器是用来指示执行哪条指令的，所以是线程私有的。    当多线程运行时，每个线程切换后需要知道上一次所运行的状态、位置。 java栈    java栈也称虚拟机栈；java栈是由一个一个的栈帧组成，栈">
 
 
 
@@ -132,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/22/JVM内存/"/>
 
 
 
 
 
-  <title>tags | Liuy</title>
+  <title>JVM内存 | Liuy</title>
   
 
 
@@ -253,40 +254,192 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/22/JVM内存/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liuy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liuy">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 10 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/git/" style="font-size: 30px; color: #111">git</a> <a href="/tags/github/" style="font-size: 30px; color: #111">github</a> <a href="/tags/java基础/" style="font-size: 12px; color: #ccc">java基础</a> <a href="/tags/jvm/" style="font-size: 12px; color: #ccc">jvm</a> <a href="/tags/map/" style="font-size: 12px; color: #ccc">map</a> <a href="/tags/set/" style="font-size: 12px; color: #ccc">set</a> <a href="/tags/排序算法/" style="font-size: 30px; color: #111">排序算法</a> <a href="/tags/数据库/" style="font-size: 30px; color: #111">数据库</a> <a href="/tags/测试/" style="font-size: 12px; color: #ccc">测试</a> <a href="/tags/设计模式/" style="font-size: 12px; color: #ccc">设计模式</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">JVM内存</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-22T16:00:17+08:00">
+                2018-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">java基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/22/JVM内存/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/09/22/JVM内存/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>#前言<br>    jvm  java虚拟机</p>
+<p>#正文<br>    java运行时数据区划分为几部分，程序计数器，java栈，本地方法栈，堆，方法区五个部分;</p>
+<p><strong>程序计数器</strong><br>    程序计数器也有称做pc寄存器;程序计数器是用来指示执行哪条指令的，所以是线程私有的。<br>    当多线程运行时，每个线程切换后需要知道上一次所运行的状态、位置。</p>
+<p><strong>java栈</strong><br>    java栈也称虚拟机栈；java栈是由一个一个的栈帧组成，栈帧是在每一个方法调用时产生的。<br>    每一个栈帧由局部变量区、操作数栈等组成.当线程执行一个方法时，就会随之创建一个对应的栈帧。这部分也是线程私有的。  String s是在java栈中创建的；</p>
+<p><strong>本地方法栈</strong><br>    本地方法栈与Java栈的作用和原理非常相似。区别只不过是Java栈是为执行Java方法服务的，而本地方法栈则是为执行本地方法服务的。</p>
+<p><strong>堆</strong><br>    Java中的堆是用来存储对象本身的以及数组。这块区域也是垃圾回收器重点管理的区域，由于大多数垃圾回收器都采用分代回收算法，<br>    所有堆内存也分为 新生代、老年代，可以方便垃圾的准确回收。这块内存属于线程共享区域。  new String()是在堆中创建的；</p>
+<p><strong>方法区</strong><br>    方法区主要用于存放已经被虚拟机加载的类信息，如常量，静态变量。 这块区域也被称为永久代。这部分是共享的；<br>    方法区有一个非常重要的部分就是运行时常量池</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+	
+	<div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+		
+	</div>
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/jvm/" i class="fa fa-tag"></i> jvm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/18/Set集合/" rel="next" title="Set集合">
+                <i class="fa fa-chevron-left"></i> Set集合
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -295,6 +448,17 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
 
         </div>
         
@@ -599,6 +763,30 @@
 
     
 
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'Growing111',
+            repo: 'Growing111.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b2c0cdd96f37abdd526c2cd2ccc9638fac557872',
+            
+                client_id: '4ce7e377487beee14b17'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
     
 
 
