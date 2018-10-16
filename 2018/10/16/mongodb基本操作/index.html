@@ -92,19 +92,19 @@
 
 
 
-<meta name="description" content="#前言    mongodb的shell命令，对数据的简单操作 #正文    mongodb 基本操作代码MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。  创建数据库use 数据库名字（use DATABASE_NAME如果数据库不存在，则创建数据库，否则切换到指定数据库。） 删除数据库db.dropDatabase()删除当前数据库，默认">
+<meta name="description" content="#前言    mongodb的shell命令，对数据的简单操作 #正文    mongodb 基本操作代码MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。 创建数据库use 数据库名字（use DATABASE_NAME如果数据库不存在，则创建数据库，否则切换到指定数据库。）删除数据库db.dropDatabase()删除当前数据库，默认为">
 <meta name="keywords" content="mongodb">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mongodb基本操作">
 <meta property="og:url" content="http://yoursite.com/2018/10/16/mongodb基本操作/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="#前言    mongodb的shell命令，对数据的简单操作 #正文    mongodb 基本操作代码MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。  创建数据库use 数据库名字（use DATABASE_NAME如果数据库不存在，则创建数据库，否则切换到指定数据库。） 删除数据库db.dropDatabase()删除当前数据库，默认">
+<meta property="og:description" content="#前言    mongodb的shell命令，对数据的简单操作 #正文    mongodb 基本操作代码MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。 创建数据库use 数据库名字（use DATABASE_NAME如果数据库不存在，则创建数据库，否则切换到指定数据库。）删除数据库db.dropDatabase()删除当前数据库，默认为">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/asda.png">
-<meta property="og:updated_time" content="2018-10-16T15:16:44.789Z">
+<meta property="og:updated_time" content="2018-10-16T15:21:28.698Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongodb基本操作">
-<meta name="twitter:description" content="#前言    mongodb的shell命令，对数据的简单操作 #正文    mongodb 基本操作代码MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。  创建数据库use 数据库名字（use DATABASE_NAME如果数据库不存在，则创建数据库，否则切换到指定数据库。） 删除数据库db.dropDatabase()删除当前数据库，默认">
+<meta name="twitter:description" content="#前言    mongodb的shell命令，对数据的简单操作 #正文    mongodb 基本操作代码MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。 创建数据库use 数据库名字（use DATABASE_NAME如果数据库不存在，则创建数据库，否则切换到指定数据库。）删除数据库db.dropDatabase()删除当前数据库，默认为">
 <meta name="twitter:image" content="http://yoursite.com/images/asda.png">
 
 
@@ -368,17 +368,15 @@
 
       
         <p>#前言<br>    mongodb的shell命令，对数据的简单操作</p>
-<p>#正文<br>    <strong><font color="red">mongodb 基本操作代码</font></strong><br>MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。<br> <img src="/images/asda.png" width="600"></p>
-<p><font color="red">创建数据库<br>use 数据库名字（use DATABASE_NAME<br>如果数据库不存在，则创建数据库，否则切换到指定数据库。）</font></p>
-<p><font color="red">删除数据库<br>db.dropDatabase()<br>删除当前数据库，默认为 test，你可以使用 db 命令查看当前数据库名。</font></p>
-<p><font color="red">创建集合</font><br>Db.createcollections(name, options)<br>name: 要创建的集合名称options: 可选参数, 指定有关内存大小及索引的选项</p>
-<p><font color="red">插入数据</font><br>db.集合名字.insert({“id”:”123”})   类似于json数据;<br>db.集合名字.save([{id:”123”,age:”233”},{id:”2222”,age:”19”}]);</p>
+<p>#正文<br>    <strong><font color="red">mongodb 基本操作代码</font></strong><br>MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。<br> <img src="/images/asda.png" width="600"><br><strong><font color="red">创建数据库</font></strong><br>use 数据库名字（use DATABASE_NAME<br>如果数据库不存在，则创建数据库，否则切换到指定数据库。）<br><strong><font color="red">删除数据库</font></strong><br>db.dropDatabase()<br>删除当前数据库，默认为 test，你可以使用 db 命令查看当前数据库名。</p>
+<p><strong><font color="red">创建集合</font></strong><br>Db.createcollections(name, options)<br>name: 要创建的集合名称options: 可选参数, 指定有关内存大小及索引的选项</p>
+<p><strong><font color="red">插入数据</font></strong><br>db.集合名字.insert({“id”:”123”})   类似于json数据;<br>db.集合名字.save([{id:”123”,age:”233”},{id:”2222”,age:”19”}]);</p>
 <p>name=({name:”123”,password:”111”})<br>db.teacher.insert(name)</p>
-<p><font color="red">修改数据</font><br>db. 集合名字.update({id:”1”},{$set:{name:”张三2”}});<br>相当于<br>update 集合名字set name = ‘张三2’ where id=1;</p>
+<p><strong><font color="red">修改数据</font></strong><br>db. 集合名字.update({id:”1”},{$set:{name:”张三2”}});<br>相当于<br>update 集合名字set name = ‘张三2’ where id=1;</p>
 <p><font color="red">查询数据</font><br>Db.集合名字.find();<br>Db.集合名字.find({id:”1”});</p>
 <p><font color="red">删除数据</font><br>db.teacher.remove({name:”123”})；</p>
-<p><font color="red">特别用法；</font><br>db.teacher.find().limit(2).skip(1)；<br>查询两条结果，从第二条数据开始查询</p>
-<p>条件操作符<br>$gt表示大于<br>$lt表示小于<br>$ge表示大于等于<br>$le表示小于等于<br>$ne表示不等于<br>db.customizedorder.find({num:{$gt: 0}});</p>
+<p><strong><font color="red">特别用法；</font></strong><br>db.teacher.find().limit(2).skip(1)；<br>查询两条结果，从第二条数据开始查询</p>
+<p><strong><font color="red">条件操作符<br>$gt表示大于<br>$lt表示小于<br>$ge表示大于等于<br>$le表示小于等于<br>$ne表示不等于</font></strong><br>db.customizedorder.find({num:{$gt: 0}});</p>
 <p>db.teacher.find().sort({age:-1})；<br>对查询后的数据排序显示  1表示升序,-1表示降序</p>
 
       
