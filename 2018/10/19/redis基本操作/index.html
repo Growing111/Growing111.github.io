@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Liuy">
 <meta property="og:description" content="#前言    操作后理解总结下 #正文    命令模式下的使用redis进入命令框 开启redis服务  redis-server.exe(win下)再开一个命令框  进入redis安装路径下，进入redis-cli.exe127.0.0.1:6379&amp;gt; String类型 (redis本身就是一种key和value存在的形式)    set  key value    get  key">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-19T15:44:55.725Z">
+<meta property="og:updated_time" content="2018-10-22T14:26:24.027Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis基本操作">
 <meta name="twitter:description" content="#前言    操作后理解总结下 #正文    命令模式下的使用redis进入命令框 开启redis服务  redis-server.exe(win下)再开一个命令框  进入redis安装路径下，进入redis-cli.exe127.0.0.1:6379&amp;gt; String类型 (redis本身就是一种key和value存在的形式)    set  key value    get  key">
@@ -369,15 +369,7 @@
 <p>#正文<br>    <strong><font color="red">命令模式下的使用redis</font></strong><br>进入命令框 开启redis服务  redis-server.exe(win下)<br>再开一个命令框  进入redis安装路径下，进入redis-cli.exe<br>127.0.0.1:6379&gt;</p>
 <p><strong><font color="red">String类型</font></strong> (redis本身就是一种key和value存在的形式)<br>    set  key value<br>    get  key<br>    del  key</p>
 <p><strong><font color="red">Hash类型</font></strong> (hash结构因为redis本身就是一种key和value的形式存在，所以这里的hash是把他的value值套上了一层key和value值)<br>    插入<br>    Hmset key 姓名 “张三” 年龄 18<br>    获取<br>    Hmget key 姓名<br>    删除<br>    Hdel  key  姓名</p>
-<p><strong><font color="red">列表类型</font></strong>(key和value的存在为一个元素,本身结构是一个列表,他可以从最后进入队列，从中插入队列)<br>    lpush key value<br>    插入<br>    Linsert key  before|after  ‘某个数据’  value   在某个具体某个数据的前面或者后面插入数据<br>    遍历<br>    Lrange key  0  10   遍历0到10的数据，不存在的就不遍历<br>    删除<br>    Lrem key cout value<br>    修改<br>    Lset key index value</p>
-<p><strong><font color="red">集合(set)类型</font></strong>(本身就是一个key和value类型存在，然后结构是个set集合,所以他不能存放重复的成员)</p>
-<pre><code>插入
-sadd key members1 members2 
-删除一个数据
-Srem key members
-查询所有的set数据
-Smembers  key
-</code></pre><p><strong><font color="red">有序集合</font></strong>（sorted set）<br>    插入<br>    Zadd key score1  members1  score2 members2   ps:score1是数字<br>    删除<br>    Zrem key member<br>    查询<br>    Zrange  key start top</p>
+<p><strong><font color="red">列表类型</font></strong>(key和value的存在为一个元素,本身结构是一个列表,他可以从最后进入队列，从中插入队列)<br>    lpush key value<br>    插入<br>    Linsert key  before|after  ‘某个数据’  value   在某个具体某个数据的前面或者后面插入数据<br>    遍历<br>    Lrange key  0  10   遍历0到10的数据，不存在的就不遍历<br>    删除<br>    Lrem key cout value<br>    修改<br>    Lset key index value<br><strong><font color="red">集合(set)类型</font></strong>(本身就是一个key和value类型存在，然后结构是个set集合,所以他不能存放重复的成员)<br>    插入<br>    sadd key members1 members2<br>    删除一个数据<br>    Srem key members<br>    查询所有的set数据<br>    Smembers  key<br><strong><font color="red">有序集合</font></strong>（sorted set）<br>    插入<br>    Zadd key score1  members1  score2 members2   ps:score1是数字<br>    删除<br>    Zrem key member<br>    查询<br>    Zrange  key start top</p>
 
       
     </div>
