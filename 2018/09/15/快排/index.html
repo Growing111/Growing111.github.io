@@ -92,18 +92,18 @@
 
 
 
-<meta name="description" content="#前言    有空复习下简单常见的算法 #正文    快排    快排的基本思想是通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。 快排需要取一个数为”基准”，一般取左边的第一个;然后第一遍结果是这个基准数的左边都比他小，右边都比他大;    快排">
+<meta name="description" content="前言  有空复习下简单常见的算法  正文 快排 快排的基本思想是通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。   快排需要取一个数为”基准”，一般取左边的第一个;然后第一遍结果是这个基准数的左边都比他小，右边都比他大;快排设置两个变量i,j;i">
 <meta name="keywords" content="排序算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="快排">
 <meta property="og:url" content="http://yoursite.com/2018/09/15/快排/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="#前言    有空复习下简单常见的算法 #正文    快排    快排的基本思想是通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。 快排需要取一个数为”基准”，一般取左边的第一个;然后第一遍结果是这个基准数的左边都比他小，右边都比他大;    快排">
+<meta property="og:description" content="前言  有空复习下简单常见的算法  正文 快排 快排的基本思想是通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。   快排需要取一个数为”基准”，一般取左边的第一个;然后第一遍结果是这个基准数的左边都比他小，右边都比他大;快排设置两个变量i,j;i">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-15T10:23:43.317Z">
+<meta property="og:updated_time" content="2018-10-28T14:12:40.975Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快排">
-<meta name="twitter:description" content="#前言    有空复习下简单常见的算法 #正文    快排    快排的基本思想是通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。 快排需要取一个数为”基准”，一般取左边的第一个;然后第一遍结果是这个基准数的左边都比他小，右边都比他大;    快排">
+<meta name="twitter:description" content="前言  有空复习下简单常见的算法  正文 快排 快排的基本思想是通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。   快排需要取一个数为”基准”，一般取左边的第一个;然后第一遍结果是这个基准数的左边都比他小，右边都比他大;快排设置两个变量i,j;i">
 
 
 
@@ -365,27 +365,21 @@
       
 
       
-        <p>#前言<br>    有空复习下简单常见的算法</p>
-<p>#正文<br>    <table><tr><td bgcolor="#F5F5DC">快排</td></tr></table><br>    快排的基本思想是通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。</p>
-<p>快排需要取一个数为”基准”，一般取左边的第一个;然后第一遍结果是这个基准数的左边都比他小，右边都比他大;<br>    快排设置两个变量i,j;i表示从左边开始记录数字的位置，j表示从右边开始记录数字的位置;还有一个基准为key;</p>
-<pre><code>例如：
-    6  1  2  7  9  3  4  5  10  8
-取基准key=6;
-i=0; j=9;(这个是递归结束条件是i=j)
-从右边j=9开始取第一个比key小的数5与key值(6下面就省略了)交换为：
-    0  1  2  3  4  5  6  7  8   9     位置(下面省略)
-    5  1  2  7  9  3  4  6  10  8   同时i=0 ,j变成j=7;
-从左边i=0开始取第一个比key大的数7与key值交换为:
-    5  1  2  6  9  3  4  7  10  8   同时i=3,j=7;
-从右边j=7开始取第一个比key小的数4与key值交换为：
-    5  1  2  4  9  3  6  7  10  8   同时i=3,j=6;
-从左边i=3开始取第一个比key大的数9与key值交换为:
-    5  1  2  4  6  3  9  7  10  8   同时i=4,j=6;
-从右边j=6开始取第一个比key小的数3与key值交换为：
-    5  1  2  4  3  6  9  7  10  8   同时i=4,j=5;
-从左边i=4开始取第一个比key大的数与key值交换为:
-    发现i=5=j;结束; 会发现key的左边都比他小，右边都比他大；然后再根据key划分成两部分再排序;
-</code></pre><p>为了得到最终结果需要再次对key两边的数组分别排序，然后再分解数组，直到数组不能再分解为止（只有一个数据），才能得到正确结果。        </p>
+        <p><font size="6">前言</font></p>
+<blockquote>
+<p>有空复习下简单常见的算法</p>
+</blockquote>
+<p><font size="6">正文</font></p>
+<h2 id="快排"><a href="#快排" class="headerlink" title="快排"></a>快排</h2><blockquote>
+<p>快排的基本思想是通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。</p>
+</blockquote>
+<blockquote>
+<p>快排需要取一个数为”基准”，一般取左边的第一个;然后第一遍结果是这个基准数的左边都比他小，右边都比他大;<br>快排设置两个变量i,j;i表示从左边开始记录数字的位置，j表示从右边开始记录数字的位置;还有一个基准为key;</p>
+<blockquote>
+<p>例如：<br>        6  1  2  7  9  3  4  5  10  8<br>    取基准key=6;<br>    i=0; j=9;(这个是递归结束条件是i=j)<br>    从右边j=9开始取第一个比key小的数5与key值(6下面就省略了)交换为：<br>        0  1  2  3  4  5  6  7  8   9     位置(下面省略)<br>        5  1  2  7  9  3  4  6  10  8   同时i=0 ,j变成j=7;<br>    从左边i=0开始取第一个比key大的数7与key值交换为:<br>        5  1  2  6  9  3  4  7  10  8   同时i=3,j=7;<br>    从右边j=7开始取第一个比key小的数4与key值交换为：<br>        5  1  2  4  9  3  6  7  10  8   同时i=3,j=6;<br>    从左边i=3开始取第一个比key大的数9与key值交换为:<br>        5  1  2  4  6  3  9  7  10  8   同时i=4,j=6;<br>    从右边j=6开始取第一个比key小的数3与key值交换为：<br>        5  1  2  4  3  6  9  7  10  8   同时i=4,j=5;<br>    从左边i=4开始取第一个比key大的数与key值交换为:<br>        发现i=5=j;结束; 会发现key的左边都比他小，右边都比他大；然后再根据key划分成两部分再排序;</p>
+</blockquote>
+<p>为了得到最终结果需要再次对key两边的数组分别排序，然后再分解数组，直到数组不能再分解为止（只有一个数据），才能得到正确结果。        </p>
+</blockquote>
 
       
     </div>
@@ -497,8 +491,17 @@ i=0; j=9;(这个是递归结束条件是i=j)
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -572,6 +575,22 @@ i=0; j=9;(这个是递归结束条件是i=j)
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#快排"><span class="nav-number">1.</span> <span class="nav-text">快排</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

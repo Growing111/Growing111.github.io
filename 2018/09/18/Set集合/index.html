@@ -92,22 +92,22 @@
 
 
 
-<meta name="description" content="#前言 #正文    Setset是无序不重复的    HashSet的底层的HashMap;        HashSet存的值是一个，底层Map就存在key里，value就在底层创建了一个final的object;        TreeSet的底层是TreeMap;        TreeSet是可以排序的，存入对象实现Comparable接口，并重写接口中的compareTo方法；">
+<meta name="description" content="前言  多学点  正文Set  set是无序不重复的  Hashset HashSet的底层的HashMap;HashSet存的值是一个，底层Map就存在key里，value就在底层创建了一个final的object;  Treeset TreeSet的底层是TreeMap;TreeSet是可以排序的，存入对象实现Comparable接口，并重写接口中的compareTo方法；也可以TreeSet">
 <meta name="keywords" content="set">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Set集合">
 <meta property="og:url" content="http://yoursite.com/2018/09/18/Set集合/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="#前言 #正文    Setset是无序不重复的    HashSet的底层的HashMap;        HashSet存的值是一个，底层Map就存在key里，value就在底层创建了一个final的object;        TreeSet的底层是TreeMap;        TreeSet是可以排序的，存入对象实现Comparable接口，并重写接口中的compareTo方法；">
+<meta property="og:description" content="前言  多学点  正文Set  set是无序不重复的  Hashset HashSet的底层的HashMap;HashSet存的值是一个，底层Map就存在key里，value就在底层创建了一个final的object;  Treeset TreeSet的底层是TreeMap;TreeSet是可以排序的，存入对象实现Comparable接口，并重写接口中的compareTo方法；也可以TreeSet">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/s1.png">
 <meta property="og:image" content="http://yoursite.com/images/s2.png">
 <meta property="og:image" content="http://yoursite.com/images/s3.png">
 <meta property="og:image" content="http://yoursite.com/images/s4.png">
-<meta property="og:updated_time" content="2018-09-19T02:08:24.369Z">
+<meta property="og:updated_time" content="2018-10-28T14:20:58.002Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Set集合">
-<meta name="twitter:description" content="#前言 #正文    Setset是无序不重复的    HashSet的底层的HashMap;        HashSet存的值是一个，底层Map就存在key里，value就在底层创建了一个final的object;        TreeSet的底层是TreeMap;        TreeSet是可以排序的，存入对象实现Comparable接口，并重写接口中的compareTo方法；">
+<meta name="twitter:description" content="前言  多学点  正文Set  set是无序不重复的  Hashset HashSet的底层的HashMap;HashSet存的值是一个，底层Map就存在key里，value就在底层创建了一个final的object;  Treeset TreeSet的底层是TreeMap;TreeSet是可以排序的，存入对象实现Comparable接口，并重写接口中的compareTo方法；也可以TreeSet">
 <meta name="twitter:image" content="http://yoursite.com/images/s1.png">
 
 
@@ -370,8 +370,20 @@
       
 
       
-        <p>#前言</p>
-<p>#正文<br>    <table><tr><td bgcolor="#F5F5DC">Set</td></tr></table>set是无序不重复的<br>    HashSet的底层的HashMap;<br>    <img src="/images/s1.png" width="600"><br>    HashSet存的值是一个，底层Map就存在key里，value就在底层创建了一个final的object;<br>    <img src="/images/s2.png" width="600"><img src="/images/s3.png" width="600"><br>    TreeSet的底层是TreeMap;<br>    <img src="/images/s4.png" width="600"><br>    TreeSet是可以排序的，存入对象实现Comparable接口，并重写接口中的compareTo方法；<br>    也可以TreeSet ts = new TreeSet(new myComparator());<br>    myComparator是自定义的比较器，比较器实现comparator接口并重写了compare方法</p>
+        <p><font size="6">前言</font></p>
+<blockquote>
+<p>多学点</p>
+</blockquote>
+<p><font size="6">正文</font><br>Set</p>
+<blockquote>
+<p>set是无序不重复的</p>
+</blockquote>
+<h2 id="Hashset"><a href="#Hashset" class="headerlink" title="Hashset"></a>Hashset</h2><blockquote>
+<p>HashSet的底层的HashMap;<br><img src="/images/s1.png" width="600"><br>HashSet存的值是一个，底层Map就存在key里，value就在底层创建了一个final的object;<br><img src="/images/s2.png" width="600"><img src="/images/s3.png" width="600"></p>
+</blockquote>
+<h2 id="Treeset"><a href="#Treeset" class="headerlink" title="Treeset"></a>Treeset</h2><blockquote>
+<p>TreeSet的底层是TreeMap;<br><img src="/images/s4.png" width="600"><br>TreeSet是可以排序的，存入对象实现Comparable接口，并重写接口中的compareTo方法；也可以TreeSet ts = new TreeSet(new myComparator());myComparator是自定义的比较器，比较器实现comparator接口并重写了compare方法</p>
+</blockquote>
 
       
     </div>
@@ -483,8 +495,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -558,6 +579,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hashset"><span class="nav-number">1.</span> <span class="nav-text">Hashset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Treeset"><span class="nav-number">2.</span> <span class="nav-text">Treeset</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

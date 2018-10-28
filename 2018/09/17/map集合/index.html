@@ -92,22 +92,22 @@
 
 
 
-<meta name="description" content="#前言    不管怎么样，不忘学习，加油！ #正文    Map接口与set和list不同他不实现Collection;map是存储键值对的一种储存结构；    HashMaphashMap的底层是数据+链表(即哈希表、散列表),hashMap如果不指定长度就为16，    默认加载因子为0.75(扩容为原来的1倍);hashMap线程是不安全的，而且hashMap的key和value值都能为nu">
+<meta name="description" content="前言  不管怎么样，不忘学习，加油！  正文    Map接口与set和list不同他不实现Collection;map是存储键值对的一种储存结构； HashMap hashMap的底层是数据+链表(即哈希表、散列表),hashMap如果不指定长度就为16，默认加载因子为0.75(扩容为原来的1倍);hashMap线程是不安全的，而且hashMap的key和value值都能为null;hashMa">
 <meta name="keywords" content="map">
 <meta property="og:type" content="article">
 <meta property="og:title" content="map集合">
 <meta property="og:url" content="http://yoursite.com/2018/09/17/map集合/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="#前言    不管怎么样，不忘学习，加油！ #正文    Map接口与set和list不同他不实现Collection;map是存储键值对的一种储存结构；    HashMaphashMap的底层是数据+链表(即哈希表、散列表),hashMap如果不指定长度就为16，    默认加载因子为0.75(扩容为原来的1倍);hashMap线程是不安全的，而且hashMap的key和value值都能为nu">
+<meta property="og:description" content="前言  不管怎么样，不忘学习，加油！  正文    Map接口与set和list不同他不实现Collection;map是存储键值对的一种储存结构； HashMap hashMap的底层是数据+链表(即哈希表、散列表),hashMap如果不指定长度就为16，默认加载因子为0.75(扩容为原来的1倍);hashMap线程是不安全的，而且hashMap的key和value值都能为null;hashMa">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/a11.png">
 <meta property="og:image" content="http://yoursite.com/images/a22.png">
 <meta property="og:image" content="http://yoursite.com/images/a33.png">
 <meta property="og:image" content="http://yoursite.com/images/a44.png">
-<meta property="og:updated_time" content="2018-09-18T12:25:08.837Z">
+<meta property="og:updated_time" content="2018-10-28T14:16:44.766Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="map集合">
-<meta name="twitter:description" content="#前言    不管怎么样，不忘学习，加油！ #正文    Map接口与set和list不同他不实现Collection;map是存储键值对的一种储存结构；    HashMaphashMap的底层是数据+链表(即哈希表、散列表),hashMap如果不指定长度就为16，    默认加载因子为0.75(扩容为原来的1倍);hashMap线程是不安全的，而且hashMap的key和value值都能为nu">
+<meta name="twitter:description" content="前言  不管怎么样，不忘学习，加油！  正文    Map接口与set和list不同他不实现Collection;map是存储键值对的一种储存结构； HashMap hashMap的底层是数据+链表(即哈希表、散列表),hashMap如果不指定长度就为16，默认加载因子为0.75(扩容为原来的1倍);hashMap线程是不安全的，而且hashMap的key和value值都能为null;hashMa">
 <meta name="twitter:image" content="http://yoursite.com/images/a11.png">
 
 
@@ -370,8 +370,22 @@
       
 
       
-        <p>#前言<br>    不管怎么样，不忘学习，加油！</p>
-<p>#正文<br>    Map接口与set和list不同他不实现Collection;map是存储键值对的一种储存结构；<br>    <table><tr><td bgcolor="#F5F5DC">HashMap</td></tr></table>hashMap的底层是数据+链表(即哈希表、散列表),hashMap如果不指定长度就为16，<br>    默认加载因子为0.75(扩容为原来的1倍);hashMap线程是不安全的，而且hashMap的key和value值都能为null;hashMap要注意它是通过“拉链法”解决哈希冲突的。<br>    <img src="/images/a11.png" width="600"><br>    <table><tr><td bgcolor="#F5F5DC">HashTable</td></tr></table>hashTable的底层也是数据+链表(即哈希表、散列表)，hashTable的默认初始容器的11，<br>    他的加载的因子是0.75(扩容为原来的2倍加1);hashTable线程是安全的，HashTable的key和value的值都不能为空;HashTable的方法都加了同步锁的，<br>    所以他线程是安全的；因为HashTable给每个方法都加了同步锁所以他的效率很慢，而且几乎淘汰了，要用线程安全的考虑用ConcurrentHashMap；<br>    <img src="/images/a22.png" width="600"><br>    <table><tr><td bgcolor="#F5F5DC">ConcurrentHashMap</td></tr></table>HashTable容器在竞争激烈的并发环境下表现出效率低下的原因，<br>    是因为所有访问HashTable的线程都必须竞争同一把锁；所以在jdk1.7的时候引入了一个分段锁的概念，HashTable是对整个方法锁了，<br>    而ConcurrentHashMap通过锁分段的技术，通过增大粒子数，给每一段数据上一把锁来实现并发情况，<br>    ConcurrentHashMap是Segment数组结构（内部为数组加链表)。默认下是有16个分段锁；<br>    ConcurrentHashMap在读的时候几乎不需要加锁，在理想的情况下支持16个线程并发情况下写操作。<br>    但是注意在jdk1.8后就发生了修改，他抛弃了Segment的概念，利用CAS+synchronized来保证并发更新的安全;<br>    ConcurrentHashMap的底层是数组和可变链表(当链表数变成8换变成红黑树)，<br>    <img src="/images/a33.png" width="600"><br>    散列表结构：<br>    <img src="/images/a44.png" width="600"><br>    <table><tr><td bgcolor="#F5F5DC">扩展：</td></tr></table>Vector的默认容器的10，加载因子为1，扩容增大1倍；<br>    ArrayList的默认容器为10，扩容增大0.5倍加1；HashSet的默认容器为16，加载因子为0.75，扩容增大1倍；</p>
+        <p><font size="6">前言</font></p>
+<blockquote>
+<p>不管怎么样，不忘学习，加油！</p>
+</blockquote>
+<p><font size="6">正文</font><br>    Map接口与set和list不同他不实现Collection;map是存储键值对的一种储存结构；</p>
+<h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><blockquote>
+<p>hashMap的底层是数据+链表(即哈希表、散列表),hashMap如果不指定长度就为16，默认加载因子为0.75(扩容为原来的1倍);hashMap线程是不安全的，而且hashMap的key和value值都能为null;hashMap要注意它是通过“拉链法”解决哈希冲突的。<br><img src="/images/a11.png" width="600"></p>
+</blockquote>
+<h2 id="HashTable"><a href="#HashTable" class="headerlink" title="HashTable"></a>HashTable</h2><blockquote>
+<p>hashTable的底层也是数据+链表(即哈希表、散列表)，hashTable的默认初始容器的11，他的加载的因子是0.75(扩容为原来的2倍加1);hashTable线程是安全的，HashTable的key和value的值都不能为空;HashTable的方法都加了同步锁的，所以他线程是安全的；因为HashTable给每个方法都加了同步锁所以他的效率很慢，而且几乎淘汰了，要用线程安全的考虑用ConcurrentHashMap；<br><img src="/images/a22.png" width="600"></p>
+</blockquote>
+<h2 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h2><blockquote>
+<p>HashTable容器在竞争激烈的并发环境下表现出效率低下的原因，是因为所有访问HashTable的线程都必须竞争同一把锁；所以在jdk1.7的时候引入了一个分段锁的概念，HashTable是对整个方法锁了，而ConcurrentHashMap通过锁分段的技术，通过增大粒子数，给每一段数据上一把锁来实现并发情况，ConcurrentHashMap是Segment数组结构（内部为数组加链表)。默认下是有16个分段锁；ConcurrentHashMap在读的时候几乎不需要加锁，在理想的情况下支持16个线程并发情况下写操作。但是注意在jdk1.8后就发生了修改，他抛弃了Segment的概念，利用CAS+synchronized来保证并发更新的安全; ConcurrentHashMap的底层是数组和可变链表(当链表数变成8换变成红黑树)，<br><img src="/images/a33.png" width="600"></p>
+</blockquote>
+<h2 id="散列表结构"><a href="#散列表结构" class="headerlink" title="散列表结构"></a>散列表结构</h2><p><img src="/images/a44.png" width="600"></p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>Vector的默认容器的10，加载因子为1，扩容增大1倍；<br>ArrayList的默认容器为10，扩容增大0.5倍加1；HashSet的默认容器为16，加载因子为0.75，扩容增大1倍；</p>
 
       
     </div>
@@ -483,8 +497,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -558,6 +581,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap"><span class="nav-number">1.</span> <span class="nav-text">HashMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashTable"><span class="nav-number">2.</span> <span class="nav-text">HashTable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcurrentHashMap"><span class="nav-number">3.</span> <span class="nav-text">ConcurrentHashMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#散列表结构"><span class="nav-number">4.</span> <span class="nav-text">散列表结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展"><span class="nav-number">5.</span> <span class="nav-text">扩展</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -92,18 +92,18 @@
 
 
 
-<meta name="description" content="#前言    去应聘的时候，技术面笔试都遇到了，整理下 #正文    数据库查询慢怎么优化？    1.建立索引;    2.使用explain;    3.明确一条查询结果返回使用limit 1,可以让数据库停止游标移动;    4.不要数据库做强制转换，这样会导致全表扫描;如 where id=111 应改成 where id=’111’;    5.避免sql出现不能使用索引的时候;如负向查">
+<meta name="description" content="前言  去应聘的时候，技术面笔试都遇到了，整理下  正文 数据库查询慢怎么优化？建立索引;   使用explain; 明确一条查询结果返回使用limit 1,可以让数据库停止游标移动; 不要数据库做强制转换，这样会导致全表扫描;如 where id=111 应改成 where id=’111’; 避免sql出现不能使用索引的时候;如负向查询不能使用索引,join两表字段类型不同; 不要使用sele">
 <meta name="keywords" content="数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql优化">
 <meta property="og:url" content="http://yoursite.com/2018/09/15/mysql优化/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="#前言    去应聘的时候，技术面笔试都遇到了，整理下 #正文    数据库查询慢怎么优化？    1.建立索引;    2.使用explain;    3.明确一条查询结果返回使用limit 1,可以让数据库停止游标移动;    4.不要数据库做强制转换，这样会导致全表扫描;如 where id=111 应改成 where id=’111’;    5.避免sql出现不能使用索引的时候;如负向查">
+<meta property="og:description" content="前言  去应聘的时候，技术面笔试都遇到了，整理下  正文 数据库查询慢怎么优化？建立索引;   使用explain; 明确一条查询结果返回使用limit 1,可以让数据库停止游标移动; 不要数据库做强制转换，这样会导致全表扫描;如 where id=111 应改成 where id=’111’; 避免sql出现不能使用索引的时候;如负向查询不能使用索引,join两表字段类型不同; 不要使用sele">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-15T03:33:46.312Z">
+<meta property="og:updated_time" content="2018-10-28T14:10:07.065Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql优化">
-<meta name="twitter:description" content="#前言    去应聘的时候，技术面笔试都遇到了，整理下 #正文    数据库查询慢怎么优化？    1.建立索引;    2.使用explain;    3.明确一条查询结果返回使用limit 1,可以让数据库停止游标移动;    4.不要数据库做强制转换，这样会导致全表扫描;如 where id=111 应改成 where id=’111’;    5.避免sql出现不能使用索引的时候;如负向查">
+<meta name="twitter:description" content="前言  去应聘的时候，技术面笔试都遇到了，整理下  正文 数据库查询慢怎么优化？建立索引;   使用explain; 明确一条查询结果返回使用limit 1,可以让数据库停止游标移动; 不要数据库做强制转换，这样会导致全表扫描;如 where id=111 应改成 where id=’111’; 避免sql出现不能使用索引的时候;如负向查询不能使用索引,join两表字段类型不同; 不要使用sele">
 
 
 
@@ -365,8 +365,22 @@
       
 
       
-        <p>#前言<br>    去应聘的时候，技术面笔试都遇到了，整理下</p>
-<p>#正文<br>    <table><tr><td bgcolor="#F5F5DC">数据库查询慢怎么优化？</td></tr></table><br>    1.建立索引;<br>    2.使用explain;<br>    3.明确一条查询结果返回使用limit 1,可以让数据库停止游标移动;<br>    4.不要数据库做强制转换，这样会导致全表扫描;如 where id=111 应改成 where id=’111’;<br>    5.避免sql出现不能使用索引的时候;如负向查询不能使用索引,join两表字段类型不同;<br>    6.不要使用select * ;<br>    7.垂直分割，把数据库的表按照列变成几张表的方法，降低表的复杂度和字段数;</p>
+        <p><font size="6">前言</font></p>
+<blockquote>
+<p>去应聘的时候，技术面笔试都遇到了，整理下</p>
+</blockquote>
+<p><font size="6">正文</font></p>
+<h2 id="数据库查询慢怎么优化？"><a href="#数据库查询慢怎么优化？" class="headerlink" title="数据库查询慢怎么优化？"></a>数据库查询慢怎么优化？</h2><p>建立索引;</p>
+<blockquote>
+<ul>
+<li>使用explain;</li>
+<li>明确一条查询结果返回使用limit 1,可以让数据库停止游标移动;</li>
+<li>不要数据库做强制转换，这样会导致全表扫描;如 where id=111 应改成 where id=’111’;</li>
+<li>避免sql出现不能使用索引的时候;如负向查询不能使用索引,join两表字段类型不同;</li>
+<li>不要使用select * ;</li>
+<li>垂直分割，把数据库的表按照列变成几张表的方法，降低表的复杂度和字段数;</li>
+</ul>
+</blockquote>
 
       
     </div>
@@ -478,8 +492,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -553,6 +576,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库查询慢怎么优化？"><span class="nav-number">1.</span> <span class="nav-text">数据库查询慢怎么优化？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

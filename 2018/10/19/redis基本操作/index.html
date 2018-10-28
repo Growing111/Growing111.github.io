@@ -92,18 +92,18 @@
 
 
 
-<meta name="description" content="#前言    操作后理解总结下 #正文    命令模式下的使用redis进入命令框 开启redis服务  redis-server.exe(win下)再开一个命令框  进入redis安装路径下，进入redis-cli.exe127.0.0.1:6379&amp;gt; String类型 (redis本身就是一种key和value存在的形式)    set  key value    get  key">
+<meta name="description" content="前言  操作后理解总结下  正文 命令模式下的使用redis进入命令框 开启redis服务  redis-server.exe(win下)再开一个命令框  进入redis安装路径下，进入redis-cli.exe127.0.0.1:6379&amp;gt; String类型 (redis本身就是一种key和value存在的形式)123set  key valueget  keydel  key Hash类">
 <meta name="keywords" content="redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis基本操作">
 <meta property="og:url" content="http://yoursite.com/2018/10/19/redis基本操作/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="#前言    操作后理解总结下 #正文    命令模式下的使用redis进入命令框 开启redis服务  redis-server.exe(win下)再开一个命令框  进入redis安装路径下，进入redis-cli.exe127.0.0.1:6379&amp;gt; String类型 (redis本身就是一种key和value存在的形式)    set  key value    get  key">
+<meta property="og:description" content="前言  操作后理解总结下  正文 命令模式下的使用redis进入命令框 开启redis服务  redis-server.exe(win下)再开一个命令框  进入redis安装路径下，进入redis-cli.exe127.0.0.1:6379&amp;gt; String类型 (redis本身就是一种key和value存在的形式)123set  key valueget  keydel  key Hash类">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-28T08:26:14.624Z">
+<meta property="og:updated_time" content="2018-10-28T15:06:47.149Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis基本操作">
-<meta name="twitter:description" content="#前言    操作后理解总结下 #正文    命令模式下的使用redis进入命令框 开启redis服务  redis-server.exe(win下)再开一个命令框  进入redis安装路径下，进入redis-cli.exe127.0.0.1:6379&amp;gt; String类型 (redis本身就是一种key和value存在的形式)    set  key value    get  key">
+<meta name="twitter:description" content="前言  操作后理解总结下  正文 命令模式下的使用redis进入命令框 开启redis服务  redis-server.exe(win下)再开一个命令框  进入redis安装路径下，进入redis-cli.exe127.0.0.1:6379&amp;gt; String类型 (redis本身就是一种key和value存在的形式)123set  key valueget  keydel  key Hash类">
 
 
 
@@ -365,11 +365,25 @@
       
 
       
-        <p>#前言<br>    操作后理解总结下</p>
-<p>#正文<br>    <strong><font color="red">命令模式下的使用redis</font></strong><br>进入命令框 开启redis服务  redis-server.exe(win下)<br>再开一个命令框  进入redis安装路径下，进入redis-cli.exe<br>127.0.0.1:6379&gt;</p>
-<p><strong><font color="red">String类型</font></strong> (redis本身就是一种key和value存在的形式)<br>    set  key value<br>    get  key<br>    del  key</p>
-<p><strong><font color="red">Hash类型</font></strong> (hash结构因为redis本身就是一种key和value的形式存在，所以这里的hash是把他的value值套上了一层key和value值)<br>    <strong>插入</strong><br>    Hmset key 姓名 “张三” 年龄 18<br>    <strong>获取</strong><br>    Hmget key 姓名<br>    <strong>删除</strong><br>    Hdel  key  姓名</p>
-<p><strong><font color="red">列表类型</font></strong>(key和value的存在为一个元素,本身结构是一个列表,他可以从最后进入队列，从中插入队列)<br>    lpush key value<br>    <strong>插入</strong><br>    Linsert key  before|after  ‘某个数据’  value   在某个具体某个数据的前面或者后面插入数据<br>    <strong>遍历</strong><br>    Lrange key  0  10   遍历0到10的数据，不存在的就不遍历<br>    <strong>删除</strong><br>    Lrem key cout value<br>    <strong>修改</strong><br>    Lset key index value<br><strong><font color="red">集合(set)类型</font></strong>(本身就是一个key和value类型存在，然后结构是个set集合,所以他不能存放重复的成员)<br>    <strong>插入</strong><br>    sadd key members1 members2<br>    <strong>删除一个数据</strong><br>    Srem key members<br>    <strong>查询所有的set数据</strong><br>    Smembers  key<br><strong><font color="red">有序集合</font></strong>（sorted set）<br>    <strong>插入</strong><br>    Zadd key score1  members1  score2 members2   ps:score1是数字<br>    <strong>删除</strong><br>    Zrem key member<br>    <strong>查询</strong><br>    Zrange  key start top</p>
+        <p><font size="6">前言</font></p>
+<blockquote>
+<p>操作后理解总结下</p>
+</blockquote>
+<p><font size="6">正文</font></p>
+<h2 id="命令模式下的使用redis"><a href="#命令模式下的使用redis" class="headerlink" title="命令模式下的使用redis"></a><strong><font color="red">命令模式下的使用redis</font></strong></h2><p>进入命令框 开启redis服务  redis-server.exe(win下)<br>再开一个命令框  进入redis安装路径下，进入redis-cli.exe<br>127.0.0.1:6379&gt;</p>
+<h2 id="String类型-redis本身就是一种key和value存在的形式"><a href="#String类型-redis本身就是一种key和value存在的形式" class="headerlink" title="String类型 (redis本身就是一种key和value存在的形式)"></a><strong><font color="red">String类型</font></strong> (redis本身就是一种key和value存在的形式)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set  key value</span><br><span class="line">get  key</span><br><span class="line">del  key</span><br></pre></td></tr></table></figure>
+<h2 id="Hash类型-hash结构因为redis本身就是一种key和value的形式存在，所以这里的hash是把他的value值套上了一层key和value值"><a href="#Hash类型-hash结构因为redis本身就是一种key和value的形式存在，所以这里的hash是把他的value值套上了一层key和value值" class="headerlink" title="Hash类型 (hash结构因为redis本身就是一种key和value的形式存在，所以这里的hash是把他的value值套上了一层key和value值)"></a><strong><font color="red">Hash类型</font></strong> (hash结构因为redis本身就是一种key和value的形式存在，所以这里的hash是把他的value值套上了一层key和value值)</h2><blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">插入</span><br><span class="line">Hmset key 姓名 “张三” 年龄 18</span><br><span class="line">获取</span><br><span class="line">Hmget key 姓名</span><br><span class="line">删除</span><br><span class="line">Hdel  key  姓名</span><br></pre></td></tr></table></figure>
+<h2 id="列表类型-key和value的存在为一个元素-本身结构是一个列表-他可以从最后进入队列，从中插入队列"><a href="#列表类型-key和value的存在为一个元素-本身结构是一个列表-他可以从最后进入队列，从中插入队列" class="headerlink" title="列表类型(key和value的存在为一个元素,本身结构是一个列表,他可以从最后进入队列，从中插入队列)"></a><strong><font color="red">列表类型</font></strong>(key和value的存在为一个元素,本身结构是一个列表,他可以从最后进入队列，从中插入队列)</h2><blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">lpush key value</span><br><span class="line">插入</span><br><span class="line">Linsert key  before|after  ‘某个数据’  value   在某个具体某个数据的前面或者后面插入数据`</span><br><span class="line">遍历</span><br><span class="line">`Lrange key  0  10   遍历0到10的数据，不存在的就不遍历`</span><br><span class="line">删除</span><br><span class="line">`Lrem key cout value`</span><br><span class="line">修改</span><br><span class="line">`Lset key index value`</span><br></pre></td></tr></table></figure>
+<h2 id="集合-set-类型-本身就是一个key和value类型存在，然后结构是个set集合-所以他不能存放重复的成员"><a href="#集合-set-类型-本身就是一个key和value类型存在，然后结构是个set集合-所以他不能存放重复的成员" class="headerlink" title="集合(set)类型**(本身就是一个key和value类型存在，然后结构是个set集合,所以他不能存放重复的成员)"></a><font color="red">集合(set)类型</font>**(本身就是一个key和value类型存在，然后结构是个set集合,所以他不能存放重复的成员)</h2><blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">插入</span><br><span class="line">`sadd key members1 members2` </span><br><span class="line">删除一个数据</span><br><span class="line">`Srem key members`</span><br><span class="line">查询所有的set数据</span><br><span class="line">`Smembers  key`</span><br></pre></td></tr></table></figure>
+<h2 id="有序集合-（sorted-set）"><a href="#有序集合-（sorted-set）" class="headerlink" title="有序集合**（sorted set）"></a><font color="red">有序集合</font>**（sorted set）</h2><blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">插入</span><br><span class="line">`Zadd key score1  members1  score2 members2   ps:score1是数字`</span><br><span class="line">删除</span><br><span class="line">`Zrem key member`</span><br><span class="line">查询</span><br><span class="line">`Zrange  key start top`</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -481,8 +495,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -556,6 +579,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令模式下的使用redis"><span class="nav-number">1.</span> <span class="nav-text">命令模式下的使用redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String类型-redis本身就是一种key和value存在的形式"><span class="nav-number">2.</span> <span class="nav-text">String类型 (redis本身就是一种key和value存在的形式)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash类型-hash结构因为redis本身就是一种key和value的形式存在，所以这里的hash是把他的value值套上了一层key和value值"><span class="nav-number">3.</span> <span class="nav-text">Hash类型 (hash结构因为redis本身就是一种key和value的形式存在，所以这里的hash是把他的value值套上了一层key和value值)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表类型-key和value的存在为一个元素-本身结构是一个列表-他可以从最后进入队列，从中插入队列"><span class="nav-number">4.</span> <span class="nav-text">列表类型(key和value的存在为一个元素,本身结构是一个列表,他可以从最后进入队列，从中插入队列)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合-set-类型-本身就是一个key和value类型存在，然后结构是个set集合-所以他不能存放重复的成员"><span class="nav-number">5.</span> <span class="nav-text">集合(set)类型**(本身就是一个key和value类型存在，然后结构是个set集合,所以他不能存放重复的成员)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有序集合-（sorted-set）"><span class="nav-number">6.</span> <span class="nav-text">有序集合**（sorted set）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

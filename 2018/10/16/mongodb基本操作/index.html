@@ -92,19 +92,19 @@
 
 
 
-<meta name="description" content="#前言    mongodb的shell命令，对数据的简单操作 #正文    mongodb 基本操作代码MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。 创建数据库use 数据库名字（use DATABASE_NAME如果数据库不存在，则创建数据库，否则切换到指定数据库。）删除数据库db.dropDatabase()删除当前数据库，默认为">
+<meta name="description" content="前言      mongodb的shell命令，对数据的简单操作  正文 mongodb 基本操作代码 MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。  创建数据库use 数据库名字（use DATABASE_NAME,如果数据库不存在，则创建数据库，否则切换到指定数据库） 删除数据库db.dropDatabase()  删除当前数据库，默">
 <meta name="keywords" content="mongodb">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mongodb基本操作">
 <meta property="og:url" content="http://yoursite.com/2018/10/16/mongodb基本操作/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="#前言    mongodb的shell命令，对数据的简单操作 #正文    mongodb 基本操作代码MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。 创建数据库use 数据库名字（use DATABASE_NAME如果数据库不存在，则创建数据库，否则切换到指定数据库。）删除数据库db.dropDatabase()删除当前数据库，默认为">
+<meta property="og:description" content="前言      mongodb的shell命令，对数据的简单操作  正文 mongodb 基本操作代码 MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。  创建数据库use 数据库名字（use DATABASE_NAME,如果数据库不存在，则创建数据库，否则切换到指定数据库） 删除数据库db.dropDatabase()  删除当前数据库，默">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/asda.png">
-<meta property="og:updated_time" content="2018-10-16T15:21:28.698Z">
+<meta property="og:updated_time" content="2018-10-28T14:51:48.756Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongodb基本操作">
-<meta name="twitter:description" content="#前言    mongodb的shell命令，对数据的简单操作 #正文    mongodb 基本操作代码MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。 创建数据库use 数据库名字（use DATABASE_NAME如果数据库不存在，则创建数据库，否则切换到指定数据库。）删除数据库db.dropDatabase()删除当前数据库，默认为">
+<meta name="twitter:description" content="前言      mongodb的shell命令，对数据的简单操作  正文 mongodb 基本操作代码 MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。  创建数据库use 数据库名字（use DATABASE_NAME,如果数据库不存在，则创建数据库，否则切换到指定数据库） 删除数据库db.dropDatabase()  删除当前数据库，默">
 <meta name="twitter:image" content="http://yoursite.com/images/asda.png">
 
 
@@ -367,17 +367,34 @@
       
 
       
-        <p>#前言<br>    mongodb的shell命令，对数据的简单操作</p>
-<p>#正文<br>    <strong><font color="red">mongodb 基本操作代码</font></strong><br>MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。<br> <img src="/images/asda.png" width="600"><br><strong><font color="red">创建数据库</font></strong><br>use 数据库名字（use DATABASE_NAME<br>如果数据库不存在，则创建数据库，否则切换到指定数据库。）<br><strong><font color="red">删除数据库</font></strong><br>db.dropDatabase()<br>删除当前数据库，默认为 test，你可以使用 db 命令查看当前数据库名。</p>
-<p><strong><font color="red">创建集合</font></strong><br>Db.createcollections(name, options)<br>name: 要创建的集合名称options: 可选参数, 指定有关内存大小及索引的选项</p>
-<p><strong><font color="red">插入数据</font></strong><br>db.集合名字.insert({“id”:”123”})   类似于json数据;<br>db.集合名字.save([{id:”123”,age:”233”},{id:”2222”,age:”19”}]);</p>
-<p>name=({name:”123”,password:”111”})<br>db.teacher.insert(name)</p>
-<p><strong><font color="red">修改数据</font></strong><br>db. 集合名字.update({id:”1”},{$set:{name:”张三2”}});<br>相当于<br>update 集合名字set name = ‘张三2’ where id=1;</p>
-<p><font color="red">查询数据</font><br>Db.集合名字.find();<br>Db.集合名字.find({id:”1”});</p>
-<p><font color="red">删除数据</font><br>db.teacher.remove({name:”123”})；</p>
-<p><strong><font color="red">特别用法；</font></strong><br>db.teacher.find().limit(2).skip(1)；<br>查询两条结果，从第二条数据开始查询</p>
-<p><strong><font color="red">条件操作符<br>$gt表示大于<br>$lt表示小于<br>$ge表示大于等于<br>$le表示小于等于<br>$ne表示不等于</font></strong><br>db.customizedorder.find({num:{$gt: 0}});</p>
-<p>db.teacher.find().sort({age:-1})；<br>对查询后的数据排序显示  1表示升序,-1表示降序</p>
+        <p><font size="6">前言</font>    </p>
+<blockquote>
+<p>mongodb的shell命令，对数据的简单操作</p>
+</blockquote>
+<p><font size="6">正文</font></p>
+<h2 id="mongodb-基本操作代码"><a href="#mongodb-基本操作代码" class="headerlink" title="mongodb 基本操作代码"></a><strong><font color="red">mongodb 基本操作代码</font></strong></h2><blockquote>
+<p>MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。<br><img src="/images/asda.png" width="600"></p>
+</blockquote>
+<h2 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a><strong><font color="red">创建数据库</font></strong></h2><p><code>use 数据库名字（use DATABASE_NAME,如果数据库不存在，则创建数据库，否则切换到指定数据库）</code></p>
+<h2 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a><strong><font color="red">删除数据库</font></strong></h2><p><code>db.dropDatabase()</code></p>
+<blockquote>
+<p>删除当前数据库，默认为 test，你可以使用 db 命令查看当前数据库名。</p>
+</blockquote>
+<h2 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a><strong><font color="red">创建集合</font></strong></h2><p><code>Db.createcollections(name, options)</code></p>
+<blockquote>
+<p>name: 要创建的集合名称options: 可选参数, 指定有关内存大小及索引的选项</p>
+</blockquote>
+<h2 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a><strong><font color="red">插入数据</font></strong></h2><figure class="highlight plain"><figcaption><span>类似于json数据;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">db.集合名字.save([&#123;id:”123”,age:”233”&#125;,&#123;id:”2222”,age:”19”&#125;]);</span><br><span class="line"></span><br><span class="line">name=(&#123;name:&quot;123&quot;,password:&quot;111&quot;&#125;)</span><br><span class="line">db.teacher.insert(name)</span><br></pre></td></tr></table></figure>
+<h2 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a><strong><font color="red">修改数据</font></strong></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db. 集合名字.update(&#123;id:&quot;1&quot;&#125;,&#123;$set:&#123;name:&quot;张三2&quot;&#125;&#125;);</span><br><span class="line">相当于</span><br><span class="line">update 集合名字set name = ‘张三2&apos; where id=1;</span><br></pre></td></tr></table></figure>
+<h2 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a><font color="red">查询数据</font></h2><p><code>Db.集合名字.find();</code><br><code>Db.集合名字.find({id:”1”});</code></p>
+<h2 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a><font color="red">删除数据</font></h2><p><code>db.teacher.remove({name:&quot;123&quot;})；</code></p>
+<h2 id="特别用法；"><a href="#特别用法；" class="headerlink" title="特别用法；"></a><strong><font color="red">特别用法；</font></strong></h2><p><code>db.teacher.find().limit(2).skip(1)；</code></p>
+<blockquote>
+<p>查询两条结果，从第二条数据开始查询</p>
+</blockquote>
+<h2 id="条件操作符"><a href="#条件操作符" class="headerlink" title="条件操作符"></a><font color="red">条件操作符</font></h2><blockquote>
+<p><strong><font color="red">$gt表示大于<br>$lt表示小于<br>$ge表示大于等于<br>$le表示小于等于<br>$ne表示不等于</font></strong><br><code>db.customizedorder.find({num:{$gt: 0}});</code><br><code>db.teacher.find().sort({age:-1});</code><br>对查询后的数据排序显示  1表示升序,-1表示降序</p>
+</blockquote>
 
       
     </div>
@@ -489,8 +506,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -564,6 +590,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mongodb-基本操作代码"><span class="nav-number">1.</span> <span class="nav-text">mongodb 基本操作代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建数据库"><span class="nav-number">2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除数据库"><span class="nav-number">3.</span> <span class="nav-text">删除数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建集合"><span class="nav-number">4.</span> <span class="nav-text">创建集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入数据"><span class="nav-number">5.</span> <span class="nav-text">插入数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改数据"><span class="nav-number">6.</span> <span class="nav-text">修改数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询数据"><span class="nav-number">7.</span> <span class="nav-text">查询数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除数据"><span class="nav-number">8.</span> <span class="nav-text">删除数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特别用法；"><span class="nav-number">9.</span> <span class="nav-text">特别用法；</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件操作符"><span class="nav-number">10.</span> <span class="nav-text">条件操作符</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

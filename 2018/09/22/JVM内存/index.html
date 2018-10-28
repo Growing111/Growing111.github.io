@@ -92,18 +92,18 @@
 
 
 
-<meta name="description" content="#前言    jvm  java虚拟机 #正文    java运行时数据区划分为几部分，程序计数器，java栈，本地方法栈，堆，方法区五个部分; 程序计数器    程序计数器也有称做pc寄存器;程序计数器是用来指示执行哪条指令的，所以是线程私有的。    当多线程运行时，每个线程切换后需要知道上一次所运行的状态、位置。 java栈    java栈也称虚拟机栈；java栈是由一个一个的栈帧组成，栈">
+<meta name="description" content="前言  jvm  java虚拟机  正文  java运行时数据区划分为几部分，程序计数器，java栈，本地方法栈，堆，方法区五个部分;  程序计数器 程序计数器也有称做pc寄存器;程序计数器是用来指示执行哪条指令的，所以是线程私有的。当多线程运行时，每个线程切换后需要知道上一次所运行的状态、位置。  java栈 java栈也称虚拟机栈；java栈是由一个一个的栈帧组成，栈帧是在每一个方法调用时产生">
 <meta name="keywords" content="jvm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM内存">
 <meta property="og:url" content="http://yoursite.com/2018/09/22/JVM内存/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="#前言    jvm  java虚拟机 #正文    java运行时数据区划分为几部分，程序计数器，java栈，本地方法栈，堆，方法区五个部分; 程序计数器    程序计数器也有称做pc寄存器;程序计数器是用来指示执行哪条指令的，所以是线程私有的。    当多线程运行时，每个线程切换后需要知道上一次所运行的状态、位置。 java栈    java栈也称虚拟机栈；java栈是由一个一个的栈帧组成，栈">
+<meta property="og:description" content="前言  jvm  java虚拟机  正文  java运行时数据区划分为几部分，程序计数器，java栈，本地方法栈，堆，方法区五个部分;  程序计数器 程序计数器也有称做pc寄存器;程序计数器是用来指示执行哪条指令的，所以是线程私有的。当多线程运行时，每个线程切换后需要知道上一次所运行的状态、位置。  java栈 java栈也称虚拟机栈；java栈是由一个一个的栈帧组成，栈帧是在每一个方法调用时产生">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-23T08:46:51.330Z">
+<meta property="og:updated_time" content="2018-10-28T14:22:14.240Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM内存">
-<meta name="twitter:description" content="#前言    jvm  java虚拟机 #正文    java运行时数据区划分为几部分，程序计数器，java栈，本地方法栈，堆，方法区五个部分; 程序计数器    程序计数器也有称做pc寄存器;程序计数器是用来指示执行哪条指令的，所以是线程私有的。    当多线程运行时，每个线程切换后需要知道上一次所运行的状态、位置。 java栈    java栈也称虚拟机栈；java栈是由一个一个的栈帧组成，栈">
+<meta name="twitter:description" content="前言  jvm  java虚拟机  正文  java运行时数据区划分为几部分，程序计数器，java栈，本地方法栈，堆，方法区五个部分;  程序计数器 程序计数器也有称做pc寄存器;程序计数器是用来指示执行哪条指令的，所以是线程私有的。当多线程运行时，每个线程切换后需要知道上一次所运行的状态、位置。  java栈 java栈也称虚拟机栈；java栈是由一个一个的栈帧组成，栈帧是在每一个方法调用时产生">
 
 
 
@@ -365,13 +365,29 @@
       
 
       
-        <p>#前言<br>    jvm  java虚拟机</p>
-<p>#正文<br>    java运行时数据区划分为几部分，程序计数器，java栈，本地方法栈，堆，方法区五个部分;</p>
-<p><strong>程序计数器</strong><br>    程序计数器也有称做pc寄存器;程序计数器是用来指示执行哪条指令的，所以是线程私有的。<br>    当多线程运行时，每个线程切换后需要知道上一次所运行的状态、位置。</p>
-<p><strong>java栈</strong><br>    java栈也称虚拟机栈；java栈是由一个一个的栈帧组成，栈帧是在每一个方法调用时产生的。<br>    每一个栈帧由局部变量区、操作数栈等组成.当线程执行一个方法时，就会随之创建一个对应的栈帧。这部分也是线程私有的。  String s是在java栈中创建的；</p>
-<p><strong>本地方法栈</strong><br>    本地方法栈与Java栈的作用和原理非常相似。区别只不过是Java栈是为执行Java方法服务的，而本地方法栈则是为执行本地方法服务的。</p>
-<p><strong>堆</strong><br>    Java中的堆是用来存储对象本身的以及数组。这块区域也是垃圾回收器重点管理的区域，由于大多数垃圾回收器都采用分代回收算法，<br>    所有堆内存也分为 新生代、老年代，可以方便垃圾的准确回收。这块内存属于线程共享区域。  new String()是在堆中创建的；</p>
-<p><strong>方法区</strong><br>    方法区主要用于存放已经被虚拟机加载的类信息，如常量，静态变量。 这块区域也被称为永久代。这部分是共享的；<br>    方法区有一个非常重要的部分就是运行时常量池</p>
+        <p><font size="6">前言</font></p>
+<blockquote>
+<p>jvm  java虚拟机</p>
+</blockquote>
+<p><font size="6">正文</font></p>
+<blockquote>
+<p>java运行时数据区划分为几部分，程序计数器，java栈，本地方法栈，堆，方法区五个部分;</p>
+</blockquote>
+<h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a><strong>程序计数器</strong></h2><blockquote>
+<p>程序计数器也有称做pc寄存器;程序计数器是用来指示执行哪条指令的，所以是线程私有的。当多线程运行时，每个线程切换后需要知道上一次所运行的状态、位置。</p>
+</blockquote>
+<h2 id="java栈"><a href="#java栈" class="headerlink" title="java栈"></a><strong>java栈</strong></h2><blockquote>
+<p>java栈也称虚拟机栈；java栈是由一个一个的栈帧组成，栈帧是在每一个方法调用时产生的。每一个栈帧由局部变量区、操作数栈等组成.当线程执行一个方法时，就会随之创建一个对应的栈帧。这部分也是线程私有的。  String s是在java栈中创建的；</p>
+</blockquote>
+<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a><strong>本地方法栈</strong></h2><blockquote>
+<p>本地方法栈与Java栈的作用和原理非常相似。区别只不过是Java栈是为执行Java方法服务的，而本地方法栈则是为执行本地方法服务的。</p>
+</blockquote>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a><strong>堆</strong></h2><blockquote>
+<p>Java中的堆是用来存储对象本身的以及数组。这块区域也是垃圾回收器重点管理的区域，由于大多数垃圾回收器都采用分代回收算法,所有堆内存也分为 新生代、老年代，可以方便垃圾的准确回收。这块内存属于线程共享区域。  new String()是在堆中创建的；</p>
+</blockquote>
+<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a><strong>方法区</strong></h2><blockquote>
+<p>方法区主要用于存放已经被虚拟机加载的类信息，如常量，静态变量。 这块区域也被称为永久代。这部分是共享的；方法区有一个非常重要的部分就是运行时常量池</p>
+</blockquote>
 
       
     </div>
@@ -483,8 +499,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -558,6 +583,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#程序计数器"><span class="nav-number">1.</span> <span class="nav-text">程序计数器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java栈"><span class="nav-number">2.</span> <span class="nav-text">java栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地方法栈"><span class="nav-number">3.</span> <span class="nav-text">本地方法栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆"><span class="nav-number">4.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法区"><span class="nav-number">5.</span> <span class="nav-text">方法区</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

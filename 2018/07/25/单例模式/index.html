@@ -92,21 +92,21 @@
 
 
 
-<meta name="description" content="#前言    今天写demo的时候对单例有些疑问，就查资料总结下 #正文    单例模式是一种常用的设计模式，单例是某个类只能有一个实例，而且必须是它自己创建的一个实例。它必须对外提供一个静态方法来实现实例。单例分懒汉和饿汉。   饿汉式      饿汉式主要缺点，使用多线程的时候，就会实例化多次，占用资源。   懒汉式      懒汉式的缺点是线程不安全，一般情况下是不加锁的，第一个线程还没实例">
+<meta name="description" content="前言  今天写demo的时候对单例有些疑问，就查资料总结下  正文 单例模式 单例模式是一种常用的设计模式，单例是某个类只能有一个实例，而且必须是它自己创建的一个实例。它必须对外提供一个静态方法来实现实例。单例分懒汉和饿汉。  饿汉式  饿汉式主要缺点，使用多线程的时候，就会实例化多次，占用资源。  懒汉式  懒汉式的缺点是线程不安全，一般情况下是不加锁的，第一个线程还没实例化，第二个线程就加进来">
 <meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="单例模式">
 <meta property="og:url" content="http://yoursite.com/2018/07/25/单例模式/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="#前言    今天写demo的时候对单例有些疑问，就查资料总结下 #正文    单例模式是一种常用的设计模式，单例是某个类只能有一个实例，而且必须是它自己创建的一个实例。它必须对外提供一个静态方法来实现实例。单例分懒汉和饿汉。   饿汉式      饿汉式主要缺点，使用多线程的时候，就会实例化多次，占用资源。   懒汉式      懒汉式的缺点是线程不安全，一般情况下是不加锁的，第一个线程还没实例">
+<meta property="og:description" content="前言  今天写demo的时候对单例有些疑问，就查资料总结下  正文 单例模式 单例模式是一种常用的设计模式，单例是某个类只能有一个实例，而且必须是它自己创建的一个实例。它必须对外提供一个静态方法来实现实例。单例分懒汉和饿汉。  饿汉式  饿汉式主要缺点，使用多线程的时候，就会实例化多次，占用资源。  懒汉式  懒汉式的缺点是线程不安全，一般情况下是不加锁的，第一个线程还没实例化，第二个线程就加进来">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/dan1.png">
 <meta property="og:image" content="http://yoursite.com/images/dan2.png">
 <meta property="og:image" content="http://yoursite.com/images/dan3.png">
-<meta property="og:updated_time" content="2018-07-25T11:51:19.724Z">
+<meta property="og:updated_time" content="2018-10-28T14:02:57.941Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="单例模式">
-<meta name="twitter:description" content="#前言    今天写demo的时候对单例有些疑问，就查资料总结下 #正文    单例模式是一种常用的设计模式，单例是某个类只能有一个实例，而且必须是它自己创建的一个实例。它必须对外提供一个静态方法来实现实例。单例分懒汉和饿汉。   饿汉式      饿汉式主要缺点，使用多线程的时候，就会实例化多次，占用资源。   懒汉式      懒汉式的缺点是线程不安全，一般情况下是不加锁的，第一个线程还没实例">
+<meta name="twitter:description" content="前言  今天写demo的时候对单例有些疑问，就查资料总结下  正文 单例模式 单例模式是一种常用的设计模式，单例是某个类只能有一个实例，而且必须是它自己创建的一个实例。它必须对外提供一个静态方法来实现实例。单例分懒汉和饿汉。  饿汉式  饿汉式主要缺点，使用多线程的时候，就会实例化多次，占用资源。  懒汉式  懒汉式的缺点是线程不安全，一般情况下是不加锁的，第一个线程还没实例化，第二个线程就加进来">
 <meta name="twitter:image" content="http://yoursite.com/images/dan1.png">
 
 
@@ -369,8 +369,23 @@
       
 
       
-        <p>#前言<br>    今天写demo的时候对单例有些疑问，就查资料总结下</p>
-<p>#正文<br>    单例模式是一种常用的设计模式，单例是某个类只能有一个实例，而且必须是它自己创建的一个实例。它必须对外提供一个静态方法来实现实例。单例分懒汉和饿汉。<br>   饿汉式<br>   <img src="/images/dan1.png"><br>   饿汉式主要缺点，使用多线程的时候，就会实例化多次，占用资源。<br>   懒汉式<br>   <img src="/images/dan2.png"><br>   懒汉式的缺点是线程不安全，一般情况下是不加锁的，第一个线程还没实例化，第二个线程就加进来了，这样就不属于单例的情况。但是加锁就会出现一个线程进去就加锁判断，再释放，再加锁释放，这样就造成了性能低下，所以使用双重判空。<br>   使用volatile可见性，是使Dome类创建的时候有序，在堆中创建一个对象，然后dome指向这个对象，最后赋值。避免还没赋值，cpu被强占，直接下一个进程进行判空，但dome还没有被赋值，导致程序崩溃了。这就是一个DCL失效问题。<br>   下面使用一种静态内部类使用单例<br>   <img src="/images/dan3.png"><br>   外部类加载时并不需要立即加载内部类，所以不占用内存。只用第一次被调用的时候，才会去初始化Dome。</p>
+        <p><font size="6">前言</font></p>
+<blockquote>
+<p>今天写demo的时候对单例有些疑问，就查资料总结下</p>
+</blockquote>
+<p><font size="6">正文</font></p>
+<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a><strong>单例模式</strong></h2><blockquote>
+<p>单例模式是一种常用的设计模式，单例是某个类只能有一个实例，而且必须是它自己创建的一个实例。它必须对外提供一个静态方法来实现实例。单例分懒汉和饿汉。</p>
+</blockquote>
+<h2 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a><strong>饿汉式</strong></h2><p><img src="/images/dan1.png"></p>
+<blockquote>
+<p>饿汉式主要缺点，使用多线程的时候，就会实例化多次，占用资源。</p>
+</blockquote>
+<h2 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a><strong>懒汉式</strong></h2><p><img src="/images/dan2.png"></p>
+<blockquote>
+<p>懒汉式的缺点是线程不安全，一般情况下是不加锁的，第一个线程还没实例化，第二个线程就加进来了，这样就不属于单例的情况。但是加锁就会出现一个线程进去就加锁判断，再释放，再加锁释放，这样就造成了性能低下，所以使用双重判空。使用volatile可见性，是使Dome类创建的时候有序，在堆中创建一个对象，然后dome指向这个对象，最后赋值。避免还没赋值，cpu被强占，直接下一个进程进行判空，但dome还没有被赋值，导致程序崩溃了。这就是一个DCL失效问题。</p>
+</blockquote>
+<h2 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h2><p><img src="/images/dan3.png"><br>外部类加载时并不需要立即加载内部类，所以不占用内存。只用第一次被调用的时候，才会去初始化Dome。</p>
 
       
     </div>
@@ -482,8 +497,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -557,6 +581,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式"><span class="nav-number">1.</span> <span class="nav-text">单例模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#饿汉式"><span class="nav-number">2.</span> <span class="nav-text">饿汉式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#懒汉式"><span class="nav-number">3.</span> <span class="nav-text">懒汉式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态内部类"><span class="nav-number">4.</span> <span class="nav-text">静态内部类</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
