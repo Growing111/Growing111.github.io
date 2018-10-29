@@ -81,7 +81,7 @@
 
 
 
-  <meta name="keywords" content="springcloud," />
+  <meta name="keywords" content="垃圾回收算法," />
 
 
 
@@ -92,18 +92,21 @@
 
 
 
-<meta name="description" content="前言   看书，摘抄点笔记，方便记忆  正文   Spring Cloud 提供了开发分布式微服务系统的一些常用组件，例如服务注册和 发现、配置中心、熔断器、智能路由、微代理、控制总线、全局锁、分布式会话等。  常用组件  (1)服务注册和发现组件 Eureka  利用 Eureka 组件可以很轻松地实现服务的注册和发现的功能。Eureka 组件提供了服务的健 康监测，以及界面友好的 UI。通过">
-<meta name="keywords" content="springcloud">
+<meta name="description" content="前言  阅读《深入理解java虚拟机》  正文 垃圾回收算法  垃圾回收前得确定那些对象是“存活“的，那些对象是”死亡“的。判断对象是否存活的算法: 引用计数法，可达性分析法.  引用计数法 给对象添加一个引用计数器，每当有一个地方引用它，计数器就加1，当引用失效时，计数器就减一，任何就计数器为0就不可能再被使用的。缺陷：    当对象objA和objB，他们赋值令objA.instance=ob">
+<meta name="keywords" content="垃圾回收算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="了解springcloud">
-<meta property="og:url" content="http://yoursite.com/2018/10/24/了解springcloud/index.html">
+<meta property="og:title" content="垃圾回收算法">
+<meta property="og:url" content="http://yoursite.com/2018/10/29/垃圾回收算法/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="前言   看书，摘抄点笔记，方便记忆  正文   Spring Cloud 提供了开发分布式微服务系统的一些常用组件，例如服务注册和 发现、配置中心、熔断器、智能路由、微代理、控制总线、全局锁、分布式会话等。  常用组件  (1)服务注册和发现组件 Eureka  利用 Eureka 组件可以很轻松地实现服务的注册和发现的功能。Eureka 组件提供了服务的健 康监测，以及界面友好的 UI。通过">
+<meta property="og:description" content="前言  阅读《深入理解java虚拟机》  正文 垃圾回收算法  垃圾回收前得确定那些对象是“存活“的，那些对象是”死亡“的。判断对象是否存活的算法: 引用计数法，可达性分析法.  引用计数法 给对象添加一个引用计数器，每当有一个地方引用它，计数器就加1，当引用失效时，计数器就减一，任何就计数器为0就不可能再被使用的。缺陷：    当对象objA和objB，他们赋值令objA.instance=ob">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-28T15:28:51.053Z">
+<meta property="og:image" content="http://yoursite.com/images/lj_1.png">
+<meta property="og:image" content="http://yoursite.com/images/lj_2.png">
+<meta property="og:updated_time" content="2018-10-29T13:46:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="了解springcloud">
-<meta name="twitter:description" content="前言   看书，摘抄点笔记，方便记忆  正文   Spring Cloud 提供了开发分布式微服务系统的一些常用组件，例如服务注册和 发现、配置中心、熔断器、智能路由、微代理、控制总线、全局锁、分布式会话等。  常用组件  (1)服务注册和发现组件 Eureka  利用 Eureka 组件可以很轻松地实现服务的注册和发现的功能。Eureka 组件提供了服务的健 康监测，以及界面友好的 UI。通过">
+<meta name="twitter:title" content="垃圾回收算法">
+<meta name="twitter:description" content="前言  阅读《深入理解java虚拟机》  正文 垃圾回收算法  垃圾回收前得确定那些对象是“存活“的，那些对象是”死亡“的。判断对象是否存活的算法: 引用计数法，可达性分析法.  引用计数法 给对象添加一个引用计数器，每当有一个地方引用它，计数器就加1，当引用失效时，计数器就减一，任何就计数器为0就不可能再被使用的。缺陷：    当对象objA和objB，他们赋值令objA.instance=ob">
+<meta name="twitter:image" content="http://yoursite.com/images/lj_1.png">
 
 
 
@@ -133,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/24/了解springcloud/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/29/垃圾回收算法/"/>
 
 
 
 
 
-  <title>了解springcloud | Liuy</title>
+  <title>垃圾回收算法 | Liuy</title>
   
 
 
@@ -266,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/24/了解springcloud/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/29/垃圾回收算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Liuy">
@@ -283,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">了解springcloud</h1>
+          <h1 class="post-title" itemprop="name headline">垃圾回收算法</h1>
         
 
         <div class="post-meta">
@@ -295,8 +298,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-24T23:37:59+08:00">
-                2018-10-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-29T21:28:05+08:00">
+                2018-10-29
               </time>
             
 
@@ -318,8 +321,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/分布式/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式</span>
+                  <a href="/categories/jvm/" itemprop="url" rel="index">
+                    <span itemprop="name">jvm</span>
                   </a>
                 </span>
 
@@ -336,8 +339,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/24/了解springcloud/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/10/24/了解springcloud/" itemprop="commentsCount"></span>
+                <a href="/2018/10/29/垃圾回收算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/10/29/垃圾回收算法/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -365,47 +368,44 @@
       
 
       
-        <font size="6">前言</font>
-
+        <p><font size="6">前言</font></p>
 <blockquote>
-<p>看书，摘抄点笔记，方便记忆</p>
+<p>阅读《深入理解java虚拟机》</p>
 </blockquote>
-<font size="6">正文</font>
-
+<p><font size="6">正文</font></p>
+<p><font size="7" color="red"><strong>垃圾回收算法</strong></font></p>
 <blockquote>
-<p>Spring Cloud 提供了开发分布式微服务系统的一些常用组件，例如服务注册和 发现、配置中心、熔断器、智能路由、微代理、控制总线、全局锁、分布式会话等。</p>
+<p>垃圾回收前得确定那些对象是“存活“的，那些对象是”死亡“的。<br>判断对象是否存活的算法: 引用计数法，可达性分析法.</p>
 </blockquote>
-<font color="red" size="5">常用组件</font>
-
-<h2 id="1-服务注册和发现组件-Eureka"><a href="#1-服务注册和发现组件-Eureka" class="headerlink" title="(1)服务注册和发现组件 Eureka "></a>(1)服务注册和发现组件 Eureka </h2><blockquote>
-<p>利用 Eureka 组件可以很轻松地实现服务的注册和发现的功能。<br>Eureka 组件提供了服务的健 康监测，以及界面友好的 UI。<br>通过 Eureka 组件提供的 UI, Eureka 组件可以让开发人员随时了解服务单元的运行情况。<br>另外 Spring Cloud 也支持 Consul 和 Zookeeper，用于注册和发现服务。</p>
+<h2 id="引用计数法"><a href="#引用计数法" class="headerlink" title="引用计数法"></a>引用计数法</h2><blockquote>
+<p>给对象添加一个引用计数器，每当有一个地方引用它，计数器就加1，当引用失效时，计数器就减一，任何就计数器为0就不可能再被使用的。<br><strong>缺陷：</strong><br>    当对象objA和objB，他们赋值令objA.instance=objB，objB.instance=objA，实际上这两个对象已经不能再被访问，但是因为他们相互引用对方，导致他们的引用计数值都不是为0，因此引用记数法无法通知GC回收它们。<br><img src="/images/lj_1.png" width="700px"></p>
 </blockquote>
-<h2 id="2-熔断组件-Hystrix-Hystrix"><a href="#2-熔断组件-Hystrix-Hystrix" class="headerlink" title="(2)熔断组件 Hystrix Hystrix "></a>(2)熔断组件 Hystrix Hystrix </h2><blockquote>
-<p>它是一个熔断组件，它除了有一些基本的熔断器功能外，还能够实现服务降级、服 务限流的功能。<br>另外 Hystrix 提供了熔断器的健康监测，以及熔断器健康数据的 API 接口。<br>Hystrix Dashboard 组件提供了单个服务熔断器的健康状态数据的界面展示功能 ，<br>Hystrix Turbine 组件提供了多个服务的熔断器的健康状态数据的界面展示功能。  </p>
+<h2 id="可达性分析法"><a href="#可达性分析法" class="headerlink" title="可达性分析法"></a>可达性分析法</h2><blockquote>
+<p>这个算法的思想就是通过一系列被称为“GC Roots”的对象作为起始点，从这些节点开始往下搜索，搜索所走过的路劲叫做引用链，当一个GC Roots没有任何引用链相连（图论说GC Roots到这个对象不可达），则证明这个对象不可用。<br>如图 GcRoot是不可到达Obj4和Obj5的，尽管他们俩相连，但是这两个对象还是被判断为可回收对象。<br><img src="/images/lj_2.png" width="700px"><br><strong>注意：</strong></p>
+<ul>
+<li>通过可达性分析判断不可达之后也不是一定宣告这个对象死亡，宣告这个对象死亡，至少还要经历两次标记过程。对象通过可达性分析后发现没有跟GC Roots相连，他会第一次被标记并进行一次筛选，筛选的条件就是此对象是否执行finalize()方法，当对象没有覆盖finalize()方法，或者finalize()方法已经被虚拟机调用过，虚拟机将这两种情况都视为“没有必要执行”。</li>
+<li>如果这个对象被判定为有必要执行finalize()方法，那么这个对象将会放置在一个叫做F-Queue的队列之中，并在稍后由一个由虚拟机自动建立的、低优先级的Finalizer线程去执行它。这里所谓的“执行”是指虚拟机会触发这个方法，但并不承诺会等待它运行结束，这样做的原因是如果一个对象在finalize()方法中执行缓慢，或者发生了死循环（更极端的情况），将很可能会导致F-Queue队列中其他对象永久处于等待，甚至导致整个内存回收系统崩溃。</li>
+<li>finalize()方法是对象逃脱死亡命运的最后一次机会，稍后GC将对F-Queue中的对象进行第二次小规模的标记，如果对象要在finalize()中成功拯救自己——只要重新与引用链上的任何一个对象建立关联即可，譬如把自己（this关键字）赋值给某个类变量或者对象的成员变量，那么在第二次标记时它将被移除出“即将回收”的集合；如果对象这时候还没有逃脱，那么基本上它就真的被回收了。</li>
+</ul>
 </blockquote>
-<h2 id="3-负载均衡组件-Ribbon-Ribbon"><a href="#3-负载均衡组件-Ribbon-Ribbon" class="headerlink" title="(3)负载均衡组件 Ribbon Ribbon "></a><strong>(3)负载均衡组件 Ribbon Ribbon </strong></h2><blockquote>
-<p>它是一个负载均衡组件，它通常和 Eureka、 Zuul、 RestTemplate、 Feign 配合使用。<br>Ribbon 和 Zuul 配合，很容易做到负载均衡，将请求根据负载均衡策略分配到不同的服务实例中。<br>Ribbon 和I RestTemplate、 Feign 配合，在消费服务时能够做到负载均衡。 </p>
+<p><font size="4" color="red">垃圾收集算法</font></p>
+<h2 id="标记-清除算法"><a href="#标记-清除算法" class="headerlink" title="标记-清除算法:"></a>标记-清除算法:</h2><blockquote>
+<p>首先标记所有需要回收的对象，再标记完成后统一回收所有被标记的对象。<br>缺陷：两个过程效率不高，标记清除之后会产生大量不连续的内存碎片，空间碎片太多会导致当程序需要为较大对象分配内存时无法找到足够的连续内存而不得不提前触发另一次垃圾收集动作。</p>
 </blockquote>
-<h2 id="4-路由网关-Zuul"><a href="#4-路由网关-Zuul" class="headerlink" title="(4)路由网关 Zuul"></a>(4)路由网关 Zuul</h2><blockquote>
-<p>路由网关Zuul 有智能路由和过滤的功能。内部服务的 API 接口通过Zuul 网关统一对外暴露，<br>内部服务的 API 接口不直接暴露，防止了内部服务敏感信息对外暴露。在默认的情况下，<br>Zuul 和Ribbon 相结合，能够做到负载均衡、 智能路由。 Zuul 的过滤功能是通过拦截请求来实现的,可以对一些用户的角色和权限进行判断，起到安全验证的作用， 同时也可以用于输山实时的请求日志。 </p>
+<h2 id="复制算法："><a href="#复制算法：" class="headerlink" title="复制算法："></a>复制算法：</h2><blockquote>
+<p>为了解决效率问题，它将可用内存按容量划分为大小相等的两块，每次使用其中的一块，当这一块的内存用完了，就将还存活的对象复制到另一块上，然后把已经使用过的内存空间一次清理掉。这样每次只是对一半进行内存回收，内存分配时就不用考虑内存碎片，需要移动堆顶指针。</p>
 </blockquote>
-<font color="#0000dd">上述的 4 个组件都来自于 Netflix 的公司 ， 统一称为 Spring Cloud Netflixo </font>
-
-<h2 id="5-Spring-Cloud-Config"><a href="#5-Spring-Cloud-Config" class="headerlink" title="(5) Spring Cloud Config"></a>(5) Spring Cloud Config</h2><blockquote>
-<p>Spring Cloud Config 组件提供了配置文件统一管理的功能。Spring Cloud Config 包括Server 端和 Client 端,Server 端读取本地仓库或者远程仓库的配置文件，所有的 Client 向 Server 读 取配置信息，从而达到配置文件统一管理的目的。通常情况下， Spring Cloud Config 和 Spring Cloud Bus 相互配合刷新指定 Client 或所有 Client 的配置文件。</p>
+<h2 id="标记-整理算法："><a href="#标记-整理算法：" class="headerlink" title="标记-整理算法："></a>标记-整理算法：</h2><blockquote>
+<p>它是在标记-清除算法上进行了改进，在标记状态是相同的，标记对象，后续步骤是让所有存活的对象像一端移动，然后直接清除掉端边界以外的内存。</p>
 </blockquote>
-<h2 id="6-Spring-Cloud-Security"><a href="#6-Spring-Cloud-Security" class="headerlink" title="(6) Spring Cloud Security"></a>(6) Spring Cloud Security</h2><blockquote>
-<p>Spring Cloud Security 是对 Spring Security 组件的封装.<br>Spring Cloud Security 向服务单元 提供了用户验证和权限认证。<br>一般来说，单独在微服务系统中使用 Spring Cloud Security 是很 少见的，<br>一般它会配合 Spring Security 0Auth2 组件一起使用，通过搭建授权服务，验证 Token 或者 JWT 这种形式对整个微服务系统进行安全验证。</p>
+<h2 id="分带收集算法"><a href="#分带收集算法" class="headerlink" title="分带收集算法:"></a>分带收集算法:</h2><blockquote>
+<p>一般把java堆划分成新生代和老生代，这样根据各个年代的特点采用最适当的收集算法。新生代一般采用复制算法，老生代使用标记-清除或者标记整理。</p>
 </blockquote>
-<h2 id="7-Spring-Cloud-Sleuth"><a href="#7-Spring-Cloud-Sleuth" class="headerlink" title="(7) Spring Cloud Sleuth "></a><strong>(7) Spring Cloud Sleuth </strong></h2><blockquote>
-<p>Spring Cloud Sleuth 是一个分布式链路追踪组件，它封装了 Dapper、 Zipkin 和 Kibana 等组件，通过它可以知道服务之间的相互依赖关系，并实时观察链路的调用情况。</p>
-</blockquote>
-<h2 id="8-Spring-Cloud-Stream"><a href="#8-Spring-Cloud-Stream" class="headerlink" title="(8) Spring Cloud Stream "></a><strong>(8) Spring Cloud Stream </strong></h2><blockquote>
-<p>Spring Cloud Stream 是 Spring Cloud 框架的数据流操作包，可以封装 RabbitMq、ActiveMq、 Kafka、 Redis 等消息组件, 利用 Spring Cloud Stream 可以实现消息的接收和发送。</p>
-</blockquote>
-<font color="#0000dd">一个简单的由 Spring Cloud 构述的微服务系统，通常由服务注册中心 Eureka、网关 Zuul、配置中心 Config 和授权服务 Auth 构成.</font>
-
-
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
+<li><strong>新生代：</strong></li>
+<li><strong>老生代：</strong></li>
+<li><strong>永久代：</strong>    </li>
+</ul>
 
       
     </div>
@@ -433,7 +433,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/springcloud/" i class="fa fa-tag"></i> springcloud</a>
+            <a href="/tags/垃圾回收算法/" i class="fa fa-tag"></i> 垃圾回收算法</a>
           
         </div>
       
@@ -446,8 +446,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/23/python连接mongodb简单操作/" rel="next" title="python连接mongodb简单操作">
-                <i class="fa fa-chevron-left"></i> python连接mongodb简单操作
+              <a href="/2018/10/28/MarkDown常用语法/" rel="next" title="MarkDown常用语法">
+                <i class="fa fa-chevron-left"></i> MarkDown常用语法
               </a>
             
           </div>
@@ -455,10 +455,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/25/PRC通信/" rel="prev" title="PRC通信">
-                PRC通信 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -611,7 +607,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-服务注册和发现组件-Eureka"><span class="nav-number">1.</span> <span class="nav-text">(1)服务注册和发现组件 Eureka </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-熔断组件-Hystrix-Hystrix"><span class="nav-number">2.</span> <span class="nav-text">(2)熔断组件 Hystrix Hystrix </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-负载均衡组件-Ribbon-Ribbon"><span class="nav-number">3.</span> <span class="nav-text">(3)负载均衡组件 Ribbon Ribbon </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-路由网关-Zuul"><span class="nav-number">4.</span> <span class="nav-text">(4)路由网关 Zuul</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Spring-Cloud-Config"><span class="nav-number">5.</span> <span class="nav-text">(5) Spring Cloud Config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Spring-Cloud-Security"><span class="nav-number">6.</span> <span class="nav-text">(6) Spring Cloud Security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Spring-Cloud-Sleuth"><span class="nav-number">7.</span> <span class="nav-text">(7) Spring Cloud Sleuth </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Spring-Cloud-Stream"><span class="nav-number">8.</span> <span class="nav-text">(8) Spring Cloud Stream </span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引用计数法"><span class="nav-number">1.</span> <span class="nav-text">引用计数法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可达性分析法"><span class="nav-number">2.</span> <span class="nav-text">可达性分析法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标记-清除算法"><span class="nav-number">3.</span> <span class="nav-text">标记-清除算法:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制算法："><span class="nav-number">4.</span> <span class="nav-text">复制算法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标记-整理算法："><span class="nav-number">5.</span> <span class="nav-text">标记-整理算法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分带收集算法"><span class="nav-number">6.</span> <span class="nav-text">分带收集算法:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-number">7.</span> <span class="nav-text">注意</span></a></li></ol></div>
             
 
           </div>
