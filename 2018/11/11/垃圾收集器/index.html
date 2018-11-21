@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: DD5044; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png?v=5.1.4">
+
+
+
+  <link rel="mask-icon" href="/images/avatar.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="垃圾收集器," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言  阅读《深入理解java虚拟机》  正文 什么是垃圾收集器？ 收集算法是内存回收的方法论，垃圾收集器就是内存回收的具体实现。Java虚拟机规范中对垃圾收集器应该如何实现没有任何规定，因此不同的厂商、不同的版本的虚拟机所提供的垃圾收集器也有很大的差异，一般都会根据用户自己的应用特点和要求使用不同的垃圾收集器。  特别名词 串行收集器：它是使用单线程进行垃圾回收，它是独占式的垃圾回收。并行收集器">
+<meta name="keywords" content="垃圾收集器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="垃圾收集器">
+<meta property="og:url" content="http://yoursite.com/2018/11/11/垃圾收集器/index.html">
+<meta property="og:site_name" content="Liuy">
+<meta property="og:description" content="前言  阅读《深入理解java虚拟机》  正文 什么是垃圾收集器？ 收集算法是内存回收的方法论，垃圾收集器就是内存回收的具体实现。Java虚拟机规范中对垃圾收集器应该如何实现没有任何规定，因此不同的厂商、不同的版本的虚拟机所提供的垃圾收集器也有很大的差异，一般都会根据用户自己的应用特点和要求使用不同的垃圾收集器。  特别名词 串行收集器：它是使用单线程进行垃圾回收，它是独占式的垃圾回收。并行收集器">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/re_6.png">
+<meta property="og:image" content="http://yoursite.com/images/re_2.png">
+<meta property="og:image" content="http://yoursite.com/images/re_5.png">
+<meta property="og:image" content="http://yoursite.com/images/re_6.png">
+<meta property="og:updated_time" content="2018-11-21T13:59:50.763Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="垃圾收集器">
+<meta name="twitter:description" content="前言  阅读《深入理解java虚拟机》  正文 什么是垃圾收集器？ 收集算法是内存回收的方法论，垃圾收集器就是内存回收的具体实现。Java虚拟机规范中对垃圾收集器应该如何实现没有任何规定，因此不同的厂商、不同的版本的虚拟机所提供的垃圾收集器也有很大的差异，一般都会根据用户自己的应用特点和要求使用不同的垃圾收集器。  特别名词 串行收集器：它是使用单线程进行垃圾回收，它是独占式的垃圾回收。并行收集器">
+<meta name="twitter:image" content="http://yoursite.com/images/re_6.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/11/垃圾收集器/"/>
+
+
+
+
+
+  <title>垃圾收集器 | Liuy</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Liuy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">今后的你会感谢正在奋斗的你</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/垃圾收集器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liuy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liuy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">垃圾收集器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-11T21:36:49+08:00">
+                2018-11-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/jvm/" itemprop="url" rel="index">
+                    <span itemprop="name">jvm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/11/垃圾收集器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/11/11/垃圾收集器/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><font size="6">前言</font></p>
+<blockquote>
+<p>阅读《深入理解java虚拟机》</p>
+</blockquote>
+<p><font size="6">正文</font></p>
+<h2 id="什么是垃圾收集器？"><a href="#什么是垃圾收集器？" class="headerlink" title="什么是垃圾收集器？"></a><font size="4">什么是垃圾收集器？</font></h2><blockquote>
+<p>收集算法是内存回收的方法论，垃圾收集器就是内存回收的具体实现。<br>Java虚拟机规范中对垃圾收集器应该如何实现没有任何规定，因此不同的厂商、不同的版本的虚拟机所提供的垃圾收集器也有很大的差异，一般都会根据用户自己的应用特点和要求使用不同的垃圾收集器。</p>
+</blockquote>
+<h2 id="特别名词"><a href="#特别名词" class="headerlink" title="特别名词"></a><font size="4">特别名词</font></h2><blockquote>
+<p>串行收集器：它是使用单线程进行垃圾回收，它是独占式的垃圾回收。<br>并行收集器：它是简单的把串行回收期多线程化。<br>并行：指多条垃圾收集线程并行工作，但此用户线程仍然处于等待状态；<br>并发：指用户线程与垃圾垃圾线程同时执行，但不一定是并行的，用户继续运行，而垃圾收集线程在另一个cpu上运行。<br>吞吐量就是CPU用于运行用户代码的时间与CPU总消耗时间的比值，即吞吐量 = 运行用户代码时间 /（运行用户代码时间 + 垃圾收集时间）。<br>虚拟机总共运行了100分钟，其中垃圾收集花掉1分钟，那吞吐量就是99%。</p>
+</blockquote>
+<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a><font size="4">垃圾收集器</font></h2><h2 id="Serial收集器-新生代收集器"><a href="#Serial收集器-新生代收集器" class="headerlink" title="Serial收集器(新生代收集器)"></a><font size="4">Serial收集器(新生代收集器)</font></h2><pre><code>它是一个单线程收集器，使用标记-整理算法。工作过程如下：
+      &lt;img src=&quot;/images/re_1.png&quot;&gt;
+</code></pre><h2 id="Serial-old收集器-老年代收集器"><a href="#Serial-old收集器-老年代收集器" class="headerlink" title="Serial old收集器(老年代收集器)"></a><font size="4">Serial old收集器(老年代收集器)</font></h2><pre><code>Serial old是Serial收集器的老年版本，它同样是一个单线程的收集器，工作过程跟Serial的一样，
+</code></pre><p>  <img src="/images/re_6.png"></p>
+<h2 id="ParNew收集器（新生代收集器）"><a href="#ParNew收集器（新生代收集器）" class="headerlink" title="ParNew收集器（新生代收集器）"></a><font size="4">ParNew收集器（新生代收集器）</font></h2><pre><code>它是Serial收集器的多线程版本，实现了垃圾收集线程和用户线程同时工作，工作过程如下：
+</code></pre><p> <img src="/images/re_2.png"> </p>
+<h2 id="Parallel-Scavenge-收集器（新生代收集器）"><a href="#Parallel-Scavenge-收集器（新生代收集器）" class="headerlink" title="Parallel Scavenge 收集器（新生代收集器）"></a><font size="4">Parallel Scavenge 收集器（新生代收集器）</font></h2><pre><code>它是使用的复制算法的，又是并行的多线程收集器。CMS等其他收集器是关注尽可能的缩短垃圾收集时用户线程的停顿时间，而Parallel Scavenge收集目标则是达到一个可控的吞吐量。
+</code></pre><h2 id="Parallel-Old收集器（老年代收集器）"><a href="#Parallel-Old收集器（老年代收集器）" class="headerlink" title="Parallel Old收集器（老年代收集器）"></a><font size="4">Parallel Old收集器（老年代收集器）</font></h2><pre><code>Parallel Old是Parallel Scavenge老年代的版本，使用多线程和标记-整理算法。工作过程如下：
+  &lt;img src=&quot;/images/re_3.png&quot;&gt;
+</code></pre><h2 id="CMS收集器-老年代收集器"><a href="#CMS收集器-老年代收集器" class="headerlink" title="CMS收集器(老年代收集器)"></a><font size="4">CMS收集器(老年代收集器)</font></h2><pre><code>CMS(Concurrent Mark Sweep)是一种以获取最短停顿时间为目标的收集器。CMS收集是基于标记-清除算法实现的。工作过程：1.初始标记，2.并发标记，3.重新标记，4.并发清除。如下：
+  &lt;img src=&quot;/images/re_4.png&quot;&gt;
+</code></pre><h2 id="G1收集器（两者都可用）"><a href="#G1收集器（两者都可用）" class="headerlink" title="G1收集器（两者都可用）"></a><font size="4">G1收集器（两者都可用）</font></h2><pre><code>G1(Garbage-First)收集器是当今收集器技术发展最前沿的成果之一，它是一款面向服务端的垃圾收集器。
+</code></pre><h2 id="G1具有如下特点："><a href="#G1具有如下特点：" class="headerlink" title="G1具有如下特点："></a><font size="4">G1具有如下特点：</font></h2><pre><code>* 并行与并发；
+* 分代收集;
+* 空间整合;
+* 可预测的停顿；
+</code></pre><p>工作过程：<br>      <img src="/images/re_5.png"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><font size="4">总结</font></h2><blockquote>
+<p>如果说收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现。Java虚拟机规范中对垃圾收集器应该如何实现并没有任何规定，因此不同的厂商、版本的虚拟机所提供的垃圾收集器都可能会有很大差别，并且一般都会提供参数供用户根据自己的应用特点和要求组合出各个年代所使用的收集器。接下来讨论的收集器基于JDK1.7 Update 14 之后的HotSpot虚拟机（在此版本中正式提供了商用的G1收集器，之前G1仍处于实验状态），该虚拟机包含的所有收集器如下图所示：<br> <img src="/images/re_6.png"><br>上图展示了7种作用于不同分代的收集器，如果两个收集器之间存在连线，就说明它们可以搭配使用。虚拟机所处的区域，则表示它是属于新生代收集器还是老年代收集器。Hotspot实现了如此多的收集器，正是因为目前并无完美的收集器出现，只是选择对具体应用最适合的收集器。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+	
+	<div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+		
+	</div>
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/垃圾收集器/" i class="fa fa-tag"></i> 垃圾收集器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/05/mysql中关于text的特别情况/" rel="next" title="mysql中关于text的特别情况">
+                <i class="fa fa-chevron-left"></i> mysql中关于text的特别情况
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Liuy" />
+            
+              <p class="site-author-name" itemprop="name">Liuy</p>
+              <p class="site-description motion-element" itemprop="description">现实很残酷，加油！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Growing111" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是垃圾收集器？"><span class="nav-number">1.</span> <span class="nav-text">什么是垃圾收集器？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特别名词"><span class="nav-number">2.</span> <span class="nav-text">特别名词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾收集器"><span class="nav-number">3.</span> <span class="nav-text">垃圾收集器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Serial收集器-新生代收集器"><span class="nav-number">4.</span> <span class="nav-text">Serial收集器(新生代收集器)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Serial-old收集器-老年代收集器"><span class="nav-number">5.</span> <span class="nav-text">Serial old收集器(老年代收集器)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ParNew收集器（新生代收集器）"><span class="nav-number">6.</span> <span class="nav-text">ParNew收集器（新生代收集器）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parallel-Scavenge-收集器（新生代收集器）"><span class="nav-number">7.</span> <span class="nav-text">Parallel Scavenge 收集器（新生代收集器）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parallel-Old收集器（老年代收集器）"><span class="nav-number">8.</span> <span class="nav-text">Parallel Old收集器（老年代收集器）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CMS收集器-老年代收集器"><span class="nav-number">9.</span> <span class="nav-text">CMS收集器(老年代收集器)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#G1收集器（两者都可用）"><span class="nav-number">10.</span> <span class="nav-text">G1收集器（两者都可用）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#G1具有如下特点："><span class="nav-number">11.</span> <span class="nav-text">G1具有如下特点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">12.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liuy</span>
+ 
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'Growing111',
+            repo: 'Growing111.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b2c0cdd96f37abdd526c2cd2ccc9638fac557872',
+            
+                client_id: '4ce7e377487beee14b17'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
