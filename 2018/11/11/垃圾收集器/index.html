@@ -100,15 +100,17 @@
 <meta property="og:site_name" content="Liuy">
 <meta property="og:description" content="前言  阅读《深入理解java虚拟机》  正文 什么是垃圾收集器？ 收集算法是内存回收的方法论，垃圾收集器就是内存回收的具体实现。Java虚拟机规范中对垃圾收集器应该如何实现没有任何规定，因此不同的厂商、不同的版本的虚拟机所提供的垃圾收集器也有很大的差异，一般都会根据用户自己的应用特点和要求使用不同的垃圾收集器。  特别名词 串行收集器：它是使用单线程进行垃圾回收，它是独占式的垃圾回收。并行收集器">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/re_1.png">
 <meta property="og:image" content="http://yoursite.com/images/re_6.png">
 <meta property="og:image" content="http://yoursite.com/images/re_2.png">
-<meta property="og:image" content="http://yoursite.com/images/re_5.png">
+<meta property="og:image" content="http://yoursite.com/images/re_3.png">
+<meta property="og:image" content="http://yoursite.com/images/re_4.png">
 <meta property="og:image" content="http://yoursite.com/images/re_6.png">
-<meta property="og:updated_time" content="2018-11-21T13:59:50.763Z">
+<meta property="og:updated_time" content="2018-11-21T14:03:43.252Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="垃圾收集器">
 <meta name="twitter:description" content="前言  阅读《深入理解java虚拟机》  正文 什么是垃圾收集器？ 收集算法是内存回收的方法论，垃圾收集器就是内存回收的具体实现。Java虚拟机规范中对垃圾收集器应该如何实现没有任何规定，因此不同的厂商、不同的版本的虚拟机所提供的垃圾收集器也有很大的差异，一般都会根据用户自己的应用特点和要求使用不同的垃圾收集器。  特别名词 串行收集器：它是使用单线程进行垃圾回收，它是独占式的垃圾回收。并行收集器">
-<meta name="twitter:image" content="http://yoursite.com/images/re_6.png">
+<meta name="twitter:image" content="http://yoursite.com/images/re_1.png">
 
 
 
@@ -381,25 +383,38 @@
 <h2 id="特别名词"><a href="#特别名词" class="headerlink" title="特别名词"></a><font size="4">特别名词</font></h2><blockquote>
 <p>串行收集器：它是使用单线程进行垃圾回收，它是独占式的垃圾回收。<br>并行收集器：它是简单的把串行回收期多线程化。<br>并行：指多条垃圾收集线程并行工作，但此用户线程仍然处于等待状态；<br>并发：指用户线程与垃圾垃圾线程同时执行，但不一定是并行的，用户继续运行，而垃圾收集线程在另一个cpu上运行。<br>吞吐量就是CPU用于运行用户代码的时间与CPU总消耗时间的比值，即吞吐量 = 运行用户代码时间 /（运行用户代码时间 + 垃圾收集时间）。<br>虚拟机总共运行了100分钟，其中垃圾收集花掉1分钟，那吞吐量就是99%。</p>
 </blockquote>
-<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a><font size="4">垃圾收集器</font></h2><h2 id="Serial收集器-新生代收集器"><a href="#Serial收集器-新生代收集器" class="headerlink" title="Serial收集器(新生代收集器)"></a><font size="4">Serial收集器(新生代收集器)</font></h2><pre><code>它是一个单线程收集器，使用标记-整理算法。工作过程如下：
-      &lt;img src=&quot;/images/re_1.png&quot;&gt;
-</code></pre><h2 id="Serial-old收集器-老年代收集器"><a href="#Serial-old收集器-老年代收集器" class="headerlink" title="Serial old收集器(老年代收集器)"></a><font size="4">Serial old收集器(老年代收集器)</font></h2><pre><code>Serial old是Serial收集器的老年版本，它同样是一个单线程的收集器，工作过程跟Serial的一样，
-</code></pre><p>  <img src="/images/re_6.png"></p>
-<h2 id="ParNew收集器（新生代收集器）"><a href="#ParNew收集器（新生代收集器）" class="headerlink" title="ParNew收集器（新生代收集器）"></a><font size="4">ParNew收集器（新生代收集器）</font></h2><pre><code>它是Serial收集器的多线程版本，实现了垃圾收集线程和用户线程同时工作，工作过程如下：
-</code></pre><p> <img src="/images/re_2.png"> </p>
-<h2 id="Parallel-Scavenge-收集器（新生代收集器）"><a href="#Parallel-Scavenge-收集器（新生代收集器）" class="headerlink" title="Parallel Scavenge 收集器（新生代收集器）"></a><font size="4">Parallel Scavenge 收集器（新生代收集器）</font></h2><pre><code>它是使用的复制算法的，又是并行的多线程收集器。CMS等其他收集器是关注尽可能的缩短垃圾收集时用户线程的停顿时间，而Parallel Scavenge收集目标则是达到一个可控的吞吐量。
-</code></pre><h2 id="Parallel-Old收集器（老年代收集器）"><a href="#Parallel-Old收集器（老年代收集器）" class="headerlink" title="Parallel Old收集器（老年代收集器）"></a><font size="4">Parallel Old收集器（老年代收集器）</font></h2><pre><code>Parallel Old是Parallel Scavenge老年代的版本，使用多线程和标记-整理算法。工作过程如下：
-  &lt;img src=&quot;/images/re_3.png&quot;&gt;
-</code></pre><h2 id="CMS收集器-老年代收集器"><a href="#CMS收集器-老年代收集器" class="headerlink" title="CMS收集器(老年代收集器)"></a><font size="4">CMS收集器(老年代收集器)</font></h2><pre><code>CMS(Concurrent Mark Sweep)是一种以获取最短停顿时间为目标的收集器。CMS收集是基于标记-清除算法实现的。工作过程：1.初始标记，2.并发标记，3.重新标记，4.并发清除。如下：
-  &lt;img src=&quot;/images/re_4.png&quot;&gt;
-</code></pre><h2 id="G1收集器（两者都可用）"><a href="#G1收集器（两者都可用）" class="headerlink" title="G1收集器（两者都可用）"></a><font size="4">G1收集器（两者都可用）</font></h2><pre><code>G1(Garbage-First)收集器是当今收集器技术发展最前沿的成果之一，它是一款面向服务端的垃圾收集器。
-</code></pre><h2 id="G1具有如下特点："><a href="#G1具有如下特点：" class="headerlink" title="G1具有如下特点："></a><font size="4">G1具有如下特点：</font></h2><pre><code>* 并行与并发；
-* 分代收集;
-* 空间整合;
-* 可预测的停顿；
-</code></pre><p>工作过程：<br>      <img src="/images/re_5.png"></p>
+<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a><font size="4">垃圾收集器</font></h2><h2 id="Serial收集器-新生代收集器"><a href="#Serial收集器-新生代收集器" class="headerlink" title="Serial收集器(新生代收集器)"></a><font size="4">Serial收集器(新生代收集器)</font></h2><blockquote>
+<p>它是一个单线程收集器，使用标记-整理算法。工作过程如下：<br>          <img src="/images/re_1.png"></p>
+</blockquote>
+<h2 id="Serial-old收集器-老年代收集器"><a href="#Serial-old收集器-老年代收集器" class="headerlink" title="Serial old收集器(老年代收集器)"></a><font size="4">Serial old收集器(老年代收集器)</font></h2><blockquote>
+<p>Serial old是Serial收集器的老年版本，它同样是一个单线程的收集器，工作过程跟Serial的一样，<br><img src="/images/re_6.png"></p>
+</blockquote>
+<h2 id="ParNew收集器（新生代收集器）"><a href="#ParNew收集器（新生代收集器）" class="headerlink" title="ParNew收集器（新生代收集器）"></a><font size="4">ParNew收集器（新生代收集器）</font></h2><blockquote>
+<p>它是Serial收集器的多线程版本，实现了垃圾收集线程和用户线程同时工作，工作过程如下：<br><img src="/images/re_2.png"> </p>
+</blockquote>
+<h2 id="Parallel-Scavenge-收集器（新生代收集器）"><a href="#Parallel-Scavenge-收集器（新生代收集器）" class="headerlink" title="Parallel Scavenge 收集器（新生代收集器）"></a><font size="4">Parallel Scavenge 收集器（新生代收集器）</font></h2><blockquote>
+<p>它是使用的复制算法的，又是并行的多线程收集器。CMS等其他收集器是关注尽可能的缩短垃圾收集时用户线程的停顿时间，而Parallel Scavenge收集目标则是达到一个可控的吞吐量。</p>
+</blockquote>
+<h2 id="Parallel-Old收集器（老年代收集器）"><a href="#Parallel-Old收集器（老年代收集器）" class="headerlink" title="Parallel Old收集器（老年代收集器）"></a><font size="4">Parallel Old收集器（老年代收集器）</font></h2><blockquote>
+<p>Parallel Old是Parallel Scavenge老年代的版本，使用多线程和标记-整理算法。工作过程如下：<br><img src="/images/re_3.png"></p>
+</blockquote>
+<h2 id="CMS收集器-老年代收集器"><a href="#CMS收集器-老年代收集器" class="headerlink" title="CMS收集器(老年代收集器)"></a><font size="4">CMS收集器(老年代收集器)</font></h2><blockquote>
+<p>CMS(Concurrent Mark Sweep)是一种以获取最短停顿时间为目标的收集器。CMS收集是基于标记-清除算法实现的。工作过程：1.初始标记，2.并发标记，3.重新标记，4.并发清除。如下：<br><img src="/images/re_4.png"></p>
+</blockquote>
+<h2 id="G1收集器（两者都可用）"><a href="#G1收集器（两者都可用）" class="headerlink" title="G1收集器（两者都可用）"></a><font size="4">G1收集器（两者都可用）</font></h2><blockquote>
+<p>G1(Garbage-First)收集器是当今收集器技术发展最前沿的成果之一，它是一款面向服务端的垃圾收集器。</p>
+</blockquote>
+<h2 id="G1具有如下特点："><a href="#G1具有如下特点：" class="headerlink" title="G1具有如下特点："></a><font size="4">G1具有如下特点：</font></h2><blockquote>
+<ul>
+<li>并行与并发；</li>
+<li>分代收集;</li>
+<li>空间整合;</li>
+<li>可预测的停顿；<br>工作过程：<pre><code>&lt;img src=&quot;/images/re_5.png&quot;&gt;
+</code></pre></li>
+</ul>
+</blockquote>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><font size="4">总结</font></h2><blockquote>
-<p>如果说收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现。Java虚拟机规范中对垃圾收集器应该如何实现并没有任何规定，因此不同的厂商、版本的虚拟机所提供的垃圾收集器都可能会有很大差别，并且一般都会提供参数供用户根据自己的应用特点和要求组合出各个年代所使用的收集器。接下来讨论的收集器基于JDK1.7 Update 14 之后的HotSpot虚拟机（在此版本中正式提供了商用的G1收集器，之前G1仍处于实验状态），该虚拟机包含的所有收集器如下图所示：<br> <img src="/images/re_6.png"><br>上图展示了7种作用于不同分代的收集器，如果两个收集器之间存在连线，就说明它们可以搭配使用。虚拟机所处的区域，则表示它是属于新生代收集器还是老年代收集器。Hotspot实现了如此多的收集器，正是因为目前并无完美的收集器出现，只是选择对具体应用最适合的收集器。</p>
+<p>如果说收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现。Java虚拟机规范中对垃圾收集器应该如何实现并没有任何规定，因此不同的厂商、版本的虚拟机所提供的垃圾收集器都可能会有很大差别，并且一般都会提供参数供用户根据自己的应用特点和要求组合出各个年代所使用的收集器。接下来讨论的收集器基于JDK1.7 Update 14 之后的HotSpot虚拟机（在此版本中正式提供了商用的G1收集器，之前G1仍处于实验状态），该虚拟机包含的所有收集器如下图所示：<br><img src="/images/re_6.png"><br>上图展示了7种作用于不同分代的收集器，如果两个收集器之间存在连线，就说明它们可以搭配使用。虚拟机所处的区域，则表示它是属于新生代收集器还是老年代收集器。Hotspot实现了如此多的收集器，正是因为目前并无完美的收集器出现，只是选择对具体应用最适合的收集器。</p>
 </blockquote>
 
       
