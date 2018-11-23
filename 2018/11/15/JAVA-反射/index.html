@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Liuy">
 <meta property="og:description" content="Java reflect的概念？ 可以在运行时获得程序或程序集中每一个类型的成员和成员的信息。程序中一般的对象的类型都是在编译期就确定下来的，而 Java 反射机制可以动态地创建对象并调用其属性，这样的对象的类型在编译期是未知的，所以我们可以通过反射机制直接创建对象。  Java reflect的用途？ Java reflect中个人编码中，有很多人都觉得没什么地方用到。但是在java的很多框架，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-22T13:49:09.175Z">
+<meta property="og:updated_time" content="2018-11-23T12:59:49.662Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVA reflect">
 <meta name="twitter:description" content="Java reflect的概念？ 可以在运行时获得程序或程序集中每一个类型的成员和成员的信息。程序中一般的对象的类型都是在编译期就确定下来的，而 Java 反射机制可以动态地创建对象并调用其属性，这样的对象的类型在编译期是未知的，所以我们可以通过反射机制直接创建对象。  Java reflect的用途？ Java reflect中个人编码中，有很多人都觉得没什么地方用到。但是在java的很多框架，">
@@ -403,7 +403,7 @@
 </li>
 </ul>
 <blockquote>
-<p>如果要获取私有方法在之前 <code>method.setAccessible(true);</code>这个属性设置为true.</p>
+<p>如果要获取私有方法在之前 <code>method.setAccessible(true);</code>这个属性设置为true.<br>特别的调用有参构造<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Constructor cla = clazz.getDeclaredConstructor(String.class);<span class="comment">//获取构造函数的构造器</span></span><br><span class="line"></span><br><span class="line">Object o=cla.newInstance(<span class="string">"str"</span>);<span class="comment">//调用有参构造创建对象</span></span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <h2 id="调用方法。"><a href="#调用方法。" class="headerlink" title="调用方法。"></a>调用方法。</h2><p><em>当我们从类中获取了一个方法后，我们就可以用 invoke() 方法来调用这个方法</em><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object obj, Object... args)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> IllegalAccessException, IllegalArgumentException,</span></span><br><span class="line"><span class="function">           InvocationTargetException</span></span><br></pre></td></tr></table></figure></p>
 
@@ -546,7 +546,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -557,7 +557,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -568,7 +568,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
