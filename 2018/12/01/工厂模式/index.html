@@ -92,18 +92,18 @@
 
 
 
-<meta name="description" content="工厂模式 工厂模式是属于类创建型模式，它根据抽象不同的程度分三种：  简单工厂模式(静态工厂模式) 工厂方法模式 抽象工厂模式   简单工厂模式 也称为静态工厂模式，它属于类创造型模式，在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。例如：  123456789101112131415161718192021">
+<meta name="description" content="工厂模式 工厂模式是属于类创建型模式，它根据抽象不同的程度分三种：  简单工厂模式(静态工厂模式) 工厂方法模式 抽象工厂模式   简单工厂模式 也称为静态工厂模式，它属于类创造型模式，在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。  例如： 12345678910111213141516171819202">
 <meta name="keywords" content="工厂模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="工厂模式">
 <meta property="og:url" content="http://yoursite.com/2018/12/01/工厂模式/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="工厂模式 工厂模式是属于类创建型模式，它根据抽象不同的程度分三种：  简单工厂模式(静态工厂模式) 工厂方法模式 抽象工厂模式   简单工厂模式 也称为静态工厂模式，它属于类创造型模式，在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。例如：  123456789101112131415161718192021">
+<meta property="og:description" content="工厂模式 工厂模式是属于类创建型模式，它根据抽象不同的程度分三种：  简单工厂模式(静态工厂模式) 工厂方法模式 抽象工厂模式   简单工厂模式 也称为静态工厂模式，它属于类创造型模式，在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。  例如： 12345678910111213141516171819202">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-01T13:36:17.401Z">
+<meta property="og:updated_time" content="2018-12-01T13:38:50.358Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="工厂模式">
-<meta name="twitter:description" content="工厂模式 工厂模式是属于类创建型模式，它根据抽象不同的程度分三种：  简单工厂模式(静态工厂模式) 工厂方法模式 抽象工厂模式   简单工厂模式 也称为静态工厂模式，它属于类创造型模式，在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。例如：  123456789101112131415161718192021">
+<meta name="twitter:description" content="工厂模式 工厂模式是属于类创建型模式，它根据抽象不同的程度分三种：  简单工厂模式(静态工厂模式) 工厂方法模式 抽象工厂模式   简单工厂模式 也称为静态工厂模式，它属于类创造型模式，在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。  例如： 12345678910111213141516171819202">
 
 
 
@@ -374,12 +374,14 @@
 </ul>
 </blockquote>
 <h2 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h2><blockquote>
-<p>也称为静态工厂模式，它属于类创造型模式，在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。<br><strong>例如：</strong></p>
+<p>也称为静态工厂模式，它属于类创造型模式，在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。</p>
 </blockquote>
+<p><strong>例如：</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> </span>&#123;</span><br><span class="line">    <span class="comment">//静态工厂方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Product <span class="title">getProduct</span><span class="params">(String arg)</span> </span>&#123;</span><br><span class="line">        Product product = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (arg.equalsIgnoreCase(<span class="string">"A"</span>)) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProductA();</span><br><span class="line">            <span class="comment">//初始化设置product</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (arg.equalsIgnoreCase(<span class="string">"B"</span>)) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProductB();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        Product product; </span><br><span class="line">        product = Factory.getProduct(<span class="string">"A"</span>); <span class="comment">//通过工厂类创建产品对象</span></span><br><span class="line">        product.methodSame();</span><br><span class="line">        product.methodDiff();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h2><blockquote>
-<p>工厂方法模式又称为工厂模式，也叫虚拟构造器模式。在工厂方法模式中，工厂父类负责定义创建产品对象的公共接口，而工厂子类则负责生成具体的产品对象，这样做的目的是将产品类的实例化操作延迟到工厂子类中完成，即通过工厂子类来确定究竟应该实例化哪一个具体产品类。<br><strong>例如:</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Factory</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">factoryMethod</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">factoryMethod</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProduct();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>工厂方法模式又称为工厂模式，也叫虚拟构造器模式。在工厂方法模式中，工厂父类负责定义创建产品对象的公共接口，而工厂子类则负责生成具体的产品对象，这样做的目的是将产品类的实例化操作延迟到工厂子类中完成，即通过工厂子类来确定究竟应该实例化哪一个具体产品类。</p>
 </blockquote>
+<p><strong>例如:</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Factory</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">factoryMethod</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">factoryMethod</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProduct();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h2><blockquote>
 <p>抽象工厂模式(Abstract Factory Pattern)：提供一个创建一系列相关或相互依赖对象的接口，而无须指定它们具体的类。</p>
 </blockquote>
@@ -433,6 +435,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/01/代理模式/" rel="prev" title="代理模式">
+                代理模式 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -520,7 +526,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -542,7 +548,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
