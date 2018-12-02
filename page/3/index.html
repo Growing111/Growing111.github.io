@@ -203,16 +203,6 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
@@ -249,16 +239,6 @@
               <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
             
             日程表
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
-            
-            站点地图
           </a>
         </li>
       
@@ -397,7 +377,7 @@
 物理层是最底层的，电脑之间通过网线，通过0和1传输的。
 
 数据链路层
-物理层是用过0和1传输的，不方便识别，这时候出现了一个重要的协议以太网协议；以太网协议规定了一组电信号(帧)，数据链路层引入了帧的概
+物理层是用过0和1传输的，不方便
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -556,8 +536,7 @@
 正文    说到线程。我们首先要区别 进程，线程，程序，
 进程进程就是说一段程序执行的过程
 线程线程就是说一个进程中可以有若干个线程，一个进程至少要有一个线程，
-进程作为分配资源的基本单位，而把线程作为独立运行和独立调度的基本单位
-程序程序就是说指令和数据的有序集合，进
+进程作为
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -718,8 +697,7 @@ jvm  java虚拟机
 java运行时数据区划分为几部分，程序计数器，java栈，本地方法栈，堆，方法区五个部分;
 
 程序计数器
-程序计数器也有称做pc寄存器;程序计数器是用来指示执行哪条指令的，所以是线程私有的。当多线程运行时，每个线程切换后需要知道上一次所运行的状态、位置。
-
+程序计数器也有称做pc寄存器;程序计数器是用来指示
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -880,10 +858,7 @@ java运行时数据区划分为几部分，程序计数器，java栈，本地方
 set是无序不重复的
 
 Hashset
-HashSet的底层的HashMap;HashSet存的值是一个，底层Map就存在key里，value就在底层创建了一个final的object;
-
-Treeset
-TreeSet的底层是TreeMap;TreeSet是可以排序
+HashSet的底层的HashMap;HashSet存的值是一个，底层Map就存在key里，value就在底层创建了一个fina
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1041,7 +1016,7 @@ TreeSet的底层是TreeMap;TreeSet是可以排序
 
 正文    Map接口与set和list不同他不实现Collection;map是存储键值对的一种储存结构；
 HashMap
-hashMap的底层是数据+链表(即哈希表、散列表),hashMap如果不指定长度就为16，默认加载因子为0.75(扩容为原来的1倍)
+hashMap的底层是数据+链表(
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1199,7 +1174,7 @@ hashMap的底层是数据+链表(即哈希表、散列表),hashMap如果不指�
 
 正文
 冒泡排序
-冒泡排序就是比较两个相邻的元素，然后把小的往前调(默认从小到大排序);思想就是第一个数和第二数比较，小的放前面，然后第二个数和第三个数比较小的放前面，直到倒数第一个数和倒数第二个数比较；这就是第一遍，然后第一遍能把最大的数放到最后，这里可以优化第二层循环;然后再循
+冒泡排序就是比较两个相邻的元素，然后把小的往前调(默认从小到大排序);思想就是第一个数和第二数比较，小的放前面，然后第二个数和第三个数比较小的放前面，直到倒数第一个
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1357,10 +1332,7 @@ hashMap的底层是数据+链表(即哈希表、散列表),hashMap如果不指�
 
 正文
 快排
-快排的基本思想是通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。
-
-
-快排需要取一个数为”基准”，一
+快排的基本思想是通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1522,8 +1494,7 @@ hashMap的底层是数据+链表(即哈希表、散列表),hashMap如果不指�
 
 使用explain;
 明确一条查询结果返回使用limit 1,可以让数据库停止游标移动;
-不要数据库做强制转换，这样会导致全表扫描;如 where id=111 应改成 where id=’111’;
-避
+不要数据库做强
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1678,7 +1649,7 @@ hashMap的底层是数据+链表(即哈希表、散列表),hashMap如果不指�
           前言       这个很经典。
 正文
 抽象类和接口的不同点
-1.抽象类不一定有抽象方法2.抽象类有构造方法；3.抽象类可以有变量，但是接口一定的final修饰的常量；4.抽象类可以有普通方法，接口中不能含有静态代码块以及静态方法，而抽象类可以有静态代码块和静态方法；5.抽象类是继承，接口是实现(接口
+1.抽象类不一定有抽象方法2.抽象类有构造方法；3.抽象类可以有变量，但是接口一定的final修饰的常量；4.抽象类可以有普通方法，接口中不
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1836,7 +1807,7 @@ hashMap的底层是数据+链表(即哈希表、散列表),hashMap如果不指�
 
 正文
 乐观锁
-获取数据的时候不加锁；大多数是基于数据版本记录机制实现的，假设一开始版本号是1，事务A先获取版本号1，再操作后，版本号增加为2，满足 提交版本号大于当前版本号，数据更改，事务B先获取版本号1，再操作增加版本号为2，A执行后版本号为2，B执行后版本后
+获取数据的时候不加锁；大多数是基于数据版本记录机制实现的，假设一开始版本号是1，事务A先获取版本号1，再操作后，版本号增加为2，满足 提交版本号大于
           ...
           <!--noindex-->
           <div class="post-button text-center">
