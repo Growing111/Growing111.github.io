@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Liuy">
 <meta property="og:description" content="对URL编码是常见的事，所以这两个方法应该是实际中要特别注意的。它们都是编码URL，唯一区别就是编码的字符范围，其中 encodeURIencodeURI方法不会对下列字符编码  ASCII字母、数字、~!@#$&amp;amp;*()=:/,;?+&amp;#39; encodeURIComponentencodeURIComponent方法不会对下列字符编码 ASCII字母、数字、~!*()&amp;#39;所以en">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-06T14:27:17.821Z">
+<meta property="og:updated_time" content="2018-12-08T03:18:27.476Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="encodeURI和encodeURIComponent">
 <meta name="twitter:description" content="对URL编码是常见的事，所以这两个方法应该是实际中要特别注意的。它们都是编码URL，唯一区别就是编码的字符范围，其中 encodeURIencodeURI方法不会对下列字符编码  ASCII字母、数字、~!@#$&amp;amp;*()=:/,;?+&amp;#39; encodeURIComponentencodeURIComponent方法不会对下列字符编码 ASCII字母、数字、~!*()&amp;#39;所以en">
@@ -387,10 +387,10 @@
       
         <p>对<code>URL</code>编码是常见的事，所以这两个方法应该是实际中要特别注意的。<br>它们都是编码URL，唯一区别就是编码的字符范围，其中</p>
 <h2 id="encodeURI"><a href="#encodeURI" class="headerlink" title="encodeURI"></a>encodeURI</h2><p><code>encodeURI方法不会对下列字符编码  ASCII字母、数字、~!@#$&amp;*()=:/,;?+&#39;</code></p>
-<h2 id="encodeURIComponent"><a href="#encodeURIComponent" class="headerlink" title="encodeURIComponent"></a>encodeURIComponent</h2><p><code>encodeURIComponent方法不会对下列字符编码 ASCII字母、数字、~!*()&#39;</code><br>所以encodeURIComponent比encodeURI编码的范围更大。<br>实际例子来说，encodeURIComponent会把 http://  编码成  http%3A%2F%2F 而encodeURI却不会。</p>
-<p>比如<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">encodeURI("http://www.cnblogs.com/season-huang/some other thing");</span><br></pre></td></tr></table></figure></p>
-<p>编码后会变为<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"http://www.cnblogs.com/season-huang/some%20other%20thing";</span><br></pre></td></tr></table></figure></p>
-<p>其中，空格被编码成了%20。但是如果你用了encodeURIComponent，那么结果变为<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"<span class="selector-tag">http</span>%3<span class="selector-tag">A</span>%2<span class="selector-tag">F</span>%2<span class="selector-tag">Fwww</span><span class="selector-class">.cnblogs</span><span class="selector-class">.com</span>%2<span class="selector-tag">Fseason-huang</span>%2<span class="selector-tag">Fsome</span>%20<span class="selector-tag">other</span>%20<span class="selector-tag">thing</span>"</span><br></pre></td></tr></table></figure></p>
+<h2 id="encodeURIComponent"><a href="#encodeURIComponent" class="headerlink" title="encodeURIComponent"></a>encodeURIComponent</h2><p><code>encodeURIComponent方法不会对下列字符编码 ASCII字母、数字、~!*()&#39;</code><br>所以encodeURIComponent比encodeURI编码的范围更大。<br>实际例子来说，encodeURIComponent会把 <code>http://</code> 编码成  <code>http%3A%2F%2F</code>而encodeURI却不会。</p>
+<p>比如<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">encodeURI("http://www.baidu.com/some other test");</span><br></pre></td></tr></table></figure></p>
+<p>编码后会变为<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"http://www.baidu.com/some%20other%20test";</span><br></pre></td></tr></table></figure></p>
+<p>其中，空格被编码成了%20。但是如果你用了encodeURIComponent，那么结果变为<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"<span class="selector-tag">http</span>%3<span class="selector-tag">A</span>%2<span class="selector-tag">F</span>%2<span class="selector-tag">Fwww</span><span class="selector-class">.cnblogs</span><span class="selector-class">.com</span>%2<span class="selector-tag">Fsome</span>%20<span class="selector-tag">other</span>%20<span class="selector-tag">test</span>"</span><br></pre></td></tr></table></figure></p>
 <p>看到了区别吗，连 “/“ 都被编码了，整个URL已经没法用了。</p>
 
       
