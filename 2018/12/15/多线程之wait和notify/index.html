@@ -81,7 +81,7 @@
 
 
 
-  <meta name="keywords" content="数据库," />
+  <meta name="keywords" content="多线程," />
 
 
 
@@ -92,18 +92,18 @@
 
 
 
-<meta name="description" content="前言  去应聘的时候，技术面笔试都遇到了，整理下  正文 数据库查询慢怎么优化？建立索引;   使用explain; 明确一条查询结果返回使用limit 1,可以让数据库停止游标移动; 不要数据库做强制转换，这样会导致全表扫描;如 where id=111 应改成 where id=’111’; 避免sql出现不能使用索引的时候;如负向查询不能使用索引,join两表字段类型不同; 不要使用sele">
-<meta name="keywords" content="数据库">
+<meta name="description" content="线程通信 两个线程间实现通信，如果轮询时间间隔小，浪费cpu资源，如果轮询时间间隔大，有可能会取到与期望值不一样的数据。  Wait 和 notify的实现 Wait方法是使当前执行代码的线程进行等待。但是在调用wait方法之前，线程必须获得该对象的对象级别锁。只能在同步方法或同步代码块中调用wait方法，在执行wait方法后，当前线程释放同步锁。同理notify方法也要在同步方法或同步代码块中调">
+<meta name="keywords" content="多线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql优化">
-<meta property="og:url" content="http://growing111.github.io/2018/09/15/mysql优化/index.html">
+<meta property="og:title" content="多线程之wait和notify">
+<meta property="og:url" content="http://growing111.github.io/2018/12/15/多线程之wait和notify/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="前言  去应聘的时候，技术面笔试都遇到了，整理下  正文 数据库查询慢怎么优化？建立索引;   使用explain; 明确一条查询结果返回使用limit 1,可以让数据库停止游标移动; 不要数据库做强制转换，这样会导致全表扫描;如 where id=111 应改成 where id=’111’; 避免sql出现不能使用索引的时候;如负向查询不能使用索引,join两表字段类型不同; 不要使用sele">
+<meta property="og:description" content="线程通信 两个线程间实现通信，如果轮询时间间隔小，浪费cpu资源，如果轮询时间间隔大，有可能会取到与期望值不一样的数据。  Wait 和 notify的实现 Wait方法是使当前执行代码的线程进行等待。但是在调用wait方法之前，线程必须获得该对象的对象级别锁。只能在同步方法或同步代码块中调用wait方法，在执行wait方法后，当前线程释放同步锁。同理notify方法也要在同步方法或同步代码块中调">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-28T14:10:07.065Z">
+<meta property="og:updated_time" content="2018-12-15T07:33:34.773Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mysql优化">
-<meta name="twitter:description" content="前言  去应聘的时候，技术面笔试都遇到了，整理下  正文 数据库查询慢怎么优化？建立索引;   使用explain; 明确一条查询结果返回使用limit 1,可以让数据库停止游标移动; 不要数据库做强制转换，这样会导致全表扫描;如 where id=111 应改成 where id=’111’; 避免sql出现不能使用索引的时候;如负向查询不能使用索引,join两表字段类型不同; 不要使用sele">
+<meta name="twitter:title" content="多线程之wait和notify">
+<meta name="twitter:description" content="线程通信 两个线程间实现通信，如果轮询时间间隔小，浪费cpu资源，如果轮询时间间隔大，有可能会取到与期望值不一样的数据。  Wait 和 notify的实现 Wait方法是使当前执行代码的线程进行等待。但是在调用wait方法之前，线程必须获得该对象的对象级别锁。只能在同步方法或同步代码块中调用wait方法，在执行wait方法后，当前线程释放同步锁。同理notify方法也要在同步方法或同步代码块中调">
 
 
 
@@ -133,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://growing111.github.io/2018/09/15/mysql优化/"/>
+  <link rel="canonical" href="http://growing111.github.io/2018/12/15/多线程之wait和notify/"/>
 
 
 
 
 
-  <title>mysql优化 | Liuy</title>
+  <title>多线程之wait和notify | Liuy</title>
   
 
 
@@ -286,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://growing111.github.io/2018/09/15/mysql优化/">
+    <link itemprop="mainEntityOfPage" href="http://growing111.github.io/2018/12/15/多线程之wait和notify/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Liuy">
@@ -303,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">mysql优化</h1>
+          <h1 class="post-title" itemprop="name headline">多线程之wait和notify</h1>
         
 
         <div class="post-meta">
@@ -315,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-15T10:37:56+08:00">
-                2018-09-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T14:42:30+08:00">
+                2018-12-15
               </time>
             
 
@@ -338,8 +338,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">java基础</span>
                   </a>
                 </span>
 
@@ -356,8 +356,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/09/15/mysql优化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/09/15/mysql优化/" itemprop="commentsCount"></span>
+                <a href="/2018/12/15/多线程之wait和notify/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/12/15/多线程之wait和notify/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -385,20 +385,48 @@
       
 
       
-        <p><font size="6">前言</font></p>
-<blockquote>
-<p>去应聘的时候，技术面笔试都遇到了，整理下</p>
+        <h2 id="线程通信"><a href="#线程通信" class="headerlink" title="线程通信"></a>线程通信</h2><blockquote>
+<p>两个线程间实现通信，如果轮询时间间隔小，浪费cpu资源，如果轮询时间间隔大，有可能会取到与期望值不一样的数据。</p>
 </blockquote>
-<p><font size="6">正文</font></p>
-<h2 id="数据库查询慢怎么优化？"><a href="#数据库查询慢怎么优化？" class="headerlink" title="数据库查询慢怎么优化？"></a>数据库查询慢怎么优化？</h2><p>建立索引;</p>
+<h2 id="Wait-和-notify的实现"><a href="#Wait-和-notify的实现" class="headerlink" title="Wait 和 notify的实现"></a>Wait 和 notify的实现</h2><blockquote>
+<p><code>Wait方法</code>是使当前执行代码的线程进行等待。但是在调用wait方法之前，线程必须获得该对象的对象级别锁。只能在同步方法或同步代码块中调用wait方法，在执行wait方法后，当前线程释放同步锁。同理<code>notify方法</code>也要在同步方法或同步代码块中调用。<code>注意:当执行notify方法后，当前线程不会马上释放该对象，wait状态的线程也不会马上获取该对象锁，需要等执行notify方法的线程执行完（退出synchronized同步方法或同步代码块）。Wait方法在同步方法或同步代码块里运行，wait方法可以使调用该方法的线程释放同步对象锁。</code><br><strong>Wait方法使线程停止，notify使停止的线程继续运行。</strong> </p>
+</blockquote>
+<p>例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadA</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object object;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ThreadA</span><span class="params">(Object object)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.object = object;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (object)&#123;</span><br><span class="line">            System.out.println(<span class="string">"wait开始，wait time="</span>+System.currentTimeMillis());</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                object.wait();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"wait结束，wait time="</span>+System.currentTimeMillis());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadB</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Object object;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ThreadB</span><span class="params">(Object object)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.object = object;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (object)&#123;</span><br><span class="line">            System.out.println(<span class="string">"notify开始，notify time="</span>+System.currentTimeMillis());</span><br><span class="line">            object.notify();</span><br><span class="line">            System.out.println(<span class="string">"notify结束，notify time="</span>+System.currentTimeMillis());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Object object=<span class="keyword">new</span> Object();</span><br><span class="line">        ThreadA threadA=<span class="keyword">new</span> ThreadA(object);</span><br><span class="line">        threadA.start();</span><br><span class="line">        ThreadB threadB=<span class="keyword">new</span> ThreadB(object);</span><br><span class="line">        threadB.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h2><p><strong>新建状态</strong></p>
+<blockquote>
+<p>当程序使用new创建一个线程后，就处于新建状态。</p>
+</blockquote>
+<p><strong>就绪状态(可运行状态)</strong></p>
+<blockquote>
+<p>当线程调用start()后，该线程就处于就绪状态，<code>这是一个准备阶段</code>。</p>
+</blockquote>
+<p><strong>运行状态</strong></p>
+<blockquote>
+<p>如果线程抢到cpu资源，此线程就处于<code>运行状态</code>。</p>
+</blockquote>
+<p><strong>阻塞状态</strong></p>
+<blockquote>
+<p>阻塞状态是线程因为某种原因放弃CPU使用权，使cpu处于空闲状态。</p>
+</blockquote>
+<p><strong>线程转化阻塞状态</strong></p>
 <blockquote>
 <ul>
-<li>使用explain;</li>
-<li>明确一条查询结果返回使用limit 1,可以让数据库停止游标移动;</li>
-<li>不要数据库做强制转换，这样会导致全表扫描;如 where id=111 应改成 where id=’111’;</li>
-<li>避免sql出现不能使用索引的时候;如负向查询不能使用索引,join两表字段类型不同;</li>
-<li>不要使用select * ;</li>
-<li>垂直分割，把数据库的表按照列变成几张表的方法，降低表的复杂度和字段数;</li>
+<li>线程调用<code>sleep方法</code>,主动放弃占有的处理资源。</li>
+<li>线程调用了<code>阻塞式IO已经返回</code>，在该方法返回前，该线程被阻塞。</li>
+<li>线程试图获取一个<code>同步监视器</code>，但该同步监视器正被其他线程所持有。</li>
+<li>线程在等待某个通知。</li>
+<li>线程调用了suspend方法将该线程挂起。</li>
+</ul>
+</blockquote>
+<p><strong>阻塞状态重新进入就绪状态</strong></p>
+<blockquote>
+<p><code>因为线程运行一段时间后，有其他优先级高的线程抢占cpu</code><br>重新进入就绪状态有以下情况：</p>
+<ul>
+<li>调用<code>sleep方法</code>后经过的时间超过指定休眠时间。</li>
+<li>线程调用的<code>阻塞IO已经返回</code>，阻塞方法执行完毕。</li>
+<li>线程成功获取试图<code>同步的监视器</code>。</li>
+<li>线程正在<code>等待某个通知</code>，其他线程发出了一个通知。</li>
+<li>处于挂起的线程调用了<code>resume复方法</code>。</li>
 </ul>
 </blockquote>
 
@@ -421,7 +449,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://growing111.github.io/2018/09/15/mysql优化/" title="mysql优化">http://growing111.github.io/2018/09/15/mysql优化/</a>
+    <a href="http://growing111.github.io/2018/12/15/多线程之wait和notify/" title="多线程之wait和notify">http://growing111.github.io/2018/12/15/多线程之wait和notify/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -446,7 +474,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据库/" i class="fa fa-tag"></i> 数据库</a>
+            <a href="/tags/多线程/" i class="fa fa-tag"></i> 多线程</a>
           
         </div>
       
@@ -459,8 +487,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/14/抽象类和接口/" rel="next" title="抽象类和接口">
-                <i class="fa fa-chevron-left"></i> 抽象类和接口
+              <a href="/2018/12/11/多线程之volatile/" rel="next" title="多线程之volatile">
+                <i class="fa fa-chevron-left"></i> 多线程之volatile
               </a>
             
           </div>
@@ -468,10 +496,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/15/快排/" rel="prev" title="快排">
-                快排 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -624,7 +648,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库查询慢怎么优化？"><span class="nav-number">1.</span> <span class="nav-text">数据库查询慢怎么优化？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程通信"><span class="nav-number">1.</span> <span class="nav-text">线程通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wait-和-notify的实现"><span class="nav-number">2.</span> <span class="nav-text">Wait 和 notify的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的生命周期"><span class="nav-number">3.</span> <span class="nav-text">线程的生命周期</span></a></li></ol></div>
             
 
           </div>
