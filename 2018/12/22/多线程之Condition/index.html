@@ -92,18 +92,18 @@
 
 
 
-<meta name="description" content="现实很残酷，加油！">
+<meta name="description" content="等待/通知模式 Sychronized和wait、notify、notifyAll可以实现等待/通知模式，而ReentrantLock类借助Condition对象也能实现等待/通知模式,Condition对象的await、signal和signalAll对应着Object类的wait、notify和notifyAll.Condition使用的时候也和wait一样要获得同步监视器，一般是通过Reen">
 <meta name="keywords" content="多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多线程之Condition">
 <meta property="og:url" content="http://growing111.github.io/2018/12/22/多线程之Condition/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="现实很残酷，加油！">
+<meta property="og:description" content="等待/通知模式 Sychronized和wait、notify、notifyAll可以实现等待/通知模式，而ReentrantLock类借助Condition对象也能实现等待/通知模式,Condition对象的await、signal和signalAll对应着Object类的wait、notify和notifyAll.Condition使用的时候也和wait一样要获得同步监视器，一般是通过Reen">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-22T05:47:58.709Z">
+<meta property="og:updated_time" content="2018-12-23T05:36:41.659Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多线程之Condition">
-<meta name="twitter:description" content="现实很残酷，加油！">
+<meta name="twitter:description" content="等待/通知模式 Sychronized和wait、notify、notifyAll可以实现等待/通知模式，而ReentrantLock类借助Condition对象也能实现等待/通知模式,Condition对象的await、signal和signalAll对应着Object类的wait、notify和notifyAll.Condition使用的时候也和wait一样要获得同步监视器，一般是通过Reen">
 
 
 
@@ -385,7 +385,15 @@
       
 
       
-        
+        <h2 id="等待-通知模式"><a href="#等待-通知模式" class="headerlink" title="等待/通知模式"></a>等待/通知模式</h2><blockquote>
+<p>Sychronized和wait、notify、notifyAll可以实现等待/通知模式，<br>而ReentrantLock类借助Condition对象也能实现等待/通知模式,<br>Condition对象的await、signal和signalAll对应着Object类的wait、notify和notifyAll.<br><code>Condition</code>使用的时候也和wait一样要获得同步监视器，一般是通过ReentrantLock类的lock实现的。</p>
+</blockquote>
+<p><strong>例子：</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Lock lock=<span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> Condition condition=lock.newCondition();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">await</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            lock.lock();</span><br><span class="line">            System.out.println(<span class="string">"await时间为 "</span>+System.currentTimeMillis());</span><br><span class="line">            condition.await();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">signal</span><span class="params">()</span></span>&#123;</span><br><span class="line">            lock.lock();</span><br><span class="line">            System.out.println(<span class="string">"signal时间为 "</span>+System.currentTimeMillis());</span><br><span class="line">            condition.signal();</span><br><span class="line">            lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadA</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> MyService myService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ThreadA</span><span class="params">(MyService myService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.myService = myService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        myService.await();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Run</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        MyService myService = <span class="keyword">new</span> MyService();</span><br><span class="line">        ThreadA threadA = <span class="keyword">new</span> ThreadA(myService);</span><br><span class="line">        threadA.start();</span><br><span class="line">        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        myService.signal();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong> 结果：</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">await时间为 <span class="number">1545543043026</span></span><br><span class="line">signal时间为 <span class="number">1545543044025</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="ReentrantLock类的方法"><a href="#ReentrantLock类的方法" class="headerlink" title="ReentrantLock类的方法"></a>ReentrantLock类的方法</h2><blockquote>
+<p>ReentrantLock lock=new ReentrantLock();<br><code>lock.getHoldCount()</code> 查询当前线程保持此锁的个数，也就是调用lock()方法的次数。<br><code>lock.getQueueLength()</code> 返回正等待获取此锁定的线程估计数。<br><code>lock.getWaitQueueLength()</code> 返回等待此锁定相关的给定条件condition的线程估计数。<br><code>lock.hasQueuedThread()</code> 查询指定的线程是否正在等待获取此锁定<br><code>lock.hasQueuedThreads()</code> 查询是否有线程正在等待获取此锁定<br><code>lock.hasWaiters()</code> 查询是否有线程正在等待与此锁定有关的condition</p>
+</blockquote>
+
       
     </div>
     
@@ -510,8 +518,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -585,6 +602,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#等待-通知模式"><span class="nav-number">1.</span> <span class="nav-text">等待/通知模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ReentrantLock类的方法"><span class="nav-number">2.</span> <span class="nav-text">ReentrantLock类的方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
