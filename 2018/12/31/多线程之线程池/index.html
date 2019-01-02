@@ -81,7 +81,7 @@
 
 
 
-  <meta name="keywords" content="多态," />
+  <meta name="keywords" content="多线程," />
 
 
 
@@ -92,18 +92,18 @@
 
 
 
-<meta name="description" content="什么是多态 同一个引用类型，使用不同的实例而有不同的结果，有不同的解释  多态的好处 多态性削弱了开发人员的工作，因为他现在可以创建一种具有他为之设想的所有属性和行为的通用类。当开发人员需要某些独特属性和行为的更具体的子类时，开发人员只需要更改行为不同的特定部分中的代码.  多态的优点 提高代码的复用性解耦和可扩展性  多态实现的前提 1.继承2.重写父类的方法3.父类引用指向子类对像  例子：1">
-<meta name="keywords" content="多态">
+<meta name="description" content="线程池的好处 因为多线程是异步执行，加快速度，但是线程创建过多，反而会造成内存占有过多。为了避免过多创建的线程，创建线程池管理线程  线程池的创建  Executors.newCachedThreadPool()：无限线程池。源码介绍：Creates a thread pool that creates new threads as needed, but will reuse previousl">
+<meta name="keywords" content="多线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="多态">
-<meta property="og:url" content="http://growing111.github.io/2018/11/24/多态/index.html">
+<meta property="og:title" content="多线程之线程池">
+<meta property="og:url" content="http://growing111.github.io/2018/12/31/多线程之线程池/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="什么是多态 同一个引用类型，使用不同的实例而有不同的结果，有不同的解释  多态的好处 多态性削弱了开发人员的工作，因为他现在可以创建一种具有他为之设想的所有属性和行为的通用类。当开发人员需要某些独特属性和行为的更具体的子类时，开发人员只需要更改行为不同的特定部分中的代码.  多态的优点 提高代码的复用性解耦和可扩展性  多态实现的前提 1.继承2.重写父类的方法3.父类引用指向子类对像  例子：1">
+<meta property="og:description" content="线程池的好处 因为多线程是异步执行，加快速度，但是线程创建过多，反而会造成内存占有过多。为了避免过多创建的线程，创建线程池管理线程  线程池的创建  Executors.newCachedThreadPool()：无限线程池。源码介绍：Creates a thread pool that creates new threads as needed, but will reuse previousl">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-25T10:25:26.167Z">
+<meta property="og:updated_time" content="2019-01-02T14:38:38.526Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="多态">
-<meta name="twitter:description" content="什么是多态 同一个引用类型，使用不同的实例而有不同的结果，有不同的解释  多态的好处 多态性削弱了开发人员的工作，因为他现在可以创建一种具有他为之设想的所有属性和行为的通用类。当开发人员需要某些独特属性和行为的更具体的子类时，开发人员只需要更改行为不同的特定部分中的代码.  多态的优点 提高代码的复用性解耦和可扩展性  多态实现的前提 1.继承2.重写父类的方法3.父类引用指向子类对像  例子：1">
+<meta name="twitter:title" content="多线程之线程池">
+<meta name="twitter:description" content="线程池的好处 因为多线程是异步执行，加快速度，但是线程创建过多，反而会造成内存占有过多。为了避免过多创建的线程，创建线程池管理线程  线程池的创建  Executors.newCachedThreadPool()：无限线程池。源码介绍：Creates a thread pool that creates new threads as needed, but will reuse previousl">
 
 
 
@@ -133,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://growing111.github.io/2018/11/24/多态/"/>
+  <link rel="canonical" href="http://growing111.github.io/2018/12/31/多线程之线程池/"/>
 
 
 
 
 
-  <title>多态 | Liuy</title>
+  <title>多线程之线程池 | Liuy</title>
   
 
 
@@ -286,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://growing111.github.io/2018/11/24/多态/">
+    <link itemprop="mainEntityOfPage" href="http://growing111.github.io/2018/12/31/多线程之线程池/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Liuy">
@@ -303,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">多态</h1>
+          <h1 class="post-title" itemprop="name headline">多线程之线程池</h1>
         
 
         <div class="post-meta">
@@ -315,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T17:17:55+08:00">
-                2018-11-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-31T21:24:49+08:00">
+                2018-12-31
               </time>
             
 
@@ -356,8 +356,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/11/24/多态/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/11/24/多态/" itemprop="commentsCount"></span>
+                <a href="/2018/12/31/多线程之线程池/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/12/31/多线程之线程池/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -385,19 +385,33 @@
       
 
       
-        <h2 id="什么是多态"><a href="#什么是多态" class="headerlink" title="什么是多态"></a>什么是多态</h2><blockquote>
-<p>同一个引用类型，使用不同的实例而有不同的结果，有不同的解释</p>
+        <h2 id="线程池的好处"><a href="#线程池的好处" class="headerlink" title="线程池的好处"></a>线程池的好处</h2><blockquote>
+<p>因为多线程是异步执行，加快速度，但是线程创建过多，反而会造成内存占有过多。为了避免过多创建的线程，创建线程池管理线程</p>
 </blockquote>
-<h2 id="多态的好处"><a href="#多态的好处" class="headerlink" title="多态的好处"></a>多态的好处</h2><blockquote>
-<p>多态性削弱了开发人员的工作，因为他现在可以创建一种具有他为之设想的所有属性和行为的通用类。当开发人员需要某些独特属性和行为的更具体的子类时，开发人员只需要更改行为不同的特定部分中的代码.</p>
+<h2 id="线程池的创建"><a href="#线程池的创建" class="headerlink" title="线程池的创建"></a>线程池的创建</h2><blockquote>
+<ul>
+<li>Executors.newCachedThreadPool()：无限线程池。<br>源码介绍：Creates a thread pool that creates new threads as needed, but will reuse previously constructed threads when they are available.  These pools will typically improve the performance of programs that execute many short-lived asynchronous tasks.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newCachedThreadPool</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE,</span><br><span class="line">                                     <span class="number">60L</span>, TimeUnit.SECONDS,</span><br><span class="line">                                     <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;());</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 </blockquote>
-<h2 id="多态的优点"><a href="#多态的优点" class="headerlink" title="多态的优点"></a>多态的优点</h2><blockquote>
-<p>提高代码的复用性<br>解耦和<br>可扩展性</p>
+<blockquote>
+<ul>
+<li>Executors.newFixedThreadPool(nThreads)：创建固定大小的线程池。<br>源码介绍：Creates a thread pool that reuses a fixed number of threads operating off a shared unbounded queue.  At any point, at most {@code nThreads} threads will be active processing tasks.If additional tasks are submitted when all threads are active,<br>they will wait in the queue until a thread is available.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newFixedThreadPool</span><span class="params">(<span class="keyword">int</span> nThreads)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(nThreads, nThreads,</span><br><span class="line">                                      <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                      <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 </blockquote>
-<h2 id="多态实现的前提"><a href="#多态实现的前提" class="headerlink" title="多态实现的前提"></a>多态实现的前提</h2><blockquote>
-<p>1.继承<br>2.重写父类的方法<br>3.父类引用指向子类对像</p>
+<blockquote>
+<ul>
+<li>Executors.newSingleThreadExecutor()：创建单个线程的线程池。</li>
+</ul>
 </blockquote>
-<h2 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SuperClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"SuperClass run methods"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubClass</span> <span class="keyword">extends</span> <span class="title">SuperClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"SubClass Overrides run methods"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SuperClass superClass=<span class="keyword">new</span> SuperClass();</span><br><span class="line">        superClass.run();</span><br><span class="line">        superClass=<span class="keyword">new</span> SubClass();</span><br><span class="line">        superClass.run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">结果：</span><br><span class="line">SuperClass run methods</span><br><span class="line">SubClass Overrides run methods</span><br></pre></td></tr></table></figure>
+<p>源码介绍：Creates an Executor that uses a single worker thread operating<br>off an unbounded queue. (Note however that if this single thread terminates due to a failure during execution prior to shutdown, a new one will take its place if needed to execute  subsequent tasks.) </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newSingleThreadExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">new</span> FinalizableDelegatedExecutorService</span><br><span class="line">         (<span class="keyword">new</span> ThreadPoolExecutor(<span class="number">1</span>, <span class="number">1</span>,</span><br><span class="line">                                 <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                 <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;()));</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p> <strong>发现都是通过ThreadPoolExecutor创建的</strong></p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                            TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                            BlockingQueue&lt;Runnable&gt; workQueue)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,</span><br><span class="line">           Executors.defaultThreadFactory(), defaultHandler);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>corePoolSize 为线程池的基本大小。<br>maximumPoolSize 为线程池最大线程大小。<br>keepAliveTime 和 unit 则是线程空闲后的存活时间。<br>workQueue 用于存放任务的阻塞队列。<br>handler 当队列和最大线程池都满了之后的饱和策略。</p>
+</blockquote>
 
       
     </div>
@@ -418,7 +432,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://growing111.github.io/2018/11/24/多态/" title="多态">http://growing111.github.io/2018/11/24/多态/</a>
+    <a href="http://growing111.github.io/2018/12/31/多线程之线程池/" title="多线程之线程池">http://growing111.github.io/2018/12/31/多线程之线程池/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -443,7 +457,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/多态/" i class="fa fa-tag"></i> 多态</a>
+            <a href="/tags/多线程/" i class="fa fa-tag"></i> 多线程</a>
           
         </div>
       
@@ -456,8 +470,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/24/重载与重写/" rel="next" title="重载和重写">
-                <i class="fa fa-chevron-left"></i> 重载和重写
+              <a href="/2018/12/22/多线程之Condition/" rel="next" title="多线程之Condition">
+                <i class="fa fa-chevron-left"></i> 多线程之Condition
               </a>
             
           </div>
@@ -465,10 +479,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/01/工厂模式/" rel="prev" title="工厂模式">
-                工厂模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -621,7 +631,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是多态"><span class="nav-number">1.</span> <span class="nav-text">什么是多态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多态的好处"><span class="nav-number">2.</span> <span class="nav-text">多态的好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多态的优点"><span class="nav-number">3.</span> <span class="nav-text">多态的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多态实现的前提"><span class="nav-number">4.</span> <span class="nav-text">多态实现的前提</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例子："><span class="nav-number">5.</span> <span class="nav-text">例子：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池的好处"><span class="nav-number">1.</span> <span class="nav-text">线程池的好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池的创建"><span class="nav-number">2.</span> <span class="nav-text">线程池的创建</span></a></li></ol></div>
             
 
           </div>
