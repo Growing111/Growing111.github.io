@@ -81,7 +81,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="索引," />
 
 
 
@@ -92,17 +92,18 @@
 
 
 
-<meta name="description" content="现实很残酷，加油！">
+<meta name="description" content="存储引擎种类InnoDB,MyISAM,Memory,DNB集群等 索引的种类 索引有很多种类，在mysql中，索引是在存储引擎层实现的。不同存储引擎的索引的工作方式是不一样的  索引的好处  索引大大减少服务器需要扫描的数据量 索引可以帮助服务器避免排序和临时表 索引可以将随机I/O变为顺序I/O   索引的缺点  创建索引需要占用内存的。 当增加，删除和修改数据时，索引也要维护，效率降低了。">
+<meta name="keywords" content="索引">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql索引">
-<meta property="og:url" content="http://growing111.github.io/2019/01/06/mysql索引/index.html">
+<meta property="og:url" content="http://growing111.github.io/2019/01/02/mysql索引/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="现实很残酷，加油！">
+<meta property="og:description" content="存储引擎种类InnoDB,MyISAM,Memory,DNB集群等 索引的种类 索引有很多种类，在mysql中，索引是在存储引擎层实现的。不同存储引擎的索引的工作方式是不一样的  索引的好处  索引大大减少服务器需要扫描的数据量 索引可以帮助服务器避免排序和临时表 索引可以将随机I/O变为顺序I/O   索引的缺点  创建索引需要占用内存的。 当增加，删除和修改数据时，索引也要维护，效率降低了。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-06T05:36:42.761Z">
+<meta property="og:updated_time" content="2019-01-06T06:34:54.836Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql索引">
-<meta name="twitter:description" content="现实很残酷，加油！">
+<meta name="twitter:description" content="存储引擎种类InnoDB,MyISAM,Memory,DNB集群等 索引的种类 索引有很多种类，在mysql中，索引是在存储引擎层实现的。不同存储引擎的索引的工作方式是不一样的  索引的好处  索引大大减少服务器需要扫描的数据量 索引可以帮助服务器避免排序和临时表 索引可以将随机I/O变为顺序I/O   索引的缺点  创建索引需要占用内存的。 当增加，删除和修改数据时，索引也要维护，效率降低了。">
 
 
 
@@ -132,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="http://growing111.github.io/2019/01/06/mysql索引/"/>
+  <link rel="canonical" href="http://growing111.github.io/2019/01/02/mysql索引/"/>
 
 
 
@@ -285,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://growing111.github.io/2019/01/06/mysql索引/">
+    <link itemprop="mainEntityOfPage" href="http://growing111.github.io/2019/01/02/mysql索引/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Liuy">
@@ -314,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-06T13:36:42+08:00">
-                2019-01-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T13:36:42+08:00">
+                2019-01-02
               </time>
             
 
@@ -325,6 +326,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -333,8 +356,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/01/06/mysql索引/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/01/06/mysql索引/" itemprop="commentsCount"></span>
+                <a href="/2019/01/02/mysql索引/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/01/02/mysql索引/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -362,7 +385,36 @@
       
 
       
-        
+        <h2 id="存储引擎种类"><a href="#存储引擎种类" class="headerlink" title="存储引擎种类"></a>存储引擎种类</h2><p>InnoDB,MyISAM,Memory,DNB集群等</p>
+<h2 id="索引的种类"><a href="#索引的种类" class="headerlink" title="索引的种类"></a>索引的种类</h2><blockquote>
+<p>索引有很多种类，在mysql中，索引是在存储引擎层实现的。不同存储引擎的索引的工作方式是不一样的</p>
+</blockquote>
+<h2 id="索引的好处"><a href="#索引的好处" class="headerlink" title="索引的好处"></a>索引的好处</h2><blockquote>
+<ol>
+<li>索引大大减少服务器需要扫描的数据量</li>
+<li>索引可以帮助服务器避免排序和临时表</li>
+<li>索引可以将随机I/O变为顺序I/O</li>
+</ol>
+</blockquote>
+<h2 id="索引的缺点"><a href="#索引的缺点" class="headerlink" title="索引的缺点"></a>索引的缺点</h2><blockquote>
+<ol>
+<li>创建索引需要占用内存的。</li>
+<li>当增加，删除和修改数据时，索引也要维护，效率降低了。</li>
+</ol>
+</blockquote>
+<h2 id="索引种类"><a href="#索引种类" class="headerlink" title="索引种类"></a>索引种类</h2><blockquote>
+<p><strong>B-Tree索引：</strong>它使用了B-Tree数据结构来存储数据。存储引擎以不同方式使用B-Tree索引，性能也各不用。MyISAM使用了前缀压缩技术使索引更小，但是InnoDB则按照原数据格式进行存储。又比如MyISAM的索引是通过数据的物理位置引用被索引的行，而InnoDB则根据主键引用被索引的行。B-Tree索引意味着所有值都是按顺序存储的，每个叶子页到根的距离相同。</p>
+</blockquote>
+<blockquote>
+<p><strong>哈希索引:</strong>基于哈希表的实现，只有精确匹配所有列的查询才有效，在mysql中，只有Memory引擎显式支持哈希索引。哈希索引只包含哈希值和行指针，不存储字段值，所以哈希索引是无法范围查询的，只能等值查询。哈希索引查询原理：先计算出查询条件的哈希值，并使用寻找到对应记录的指针。哈希索引一般只用于一些特别的场合，一般哈希索引很快的，但是当存在较多的哈希冲突时，存储引擎必须遍历链表中所有的行指针，逐一比较查找得到结构，维护操作的代价会很高。</p>
+</blockquote>
+<blockquote>
+<p><strong>空间索引:</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>全文索引:</strong></p>
+</blockquote>
+
       
     </div>
     
@@ -382,7 +434,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://growing111.github.io/2019/01/06/mysql索引/" title="mysql索引">http://growing111.github.io/2019/01/06/mysql索引/</a>
+    <a href="http://growing111.github.io/2019/01/02/mysql索引/" title="mysql索引">http://growing111.github.io/2019/01/02/mysql索引/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -404,6 +456,12 @@
 	</div>
 	
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/索引/" i class="fa fa-tag"></i> 索引</a>
+          
+        </div>
       
 
       
@@ -481,8 +539,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -512,7 +579,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -523,7 +590,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -556,6 +623,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#存储引擎种类"><span class="nav-number">1.</span> <span class="nav-text">存储引擎种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引的种类"><span class="nav-number">2.</span> <span class="nav-text">索引的种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引的好处"><span class="nav-number">3.</span> <span class="nav-text">索引的好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引的缺点"><span class="nav-number">4.</span> <span class="nav-text">索引的缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引种类"><span class="nav-number">5.</span> <span class="nav-text">索引种类</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
