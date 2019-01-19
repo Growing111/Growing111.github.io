@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[mysql索引]]></title>
+    <url>%2F2019%2F01%2F02%2Fmysql%E7%B4%A2%E5%BC%95%2F</url>
+    <content type="text"><![CDATA[存储引擎种类InnoDB,MyISAM,Memory,DNB集群等 索引的种类 索引有很多种类，在mysql中，索引是在存储引擎层实现的。不同存储引擎的索引的工作方式是不一样的 索引的好处 索引大大减少服务器需要扫描的数据量 索引可以帮助服务器避免排序和临时表 索引可以将随机I/O变为顺序I/O 索引的缺点 创建索引需要占用内存的。 当增加，删除和修改数据时，索引也要维护，效率降低了。 索引种类 B-Tree索引：它使用了B-Tree数据结构来存储数据。存储引擎以不同方式使用B-Tree索引，性能也各不用。MyISAM使用了前缀压缩技术使索引更小，但是InnoDB则按照原数据格式进行存储。又比如MyISAM的索引是通过数据的物理位置引用被索引的行，而InnoDB则根据主键引用被索引的行。B-Tree索引意味着所有值都是按顺序存储的，每个叶子页到根的距离相同。 哈希索引:基于哈希表的实现，只有精确匹配所有列的查询才有效，在mysql中，只有Memory引擎显式支持哈希索引。哈希索引只包含哈希值和行指针，不存储字段值，所以哈希索引是无法范围查询的，只能等值查询。哈希索引查询原理：先计算出查询条件的哈希值，并使用寻找到对应记录的指针。哈希索引一般只用于一些特别的场合，一般哈希索引很快的，但是当存在较多的哈希冲突时，存储引擎必须遍历链表中所有的行指针，逐一比较查找得到结果，维护操作的代价会很高。InnoDB中有一个特殊的功能叫”自适应哈希索引”，当InnoDB注意到某些索引值被使用的非常频繁，就会在内存中基于B-Tree索引之上再创建一个哈希索引，这样B-Tree索引也具有一些哈希索引的优点。 空间索引:MyISAM表支持空间索引。空间索引无须前缀查询，空间索引会从所有的维度来索引数据，查询时可以有效的使用任意维度来组合查询。 全文索引:全文索引是一种特殊的索引，它查找的是全文中的关键词，而不是直接比较索引中的值，全文索引更类似于搜索引擎，而不是简单的where条件匹配。]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>索引</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[多线程之线程池]]></title>
+    <url>%2F2018%2F12%2F31%2F%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0%2F</url>
+    <content type="text"><![CDATA[线程池的好处 因为多线程是异步执行，加快速度，但是线程创建过多，反而会造成内存占有过多。为了避免过多创建的线程，创建线程池管理线程 线程池的创建 Executors.newCachedThreadPool()：无限线程池。源码介绍：Creates a thread pool that creates new threads as needed, but will reuse previously constructed threads when they are available. These pools will typically improve the performance of programs that execute many short-lived asynchronous tasks.12345public static ExecutorService newCachedThreadPool() &#123; return new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue&lt;Runnable&gt;()); &#125; Executors.newFixedThreadPool(nThreads)：创建固定大小的线程池。源码介绍：Creates a thread pool that reuses a fixed number of threads operating off a shared unbounded queue. At any point, at most {@code nThreads} threads will be active processing tasks.If additional tasks are submitted when all threads are active,they will wait in the queue until a thread is available.12345public static ExecutorService newFixedThreadPool(int nThreads) &#123; return new ThreadPoolExecutor(nThreads, nThreads, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue&lt;Runnable&gt;()); &#125; Executors.newSingleThreadExecutor()：创建单个线程的线程池。 源码介绍：Creates an Executor that uses a single worker thread operatingoff an unbounded queue. (Note however that if this single thread terminates due to a failure during execution prior to shutdown, a new one will take its place if needed to execute subsequent tasks.) 123456public static ExecutorService newSingleThreadExecutor() &#123; return new FinalizableDelegatedExecutorService (new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue&lt;Runnable&gt;())); &#125; 发现都是通过ThreadPoolExecutor创建的： public ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue&lt;Runnable&gt; workQueue) { this(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, Executors.defaultThreadFactory(), defaultHandler); } ThreadPoolExecutor有四个构造函数(含有个多个参数)int corePoolSize =&gt; 该线程池中核心线程数最大值int maximumPoolSize 线程总数最大值long keepAliveTime 非核心线程闲置超时时长TimeUnit unit keepAliveTime的单位BlockingQueue workQueue 维护着等待执行的Runnable对象ThreadFactory threadFactory 创建线程的方式RejectedExecutionHandler handler抛异常 线程池的执行流程 线程数量未达到线程池核心线程最大数，则新建一个线程(核心线程)执行任务 线程数量达到了线程池核心线程最大数，则将任务移入队列等待 队列未满，将任务存在队列中 队列已满，正在运行的线程数量小于线程总数，还会继续创建线程 队列已满，正在运行的线程数量大于等于线程总数，就会通过策略进行后续任务的处理 线程池的饱和策略ThreadPoolExecutor的饱和策略通过调用setRejectedExecutionHandler来修改 AbortPolicy这个是java线程池默认的阻塞策略，不执行此任务，而且直接抛出一个运行时异常 DiscardPolicy直接抛弃，任务不执行，空方法 DiscardOldestPolicy从队列里面抛弃head的一个任务，并再次execute 此task。 CallerRunsPolicy在调用execute的线程里面执行此command，会阻塞入口 例如：1234 ThreadPoolExecutor executor=new ThreadPoolExecutor(N_THREADS,N_THREADS,0L,TimeUnit.MILLISECONDS,new LinkedBlockingQueue&lt;Runnable&gt;(CAPACITY));executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[多线程之Condition]]></title>
+    <url>%2F2018%2F12%2F22%2F%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8BCondition%2F</url>
+    <content type="text"><![CDATA[等待/通知模式 Sychronized和wait、notify、notifyAll可以实现等待/通知模式，而ReentrantLock类借助Condition对象也能实现等待/通知模式,Condition对象的await、signal和signalAll对应着Object类的wait、notify和notifyAll.Condition使用的时候也和wait一样要获得同步监视器，一般是通过ReentrantLock类的lock实现的。 例子：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849public class MyService &#123; private Lock lock=new ReentrantLock(); private Condition condition=lock.newCondition(); public void await()&#123; try &#123; lock.lock(); System.out.println("await时间为 "+System.currentTimeMillis()); condition.await(); &#125; catch (InterruptedException e) &#123; e.printStackTrace(); &#125;finally &#123; lock.unlock(); &#125; &#125; public void signal()&#123; lock.lock(); System.out.println("signal时间为 "+System.currentTimeMillis()); condition.signal(); lock.unlock(); &#125;&#125;public class ThreadA extends Thread &#123; private MyService myService; public ThreadA(MyService myService) &#123; this.myService = myService; &#125; @Override public void run() &#123; myService.await(); &#125;&#125;public class Run &#123; public static void main(String[] args) throws InterruptedException &#123; MyService myService = new MyService(); ThreadA threadA = new ThreadA(myService); threadA.start(); Thread.sleep(1000); myService.signal(); &#125;&#125; 结果：123await时间为 1545543043026signal时间为 1545543044025 ReentrantLock类的方法 ReentrantLock lock=new ReentrantLock();lock.getHoldCount() 查询当前线程保持此锁的个数，也就是调用lock()方法的次数。lock.getQueueLength() 返回正等待获取此锁定的线程估计数。lock.getWaitQueueLength() 返回等待此锁定相关的给定条件condition的线程估计数。lock.hasQueuedThread() 查询指定的线程是否正在等待获取此锁定lock.hasQueuedThreads() 查询是否有线程正在等待获取此锁定lock.hasWaiters() 查询是否有线程正在等待与此锁定有关的condition]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[多线程之ReentrantLock]]></title>
+    <url>%2F2018%2F12%2F21%2F%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8BReentrantLock%2F</url>
+    <content type="text"><![CDATA[ReentrantLock类 Sychronized关键字可以来实现线程之间的同步，ReentrantLock类也可以达到同样的效果，并且在拓展功能上跟强大。 ReentrantLock的优势 ReentrantLock是一种可重入锁，它能进入已经加锁的同步代码块，不会出现阻塞自己的情况，相比Sychronized要等待到锁执行完毕，它可以中断响应， 锁类型 ReentrantLock是有两种锁的，一种是非公平锁，一种是公平锁(FairSync)，默认是一种非公平锁(NonfairSync)。 12345678//默认构造是非公平锁public ReentrantLock() &#123; sync = new NonfairSync(); &#125;//有两种锁public ReentrantLock(boolean fair) &#123; sync = fair ? new FairSync() : new NonfairSync(); &#125; 非公平锁123456final void lock() &#123; if (compareAndSetState(0, 1)) setExclusiveOwnerThread(Thread.currentThread()); else acquire(1); &#125; 非公平锁，不用等待队列中的其他线程，可以直接抢占尝试获取锁。compareAndSetState方法使用unsafe的CAS实现对状态的原子操作 公平锁12345678910111213141516171819protected final boolean tryAcquire(int acquires) &#123; final Thread current = Thread.currentThread(); int c = getState(); if (c == 0) &#123; if (!hasQueuedPredecessors() &amp;&amp; compareAndSetState(0, acquires)) &#123; setExclusiveOwnerThread(current); return true; &#125; &#125; else if (current == getExclusiveOwnerThread()) &#123; int nextc = c + acquires; if (nextc &lt; 0) throw new Error("Maximum lock count exceeded"); setState(nextc); return true; &#125; return false; &#125; 判断AQS中c的状态，如果hasQueuedPredecessors为空和状态等于0，表示队列中没用线程，可以尝试获取锁，利用CSA更改状态，如果状态大于0,说明锁被获取了，然后判断获取锁的线程是否为当前线程，是则需要将 state + 1，并将值更新。 原理 ReentrantLock构造新建Sync,而sync是继承AQS(AbstractQueuedSynchronizer)的， 12static final class NonfairSync extends Sync &#123;&#125;abstract static class Sync extends AbstractQueuedSynchronizer &#123;&#125; 使用 Lock lock=new ReentrantLock();调用ReentrantLock对象的lock()方法获取锁，调用unlock()方法释放锁。 调用lock.lock()的线程就持有了“对象监视器”。 12345678910111213141516171819202122232425262728293031323334353637383940414243public class MyService &#123; private Lock lock=new ReentrantLock(); public void testMethods()&#123; lock.lock(); for (int i = 0; i &lt;10 ; i++) &#123; System.out.println("ThreadName="+Thread.currentThread().getName()+" "+(i+1)); &#125; lock.unlock(); &#125;&#125;public class MyThread extends Thread &#123; private MyService myService; public MyThread(MyService myService) &#123; this.myService = myService; &#125; @Override public void run() &#123; myService.testMethods(); &#125;&#125;public class Run &#123; public static void main(String[] args) &#123; MyService service=new MyService(); MyThread a1 = new MyThread(service); MyThread a2 = new MyThread(service); MyThread a3 = new MyThread(service); MyThread a4 = new MyThread(service); MyThread a5 = new MyThread(service); a1.start(); a2.start(); a3.start(); a4.start(); a5.start(); &#125;&#125; 结果：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950ThreadName=Thread-1 1ThreadName=Thread-1 2ThreadName=Thread-1 3ThreadName=Thread-1 4ThreadName=Thread-1 5ThreadName=Thread-1 6ThreadName=Thread-1 7ThreadName=Thread-1 8ThreadName=Thread-1 9ThreadName=Thread-1 10ThreadName=Thread-0 1ThreadName=Thread-0 2ThreadName=Thread-0 3ThreadName=Thread-0 4ThreadName=Thread-0 5ThreadName=Thread-0 6ThreadName=Thread-0 7ThreadName=Thread-0 8ThreadName=Thread-0 9ThreadName=Thread-0 10ThreadName=Thread-2 1ThreadName=Thread-2 2ThreadName=Thread-2 3ThreadName=Thread-2 4ThreadName=Thread-2 5ThreadName=Thread-2 6ThreadName=Thread-2 7ThreadName=Thread-2 8ThreadName=Thread-2 9ThreadName=Thread-2 10ThreadName=Thread-3 1ThreadName=Thread-3 2ThreadName=Thread-3 3ThreadName=Thread-3 4ThreadName=Thread-3 5ThreadName=Thread-3 6ThreadName=Thread-3 7ThreadName=Thread-3 8ThreadName=Thread-3 9ThreadName=Thread-3 10ThreadName=Thread-4 1ThreadName=Thread-4 2ThreadName=Thread-4 3ThreadName=Thread-4 4ThreadName=Thread-4 5ThreadName=Thread-4 6ThreadName=Thread-4 7ThreadName=Thread-4 8ThreadName=Thread-4 9ThreadName=Thread-4 10 由结果可知，实现了同步。 ReentrantReadWriteLock类 因为ReentrantLock.lock()方法后面的任务，这样虽然保证了实例变量的线程安全性，但是效率却是非常低下的。所有提供了一种读写锁ReentrantReadWriteLock类(也叫排他锁) 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667public class Service &#123; private ReentrantReadWriteLock lock=new ReentrantReadWriteLock(); public void Read()&#123; try &#123; lock.readLock().lock(); System.out.println("获取读锁"+Thread.currentThread().getName()+" "+System.currentTimeMillis()); Thread.sleep(1000); &#125; catch (InterruptedException e) &#123; e.printStackTrace(); &#125;finally &#123; lock.readLock().unlock(); &#125; &#125; public void Write() &#123; try &#123; lock.writeLock().lock(); System.out.println("获取写锁" + Thread.currentThread().getName() + " " + System.currentTimeMillis()); Thread.sleep(1000); &#125; catch (InterruptedException e) &#123; e.printStackTrace(); &#125; finally &#123; lock.writeLock().unlock(); &#125; &#125;&#125;public class ThreadA extends Thread&#123; private Service service; public ThreadA(Service service) &#123; this.service = service; &#125; @Override public void run() &#123; service.Read(); &#125;&#125;public class ThreadB extends Thread &#123; private Service service; public ThreadB(Service service) &#123; this.service = service; &#125; @Override public void run() &#123; service.Write(); &#125;&#125;public class Run &#123; public static void main(String[] args) &#123; Service service=new Service(); ThreadA threadA=new ThreadA(service); threadA.setName("A"); threadA.start(); ThreadB threadB=new ThreadB(service); threadB.setName("B"); threadB.start(); &#125;&#125; 结果:12获取读锁A 1545462698121获取写锁B 1545462699122]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[多线程之ThreadLocal类]]></title>
+    <url>%2F2018%2F12%2F18%2F%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8BThreadLocal%E7%B1%BB%2F</url>
+    <content type="text"><![CDATA[ThreadLocal 变量值的共享可以使用public static变量形式,类ThreadLocal主要解决的就是每个线程绑定自己的值。 隔离性 类ThreadLocal解决的是变量在不同线程间的隔离性，也就是不同线程拥有自己的值，不同线程中的值是可以放入ThreadLocal类进行保存的 Java例子12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455public class Tool &#123; public static ThreadLocal threadLocal=new ThreadLocal();&#125;public class ThreadA extends Thread&#123; @Override public void run() &#123; for (int i = 0; i &lt;5 ; i++) &#123; Tool.threadLocal.set(i); System.out.println("ThreadA get Value=" + Tool.threadLocal.get()); try &#123; Thread.sleep(3000); &#125; catch (InterruptedException e) &#123; e.printStackTrace(); &#125; &#125; &#125;&#125;public class ThreadB extends Thread &#123; @Override public void run() &#123; for (int i = 0; i &lt;5 ; i++) &#123; Tool.threadLocal.set(i); System.out.println("ThreadB get Value=" + Tool.threadLocal.get()); try &#123; Thread.sleep(1000); &#125; catch (InterruptedException e) &#123; e.printStackTrace(); &#125; &#125; &#125;&#125;public class Run &#123; public static void main(String[] args) &#123; ThreadA threadA=new ThreadA(); threadA.start(); ThreadB theadB =new ThreadB(); theadB.start(); for (int i = 0; i &lt;5 ; i++) &#123; Tool.threadLocal.set(i); System.out.println("MainThread get Value=" + Tool.threadLocal.get()); try &#123; Thread.sleep(2000); &#125; catch (InterruptedException e) &#123; e.printStackTrace(); &#125; &#125; &#125;&#125; 结果： 123456789101112131415ThreadA get Value=0ThreadB get Value=0MainThread get Value=0ThreadB get Value=1MainThread get Value=1ThreadB get Value=2ThreadA get Value=1ThreadB get Value=3MainThread get Value=2ThreadB get Value=4MainThread get Value=3ThreadA get Value=2MainThread get Value=4ThreadA get Value=3ThreadA get Value=4 initialValue方法设置初始值 类ThreadLocal 可以在main线程和其他线程里设置初始值 Java例子: 123456789101112131415161718192021222324252627282930313233343536public class Tools &#123; public static ThreadLocal tools=new ThreadLocalExt();&#125;public class ThreadLocalExt extends ThreadLocal &#123; @Override protected Object initialValue() &#123; return new Date().getTime(); &#125;&#125;public class ThreadC extends Thread&#123; @Override public void run() &#123; for (int i = 0; i &lt;5 ; i++) &#123; System.out.println("ThreadC线程中取值="+Tools.tools.get()); try &#123; Thread.sleep(1000); &#125; catch (InterruptedException e) &#123; e.printStackTrace(); &#125; &#125; &#125;&#125;public class Test &#123; public static void main(String[] args) throws InterruptedException &#123; ThreadC threadC=new ThreadC(); threadC.start(); for (int i = 0; i &lt;10 ; i++) &#123; System.out.println("在Mian线程中取值="+Tools.tools.get()); Thread.sleep(2000); &#125; &#125;&#125; 结果:123456789101112131415ThreadC线程中取值=1545141944675在Mian线程中取值=1545141944675ThreadC线程中取值=1545141944675在Mian线程中取值=1545141944675ThreadC线程中取值=1545141944675ThreadC线程中取值=1545141944675在Mian线程中取值=1545141944675ThreadC线程中取值=1545141944675在Mian线程中取值=1545141944675在Mian线程中取值=1545141944675在Mian线程中取值=1545141944675在Mian线程中取值=1545141944675在Mian线程中取值=1545141944675在Mian线程中取值=1545141944675在Mian线程中取值=1545141944675]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[多线程之wait和notify]]></title>
+    <url>%2F2018%2F12%2F15%2F%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8Bwait%E5%92%8Cnotify%2F</url>
+    <content type="text"><![CDATA[线程通信 两个线程间实现通信，如果轮询时间间隔小，浪费cpu资源，如果轮询时间间隔大，有可能会取到与期望值不一样的数据。 Wait 和 notify的实现 Wait方法是使当前执行代码的线程进行等待。但是在调用wait方法之前，线程必须获得该对象的对象级别锁。只能在同步方法或同步代码块中调用wait方法，在执行wait方法后，当前线程释放同步锁。同理notify方法也要在同步方法或同步代码块中调用。注意:当执行notify方法后，当前线程不会马上释放该对象，wait状态的线程也不会马上获取该对象锁，需要等执行notify方法的线程执行完（退出synchronized同步方法或同步代码块）。Wait方法在同步方法或同步代码块里运行，wait方法可以使调用该方法的线程释放同步对象锁。Wait方法使线程停止，notify使停止的线程继续运行。 例子：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849public class ThreadA extends Thread&#123; private Object object; public ThreadA(Object object) &#123; this.object = object; &#125; @Override public void run() &#123; synchronized (object)&#123; System.out.println("wait开始，wait time="+System.currentTimeMillis()); try &#123; object.wait(); &#125; catch (InterruptedException e) &#123; e.printStackTrace(); &#125; System.out.println("wait结束，wait time="+System.currentTimeMillis()); &#125; &#125;&#125;public class ThreadB extends Thread &#123; private Object object; public ThreadB(Object object) &#123; this.object = object; &#125; @Override public void run() &#123; synchronized (object)&#123; System.out.println("notify开始，notify time="+System.currentTimeMillis()); object.notify(); System.out.println("notify结束，notify time="+System.currentTimeMillis()); &#125; &#125;&#125;public class Test &#123; public static void main(String[] args) &#123; Object object=new Object(); ThreadA threadA=new ThreadA(object); threadA.start(); ThreadB threadB=new ThreadB(object); threadB.start(); &#125;&#125; 线程的生命周期新建状态 当程序使用new创建一个线程后，就处于新建状态。 就绪状态(可运行状态) 当线程调用start()后，该线程就处于就绪状态，这是一个准备阶段。 运行状态 如果线程抢到cpu资源，此线程就处于运行状态。 阻塞状态 阻塞状态是线程因为某种原因放弃CPU使用权，使cpu处于空闲状态。 线程转化阻塞状态 线程调用sleep方法,主动放弃占有的处理资源。 线程调用了阻塞式IO已经返回，在该方法返回前，该线程被阻塞。 线程试图获取一个同步监视器，但该同步监视器正被其他线程所持有。 线程在等待某个通知。 线程调用了suspend方法将该线程挂起。 阻塞状态重新进入就绪状态 因为线程运行一段时间后，有其他优先级高的线程抢占cpu重新进入就绪状态有以下情况： 调用sleep方法后经过的时间超过指定休眠时间。 线程调用的阻塞IO已经返回，阻塞方法执行完毕。 线程成功获取试图同步的监视器。 线程正在等待某个通知，其他线程发出了一个通知。 处于挂起的线程调用了resume复方法。]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[多线程之volatile]]></title>
+    <url>%2F2018%2F12%2F11%2F%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8Bvolatile%2F</url>
+    <content type="text"><![CDATA[可见性 在多个线程之间，一个线程操作共享变量发生改变，它的值会立刻被更改到主存当中，其他线程去操作共享变量时获取到的是内存中的新值。 Volatile volatile是作用在一个变量上，它保证了不同线程对这个变量的操作可见性valatitle禁止指令重排序；java代码书写的顺序与实际执行的顺序不同，指令重排序一种对处理器提高程序性的优化 例如：123456789101112131415161718192021222324252627282930313233public class RunThread extends Thread &#123; private boolean isRunning=true; public boolean isRunning() &#123; return isRunning; &#125; public void setRunning(boolean running) &#123; isRunning = running; &#125; @Override public void run() &#123; System.out.println("进入run..."); while (isRunning==true)&#123; &#125; System.out.println("线程被停止了"); &#125;&#125;public class Test &#123; public static void main(String[] args) throws InterruptedException &#123; RunThread runThread=new RunThread(); runThread.start(); Thread.sleep(1000); runThread.setRunning(false); System.out.println("已经赋值false"); &#125;&#125; 结果：（进入死锁状态）12进入run...已经赋值false 这个问题就是私有堆栈中的值和公有堆栈中的值不同步造成的，关键字volatile的作用会强制从公共堆栈中取得变量。解决办法就是在isRunning加上volatile关键字 改进12345678910111213141516171819202122public class RunThread extends Thread &#123; private volatile boolean isRunning=true; public boolean isRunning() &#123; return isRunning; &#125; public void setRunning(boolean running) &#123; isRunning = running; &#125; @Override public void run() &#123; System.out.println("进入run..."); while (isRunning==true)&#123; &#125; System.out.println("线程被停止了"); &#125;&#125; 结果：12345进入run...已经赋值false线程被停止了Process finished with exit code 0 Volatile与sychronized比较 Volatile是线程轻量级的实现，Volatile只修饰变量，sychronized可作用于方法和代码块。 多线程访问Volatile不会发生阻塞，而sychronized会出现阻塞。 Volatile可以保证数据可见性，但不能保证原子性，sychronized可以保证原子性。 Volatile是解决变量在多线程之间的可见性，sychronized关键字解决的是多个线程之间访问资源的同步性。 Synchronized 它包含互斥性和可见性 同步sychronized可以解决一个线程看到对象对于不一致的状态，还可以保证进入同步方法或者同步代码块的每个线程，都看到由同一个锁保护之前所有的修改效果。 例如：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253public class Service &#123; private boolean isContinueRun = true; public void RunMethod()&#123; while (isContinueRun == true)&#123; &#125; System.out.println("停下来！"); &#125; public void StopMethod()&#123; isContinueRun=false; &#125;&#125;public class ThreadC extends Thread &#123; private Service service; public ThreadC(Service service) &#123; this.service = service; &#125; @Override public void run() &#123; service.RunMethod(); &#125;&#125;public class ThreadD extends Thread &#123; private Service service; public ThreadD(Service service) &#123; this.service = service; &#125; @Override public void run() &#123; service.StopMethod(); &#125;&#125;public class Run &#123; public static void main(String[] args) throws InterruptedException &#123; Service service=new Service(); ThreadC threadC=new ThreadC(service); threadC.start(); Thread.sleep(1000); ThreadD threadD=new ThreadD(service); threadD.start(); System.out.println("已经发起停止命令!"); &#125;&#125; 结果：1已经发起停止命令! 由结果可见，出现死循环，造成的原因是各线程间的数据没有可视性造成的，而Synchronized可以具有可视性 改进:1234567891011121314151617public class Service &#123; private boolean isContinueRun = true; public void RunMethod()&#123; String str=new String(); while (isContinueRun == true)&#123; synchronized (str)&#123; &#125; &#125; System.out.println("停下来！"); &#125; public void StopMethod()&#123; isContinueRun=false; &#125;&#125; 结果：1234已经发起停止命令!停下来！Process finished with exit code 0]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[多线程之synchronized]]></title>
+    <url>%2F2018%2F12%2F08%2F%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8Bsynchronized%2F</url>
+    <content type="text"><![CDATA[非线程安全问题 对于方法内部有私有变量的，则不存在非线程安全问题。即线程是安全的。如果 多个线程共同访问1个对象，则有可能出现非线程安全 例如： 12345678910111213141516171819202122232425262728293031 public class Count &#123; private int sum=100; public void print()&#123; sum=sum-1; System.out.println(sum); &#125;&#125;public class ThreadA extends Thread &#123; private Count count; public ThreadA(Count count) &#123; this.count=count; &#125; @Override public void run() &#123; System.out.println(Thread.currentThread().getName() + " print "); count.print(); &#125;&#125;public class TestThreadUnsafe &#123; public static void main(String[] args) &#123; Count count=new Count(); ThreadA a=new ThreadA(count); ThreadA b=new ThreadA(count); a.start(); b.start(); &#125;&#125; 结果：1234Thread-0 print 98Thread-1 print 99 要使线程安全 加上Synchronized关键字上锁,锁的是对象 123456789101112131415public class ThreadA extends Thread &#123; private Count count; public ThreadA(Count count) &#123; this.count=count; &#125; @Override public void run() &#123; synchronized (count) &#123; System.out.println(Thread.currentThread().getName() + " print "); count.print(); &#125; &#125;&#125; 结果：1234Thread-1 print 99Thread-0 print 98 脏读 多线程调用一个方法，避免出现线程不安全现象，加上了synchronized关键字，虽然赋值时进行了同步，但是有可能出现读取实例变量时，这个值已经被其他线程更改了，这就是脏读现象。12345678910111213141516171819202122232425262728293031323334353637383940414243public class Student &#123; private String username="张三"; private String password="111"; synchronized public void setStudent(String username, String password) throws InterruptedException &#123; this.username = username; Thread.sleep(2000); this.password = password; System.out.println("setStudent methods use"+Thread.currentThread().getName()+",print username="+username+",password="+password); &#125; public void getStudent()&#123; System.out.println(Thread.currentThread().getName()+": username="+username+",password="+password); &#125;public class ThreadB extends Thread &#123; private Student student; public ThreadB(Student student) &#123; this.student = student; &#125; @Override public void run() &#123; try &#123; student.setStudent("李四","222"); &#125; catch (InterruptedException e) &#123; e.printStackTrace(); &#125; &#125;public class TestThreadB &#123; public static void main(String[] args) throws InterruptedException &#123; Student student=new Student(); ThreadB thread=new ThreadB(student); thread.start(); Thread.sleep(1000); student.getStudent(); &#125;&#125; 结果:12main: username=李四,password=111setStudent methods useThread-0,print username=李四,password=222 脏读数据产生原因，getStudent方法并不同步的，所以可以在任意时候进行调用，解决办法就是在方法前加上synchronized，成为同步方法改进1234 synchronized public void getStudent()&#123; System.out.println(Thread.currentThread().getName()+": username="+username+",password="+password); &#125;&#125; 结果： setStudent methods useThread-0,print username=李四,password=222 main: username=李四,password=222 Synchronized 拥有锁重入的功能可重入锁：自己可以再次获取自己的内部锁。 Synchronized同步代码块效率问题 当两个并发线程访问一个对象object中的synchronized代码块时，一段时间内只能执行一个线程，另一个线程进入等待，等前面这个线程完成，才能继续执行。 然后就有人提出run方法里，将一部分必要的上锁成为同步代码块，一个线程访问object的同步代码，另一个线程仍然可以访问它的非同步代码块。但是最后发现访问同步代码块的要等待执行，非同步代码块的是交叉执行 sychronized同步方法和sychronized(this)同步代码块都满足以下两点 对其他sychronized同步方法或sychronized(this)同步代码块调用呈阻塞状态 同一时间只有一个线程可以执行sychronized同步方法中的代码]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[多线程之interrupted与isInterrupted]]></title>
+    <url>%2F2018%2F12%2F08%2F%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8Binterrupted%E4%B8%8EisInterrupted%2F</url>
+    <content type="text"><![CDATA[interrupt() 暂停线程方法interrupt(); 但是调用interrupt()并不是马上就停止，只是标记 判断线程是否中断 this.interrupted(); this.isInterrupted()； interrupted()和isInterrupted()this.interrupted():测试当前线程是否中断,当前指运行this.interrupted()的线程.内部实现是调用的当前线程的isInterrupted()this.isInterrupted():测试线程是否中断.内部是调用该方法的对象所表示的那个线程的isInterrupted()123456789101112131415161718192021public class MyThread extends Thread &#123; public static void main(String[] args) throws InterruptedException &#123; MyThread thread=new MyThread(); thread.start(); Thread.sleep(1000); thread.interrupt(); System.out.println(thread.isInterrupted()); &#125; @Override public void run() &#123; int i=0; System.out.println(i++); &#125;&#125;结果：0false由此结果都是false可知Thread调用interrupt()并不是马上就使线程暂停 注意，如果线程已中断 连续两次调用Thread.interrupted();第一个是ture, 但是第二个是 false, 因为第一次调用后已经清除其中断的状态。但是this.isInterrupted()不会清除123456789101112131415161718192021222324252627 public static void main(String[] args) &#123; Thread.currentThread().interrupt(); System.out.println(Thread.interrupted()); System.out.println(Thread.interrupted()); &#125;结果truefalsepublic class MyThread_1 extends Thread&#123; public static void main(String[] args) &#123; MyThread_1 thread_1=new MyThread_1(); thread_1.start(); thread_1.interrupt(); System.out.println(thread_1.isInterrupted()); System.out.println(thread_1.isInterrupted()); &#125; @Override public void run() &#123; System.out.println("run...."); &#125;&#125;结果truetruerun....]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[encodeURI和encodeURIComponent]]></title>
+    <url>%2F2018%2F12%2F04%2FencodeURI%E5%92%8CencodeURIComponent%2F</url>
+    <content type="text"><![CDATA[对URL编码是常见的事，所以这两个方法应该是实际中要特别注意的。它们都是编码URL，唯一区别就是编码的字符范围，其中 encodeURIencodeURI方法不会对下列字符编码 ASCII字母、数字、~!@#$&amp;*()=:/,;?+&#39; encodeURIComponentencodeURIComponent方法不会对下列字符编码 ASCII字母、数字、~!*()&#39;所以encodeURIComponent比encodeURI编码的范围更大。实际例子来说，encodeURIComponent会把 http:// 编码成 http%3A%2F%2F而encodeURI却不会。 比如1encodeURI("http://www.baidu.com/some other test"); 编码后会变为1"http://www.baidu.com/some%20other%20test"; 其中，空格被编码成了%20。但是如果你用了encodeURIComponent，那么结果变为1"http%3A%2F%2Fwww.cnblogs.com%2Fsome%20other%20test" 看到了区别吗，连 “/“ 都被编码了，整个URL已经没法用了。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>处理url</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[代理模式]]></title>
+    <url>%2F2018%2F12%2F01%2F%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[代理模式（Proxy） 代理模式给某一个对象提供一个代理对象，并由代理对象控制对原对象的访问。代理模式又分静态代理和动态代理，动态代理又分jdk动态代理和CGLB动态代理 静态代理模式 定义接口或者父类,被代理对象与代理对象一起实现相同的接口或者是继承相同父类，然后可通过客户端进行调用。 例如：12345678910111213141516171819202122232425262728293031323334353637383940414243//接口public interface PrintService &#123; void Print();&#125;//被代理类public class PrintServiceImpl implements PrintService &#123; public void Print() &#123; System.out.println("打印方法"); &#125;&#125;//代理类public class StaticProxy implements PrintService&#123; private PrintService printService; public StaticProxy(PrintService printService) &#123; this.printService = printService; &#125; public void Print() &#123; //代理类调用原对象的方法 printService.Print(); this.check(); &#125; public void check()&#123; System.out.println("代理的额外操作"); &#125; //为了方便就不另写一个类定义客户端了 public static void main(String[] args) &#123; //创建目标对象 PrintService printService=new PrintServiceImpl(); //代理对象,把目标对象传给代理对象,建立代理关系 PrintService printService= new StaticProxy(printService); printService.Print(); &#125;&#125;结果：打印方法代理的额外操作 动态模式—-JDK动态代理 静态代理只能实现一个代理类服务一种接口，对于多个代理类这时候需要使用动态代。在程序运行时，通过反射机制动态地创建一个代理类。但是JDK动态代理只能实现接口代理而不能实现类代理 例如:12345678910111213141516171819202122232425262728293031323334353637383940414243444546//接口public interface PrintService &#123; void Print();&#125;//被代理类public class PrintServiceImpl implements PrintService &#123; public void Print() &#123; System.out.println("打印方法"); &#125;&#125;//实现InvocationHandler接口public class JDKProxy implements InvocationHandler&#123; private Object target; public JDKProxy(Object target) &#123; this.target = target; &#125; public Object invoke(Object proxy, Method method, Object[] args) throws Throwable &#123; //利用反射调用代理的方法 Object result=method.invoke(target,args); return result; &#125;&#125;public class TestJDKProxy &#123; public static void main(String[] args) throws Throwable &#123; //目标对象 PrintService printServiceImpl=new PrintServiceImpl(); //把目标对象传给代理对象,建立代理关系 InvocationHandler handler=new JDKProxy(printServiceImpl); //创建代理类的实例 PrintService printService= (PrintService) Proxy.newProxyInstance(printServiceImpl.getClass().getClassLoader(),printServiceImpl.getClass().getInterfaces(),handler); printService.Print(); &#125;&#125;结果：打印方法 动态模式—-CGLB动态代理 CGLB动态代理和JDK动态代理和静态代理最大的不同就是前者可以以目标对象子类的方式类实现代理(即可以代理没有实现接口的类)，后两者代理对象必须是实现了接口。CGLB动态代理它需要导入cglib的包，然后在内存中构建一个子类对象从而实现对目标对象功能的扩展. 例如：123456789101112131415161718192021222324252627public class Print &#123; public void Display()&#123; System.out.println("打印方法。。。"); &#125;&#125;public class CGLBProxy implements MethodInterceptor&#123; public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable &#123; Object result=methodProxy.invokeSuper(o,objects); return null; &#125;&#125;public class TestCGLBProxy &#123; public static void main(String[] args) throws Exception &#123; Enhancer enhancer=new Enhancer(); enhancer.setSuperclass(Print.class); enhancer.setCallback(new CGLBProxy()); Print print= (Print) enhancer.create(); print.Display(); &#125;&#125;]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>代理模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[工厂模式]]></title>
+    <url>%2F2018%2F12%2F01%2F%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[工厂模式 工厂模式是属于类创建型模式，它根据抽象不同的程度分三种： 简单工厂模式(静态工厂模式) 工厂方法模式 抽象工厂模式 简单工厂模式 也称为静态工厂模式，它属于类创造型模式，在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。 例如： 12345678910111213141516171819202122232425public class Factory &#123; //静态工厂方法 public static Product getProduct(String arg) &#123; Product product = null; if (arg.equalsIgnoreCase("A")) &#123; product = new ConcreteProductA(); //初始化设置product &#125; else if (arg.equalsIgnoreCase("B")) &#123; product = new ConcreteProductB(); &#125; return product; &#125;&#125;public class Client &#123; public static void main(String args[]) &#123; Product product; product = Factory.getProduct("A"); //通过工厂类创建产品对象 product.methodSame(); product.methodDiff(); &#125;&#125; 工厂方法模式 工厂方法模式又称为工厂模式，也叫虚拟构造器模式。在工厂方法模式中，工厂父类负责定义创建产品对象的公共接口，而工厂子类则负责生成具体的产品对象，这样做的目的是将产品类的实例化操作延迟到工厂子类中完成，即通过工厂子类来确定究竟应该实例化哪一个具体产品类。 例如:12345678910public interface Factory &#123; public Product factoryMethod(); &#125;public class ConcreteFactory implements Factory &#123; public Product factoryMethod() &#123; return new ConcreteProduct(); &#125; &#125; 抽象工厂模式 抽象工厂模式(Abstract Factory Pattern)：提供一个创建一系列相关或相互依赖对象的接口，而无须指定它们具体的类。 例如：123456789101112131415161718192021222324252627282930313233343536373839public interface Factory &#123; public Product createProduct(); &#125;public interface Product &#123; public void getId(); public void getQuality();&#125;public class ProductA implenment Product&#123; public void getId()&#123; System.out.printlt(“Get ProductA’s Id ”);&#125; public void getQuality()&#123; System.out.printlt(“Get ProductA’s Quality ”);&#125;&#125;public class ProductB implenment Product&#123; public void getId()&#123; System.out.printlt(“Get ProductB’s Id ”);&#125; public void getQuality()&#123; System.out.printlt(“Get ProductB’s Quality ”);&#125;&#125;public class AbstractFactoryA implenment Factory&#123; public Product createProduct()&#123; return new ProductA(); &#125;&#125;public class AbstractFactoryB implenment Factory&#123; public Product createProduct()&#123; return new ProductB(); &#125;&#125;]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>工厂模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[多态]]></title>
+    <url>%2F2018%2F11%2F24%2F%E5%A4%9A%E6%80%81%2F</url>
+    <content type="text"><![CDATA[什么是多态 同一个引用类型，使用不同的实例而有不同的结果，有不同的解释 多态的好处 多态性削弱了开发人员的工作，因为他现在可以创建一种具有他为之设想的所有属性和行为的通用类。当开发人员需要某些独特属性和行为的更具体的子类时，开发人员只需要更改行为不同的特定部分中的代码. 多态的优点 提高代码的复用性解耦和可扩展性 多态实现的前提 1.继承2.重写父类的方法3.父类引用指向子类对像 例子：123456789101112131415161718192021222324public class SuperClass &#123; public void run()&#123; System.out.println("SuperClass run methods"); &#125;&#125;public class SubClass extends SuperClass &#123; public void run()&#123; System.out.println("SubClass Overrides run methods"); &#125; public static void main(String[] args) &#123; SuperClass superClass=new SuperClass(); superClass.run(); superClass=new SubClass(); superClass.run(); &#125;&#125;结果：SuperClass run methodsSubClass Overrides run methods]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>多态</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[重载和重写]]></title>
+    <url>%2F2018%2F11%2F24%2F%E9%87%8D%E8%BD%BD%E4%B8%8E%E9%87%8D%E5%86%99%2F</url>
+    <content type="text"><![CDATA[什么是重载？ 重载是发生在一个类里，方法名相同，参数类型不同，而且与返回值无关的 重载的要求 重载允许不同的方法有相同的方法名，但是他们的签名不同，其中签名可以根据输入参数的数量或输入参数的类型或两者而不同。 重载规则 被重载的方法必须参数个数或类型不一样； 被重载的方法可以改变返回类型，也可以改变访问修饰符，但是只改变这个两个不是方法的重载 被重载的方法可以声明新的或更广的检查异常； 方法能够在同一个类中或者在一个子类中被重载。 无法以返回值类型作为重载函数的区分标准 例子：123456789101112131415161718192021222324public class Demo &#123; public void add(int a)&#123; System.out.println(5+a); &#125; public void add(int a,int b)&#123; System.out.println(a+b); &#125; //下面这样写上面的add(int a,int b)方法会报错 public int add(int a,int b)&#123;&#125; //错误写法 与返回值无关的 protected void add(int a,int b)&#123;&#125; //错误写法 与修饰符无关 public int add(int c,double b)&#123; return (int) (c+b); &#125; public static void main(String[] args) &#123; Demo demo=new Demo(); demo.add(2); demo.add(3,5); System.out.println(demo.add(5,3.0)); &#125;&#125; 什么是重写？ 重写是子类对父类允许访问的方法重新编写方法体，注意是名称、参数列表都相同的方法，而且返回值也不能改变。 重写规则 参数列表应与重写方法的列表完全相同。 返回类型应该与超类中原始重写方法中声明的返回类型相同或是子类型。 访问级别不能比重写方法的访问级别更具限制性。例如：如果超类方法被声明为public，则子类中的重写方法不能是private或protected。 当实例方法由子类继承时，才能重写它们。 声明为final的方法无法重写。 声明为static的方法不能被重写，但可以重新声明。 如果某个方法无法继承，则无法重写该方法。 与实例的超类在同一个包中的子类可以重写任何未声明为private或final的超类方法。 不同包中的子类只能重写声明为public或protected的非final方法。 无论被重写的方法是否抛出异常，重写方法都可以抛出任何unchecked异常。但是，重写方法不能抛出比被重写方法声明的异常更广泛的异常。覆盖方法可以抛出比重写方法更窄或更少的异常。 构造函数不能被重写。 例子123456789101112131415161718192021222324252627public class Override &#123; public void print()&#123; System.out.println("Hello Override"); &#125; public void testException() throws IndexOutOfBoundsException&#123; System.out.println("11"); &#125; public final void count (int a,int b) &#123; System.out.println(a+b); &#125; public Override()&#123;&#125;&#125;class OverrideDemo extends Override&#123; @java.lang.Override public void print() &#123; System.out.println("print Hello of Override methods"); &#125; public final void count(int a,int b)&#123;&#125; //报错 final修饰方法不能重写 @java.lang.Override public void testException() throws Exception &#123; //报错 异常不能比被重写方法广泛 super.testException(); &#125; &#125; 重载与重写的区别 重载可修改参数类型也可修改参数个数，但是重写是一定不能修改参数类型和个数的 重载可以修改返回值类型，但是只修改返回值类型是不算重载的，重写不能修改返回值类型 重载可以修改异常，重写修改异常要注意可以减少或删除，一定不能抛出新的或者更广的异常 重载可以修改修饰符，重写是不能用限制更高的修饰符]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>重载和重写</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[RESTful API风格]]></title>
+    <url>%2F2018%2F11%2F23%2FRESTful-API%E9%A3%8E%E6%A0%BC%2F</url>
+    <content type="text"><![CDATA[REST是什么 REST（Representational State Transfer）描述了一个架构样式的网络系统,REST技术比对象访问协议（SOAP）更好，因为REST利用更少的带宽，使其更适合于Internet使用。REST原则是指客户端和服务器之间的交互在请求之间是无状态的。 REST的约束 统一界面 统一接口约束定义了客户端和服务器之间的接口原则： 使用URI作为资源标识符在请求中标识各个资源 当客户端持有资源的表示时，它有足够的信息来修改或删除服务器上的资源，前提是它有权这样做 每条消息都包含足够的信息来描述如何处理消息 客户端通过正文内容，查询字符串参数，请求标头和请求的URI来提供状态 无状态 本质上，这意味着处理请求的必要状态包含在请求本身中，无论是作为URI，查询字符串参数，正文还是标题的一部分。URI唯一标识资源，主体包含该资源的状态（或状态更改）。然后，在服务器进行处理之后，通过标头，状态和响应主体将适当的状态或重要状态的片断传送回客户端。 可缓存 与万维网一样，客户端可以缓存响应。因此，响应必须隐式或显式地将自身定义为可缓存或不可缓存，以防止客户端重用陈旧或不适当的数据以响应进一步的请求 客户端服务器 统一接口将客户端与服务器分开 分层系统 客户端通常无法判断它是直接连接到终端服务器，还是沿途的中介，中间服务器可以通过启用负载平衡和提供共享缓存来提高系统可伸缩性 按需代码（可选） 服务器能够通过向客户端传输可以执行的逻辑来临时扩展或自定义客户端的功能 RESTful API是什么 这个是一种软件架构风格，只是提供了一组设计原则和约束条件。主要用于客户端和服务端的交互。从本质上讲，RESTful API最终只是URI的集合，对这些URI的HTTP调用以及资源的一些JSON和/或XML表示，其中许多将包含关系链接。URIs涵盖RESTful可寻址性原则。每个资源都有自己的地址或URI服务器可以提供的每条信息都作为资源公开。统一接口的约束部分通过URI和HTTP动词的组合来解决，并且根据标准和约定使用它们。 REST和RESTful关系： REST 指的是一组架构约束条件和原则。满足这些约束条件和原则的应用程序或设计就是 RESTful。REST本身并没有创造新的技术、组件或服务，而隐藏在RESTful背后的理念就是使用Web的现有特征和能力，更好地使用现有Web标准中的一些准则和约束。虽然REST本身受Web技术的影响很深， 但是理论上REST架构风格并不是绑定在HTTP上，只不过目前HTTP是唯一与REST相关的实例 Restful的原理 RESTful API分解事务以创建一系列小模块。每个模块都解决了事务的特定底层部分。这种模块化为开发人员提供了很大的灵活性，但开发人员从头开始设计可能具有挑战性。RESTful API利用RFC 2616协议定义的HTTP方法。他们使用GET来检索资源; PUT改变资源的状态或更新资源 ; POST来创建该资源; DELETE删除资源。 Restful的规定 HTTP协议定义了许多为请求分配语义含义的方法。大多数RESTful Web API使用的常见HTTP方法是： GET在指定的URI处检索资源的表示。响应消息的主体包含所请求资源的详细信息。 POST在指定的URI处创建新资源。请求消息的主体提供新资源的详细信息。请注意，POST也可用于触发实际不创建资源的操作。 PUT要么在指定的URI上创建或替换资源。请求消息的主体指定要创建或更新的资源。 PATCH执行资源的部分更新。请求正文指定要应用于资源的更改集。 DELETE删除指定URI处的资源。 Restful接口定义的格式1234@RequestMapping(value="/url",method=RequestMethod.GET)@RequestMapping(value="/url",method=RequestMethod.POST)@RequestMapping(value="/url",method=RequestMethod.DELETE)@RequestMapping(value="/url",method=RequestMethod.PUT)]]></content>
+      <categories>
+        <category>RESTful API</category>
+      </categories>
+      <tags>
+        <tag>RESTful API</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[防止表单重复提交]]></title>
+    <url>%2F2018%2F11%2F18%2F%E9%98%B2%E6%AD%A2%E8%A1%A8%E5%8D%95%E9%87%8D%E5%A4%8D%E6%8F%90%E4%BA%A4%2F</url>
+    <content type="text"><![CDATA[遇到的场景： 一、 表单里填写数据，点击按钮提交，数据库里增加一条数据。表单数据没有增加。再点击提交导致同一条记录重复插入到数据库中，。二、 网络有延迟，点击提交的时候，页面在加载中，又不断的点击提交，数据库里同一条记录重复插入。三、 用户提交后，点击浏览器的后退，退回到表单页面后进行再次提交。防止这些场景的方法：思路：大概的思路是在客户端控制和在服务端控制 使用Post/Redirect/Get模式 表单通过post提交至服务端，服务端重定向跳转到提交成功页面。,这就是所谓的PRG模式。这可以防止用户刷新重复提交。 使用js禁掉提交按钮 在button提交之前将button的属性disabled设置为true,但是这样又会出问题，因为表单都会又验证，这样就会使button按钮没通过验证提交后被禁掉了，所以在button禁掉之前需要做个判断，有个$(“#formid”).parsley.validate(); 可以获取验证是否成功给个boolean值，这个用与网络延迟的重复点击提交情况。 使用ajax和重定向。 用ajax异步查询数据库这条记录是否存在，不存在就插入并跳转到提交成功页面。 利用session存唯一标识 写一个input隐藏框，用于生产唯一Token。1&lt;input type="hidden" name="token" value="&lt;%=session.getAttribute("token") %&gt;"&gt; 客户端的js代码中设置一个标识位，第一次提交后将标志位设置成true1234567891011&lt;script type="text/javascript"&gt; var isCommitted = false;//表单是否已经提交标识，默认false function dosubmit()&#123; if(isCommitted==false)&#123; isCommitted = true;//提交表单后，将表单是否已经提交标识设置为true return true;//返回true让表单正常提交 &#125;else&#123; return false;//返回false那么表单将不提交 &#125;&#125; &lt;/script&gt;]]></content>
+      <categories>
+        <category>优化</category>
+      </categories>
+      <tags>
+        <tag>表单安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JAVA reflect]]></title>
+    <url>%2F2018%2F11%2F15%2FJAVA-%E5%8F%8D%E5%B0%84%2F</url>
+    <content type="text"><![CDATA[Java reflect的概念？ 可以在运行时获得程序或程序集中每一个类型的成员和成员的信息。程序中一般的对象的类型都是在编译期就确定下来的，而 Java 反射机制可以动态地创建对象并调用其属性，这样的对象的类型在编译期是未知的，所以我们可以通过反射机制直接创建对象。 Java reflect的用途？ Java reflect中个人编码中，有很多人都觉得没什么地方用到。但是在java的很多框架，你如果进入底层查看实现，你就会发现很多地方都用反射，运行时动态的加载需要的对象。 Java reflect的基本应用？(假设存在一个类Person) 利用反射获取class对象 使用Class类的forName方法。 1Class clss=Class.forName(“com.***.person”); 使用获取某一个对象的Class 1Class clss=Person.class; 调用某个对象的 getClass() 方法 12Person p=new Person();Class clss=p.getClass(); 利用反射来创建对象 利用newInStance()方法调用无参构造创建对象 1Preson preson=Clss.newInStance() 利用Constructor()方法创建构造器，再调用newInStance()方法 123Class clzz=String.class;Constructor constructor=clss.getConstructor(String.Class)Object s=constructor.newInstance(“2344”); 获取Class对象的方法集合。 getDeclaredMethods 方法返回类或接口声明的所有方法，包括公共、保护、默认（包）访问和私有方法，但不包括继承的方法 1Method[] declaredFields = clzz.getDeclaredMethods(); getMethods 方法返回某个类的所有公用（public）方法，包括其继承类的公用方 1Method[] methods = clzz.getMethods(); getMethod 方法返回一个特定的方法，其中第一个参数为方法名称，后面的参数为方法的参数对应Class的对象 1Method method=clzz.getMethod("toLowerCase"); 如果要获取私有方法在之前 method.setAccessible(true);这个属性设置为true.特别的调用有参构造123Constructor cla = clazz.getDeclaredConstructor(String.class);//获取构造函数的构造器Object o=cla.newInstance("str");//调用有参构造创建对象 调用方法。当我们从类中获取了一个方法后，我们就可以用 invoke() 方法来调用这个方法123public Object invoke(Object obj, Object... args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>JAVA反射</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[策略模式]]></title>
+    <url>%2F2018%2F11%2F13%2F%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[前言 熟悉设计模式，并在适当的地方合理利用 策略模式 概念： 首先策略模式是属于行为型模式。策略模式是定义了一系列算法，将每个算法封装起来，是他们可以相互替换。需要设计一个接口，为实现这一系列实现类提供统一的方法，多个实现类实现该接口，设计一个抽象类，提供辅助函数。 本质： 策略模式的本质就是面向对象的继承和多态。为了完成一项任务，往往有不同的方式，每一种方式称为一种策略，我们可以根据环境和条件不同来选择不同的策略来完成该项任务。 策略模式的特点 平等性。 他所有的算法都是平级的，这样才能相互替换。 互斥性 策略模式每一时刻只能使用一个具体的策略实现对象 适用的场景： 几个类的主要逻辑相同，只在部分逻辑的算法和行为上稍有区别的情况。 有几种相似的行为，或者说算法，客户端需要动态地决定使用哪一种，那么可以使用策略模式，将这些算法封装起来供客户端调用。总结： 策略模式的决定权在用户，系统本身提供不同的算法实现，新增或者删除算法，对各种算法做封装，因此，策略模式多用在算法决策系统中，外部用户只需要决定用哪个算法。]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[垃圾收集器]]></title>
+    <url>%2F2018%2F11%2F11%2F%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[前言 阅读《深入理解java虚拟机》 正文 什么是垃圾收集器？ 收集算法是内存回收的方法论，垃圾收集器就是内存回收的具体实现。Java虚拟机规范中对垃圾收集器应该如何实现没有任何规定，因此不同的厂商、不同的版本的虚拟机所提供的垃圾收集器也有很大的差异，一般都会根据用户自己的应用特点和要求使用不同的垃圾收集器。 特别名词 串行收集器：它是使用单线程进行垃圾回收，它是独占式的垃圾回收。并行收集器：它是简单的把串行回收期多线程化。并行：指多条垃圾收集线程并行工作，但此用户线程仍然处于等待状态；并发：指用户线程与垃圾垃圾线程同时执行，但不一定是并行的，用户继续运行，而垃圾收集线程在另一个cpu上运行。吞吐量就是CPU用于运行用户代码的时间与CPU总消耗时间的比值，即吞吐量 = 运行用户代码时间 /（运行用户代码时间 + 垃圾收集时间）。虚拟机总共运行了100分钟，其中垃圾收集花掉1分钟，那吞吐量就是99%。 Serial收集器(新生代收集器) 它是一个单线程收集器，使用标记-整理算法。工作过程如下： Serial old收集器(老年代收集器) Serial old是Serial收集器的老年版本，它同样是一个单线程的收集器，工作过程跟Serial的一样， ParNew收集器（新生代收集器） 它是Serial收集器的多线程版本，实现了垃圾收集线程和用户线程同时工作，工作过程如下： Parallel Scavenge 收集器（新生代收集器） 它是使用的复制算法的，又是并行的多线程收集器。CMS等其他收集器是关注尽可能的缩短垃圾收集时用户线程的停顿时间，而Parallel Scavenge收集目标则是达到一个可控的吞吐量。 Parallel Old收集器（老年代收集器） Parallel Old是Parallel Scavenge老年代的版本，使用多线程和标记-整理算法。工作过程如下： CMS收集器(老年代收集器) CMS(Concurrent Mark Sweep)是一种以获取最短停顿时间为目标的收集器。CMS收集是基于标记-清除算法实现的。工作过程：1.初始标记，2.并发标记，3.重新标记，4.并发清除。如下： G1收集器（两者都可用） G1(Garbage-First)收集器是当今收集器技术发展最前沿的成果之一，它是一款面向服务端的垃圾收集器。 G1具有如下特点： 并行与并发； 分代收集; 空间整合; 可预测的停顿； 工作过程： 总结 如果说收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现。Java虚拟机规范中对垃圾收集器应该如何实现并没有任何规定，因此不同的厂商、版本的虚拟机所提供的垃圾收集器都可能会有很大差别，并且一般都会提供参数供用户根据自己的应用特点和要求组合出各个年代所使用的收集器。接下来讨论的收集器基于JDK1.7 Update 14 之后的HotSpot虚拟机（在此版本中正式提供了商用的G1收集器，之前G1仍处于实验状态），该虚拟机包含的所有收集器如下图所示：上图展示了7种作用于不同分代的收集器，如果两个收集器之间存在连线，就说明它们可以搭配使用。虚拟机所处的区域，则表示它是属于新生代收集器还是老年代收集器。Hotspot实现了如此多的收集器，正是因为目前并无完美的收集器出现，只是选择对具体应用最适合的收集器。]]></content>
+      <categories>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>垃圾收集器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[mysql中关于text的特别情况]]></title>
+    <url>%2F2018%2F11%2F05%2Fmysql%E4%B8%AD%E5%85%B3%E4%BA%8Etext%E7%9A%84%E7%89%B9%E5%88%AB%E6%83%85%E5%86%B5%2F</url>
+    <content type="text"><![CDATA[前言 项目中遇见的一个特别情况，记录下来 正文 Text字段 Text字段的长度为64K,Msyql的一个字段设置text格式,然后执行insert和update操作，它会自动截取超过64K后的，你只能看到前面64k的数据，这是因为mysql的sql_mode设置为default,(即没有开启strict_all_tables选项)。Mysql对于插入过长的值只会提示warning,而不是error。但是你在后台用java（或者python）连接数据库操作，insert或update时，数据过长，它会报Data truncation: Data too long for column 错误，这是因为jdbc的底层的jdbcCompliantTruncation设置,这个时候数据过长不会截短报警告，直接报java.sql.DataTruncation异常。]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[垃圾回收算法]]></title>
+    <url>%2F2018%2F10%2F29%2F%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[前言 阅读《深入理解java虚拟机》 正文 垃圾回收算法 垃圾回收前得确定那些对象是“存活“的，那些对象是”死亡“的。判断对象是否存活的算法: 引用计数法，可达性分析法. 引用计数法 给对象添加一个引用计数器，每当有一个地方引用它，计数器就加1，当引用失效时，计数器就减一，任何就计数器为0就不可能再被使用的。缺陷： 当对象objA和objB，他们赋值令objA.instance=objB，objB.instance=objA，实际上这两个对象已经不能再被访问，但是因为他们相互引用对方，导致他们的引用计数值都不是为0，因此引用记数法无法通知GC回收它们。 可达性分析法 这个算法的思想就是通过一系列被称为“GC Roots”的对象作为起始点，从这些节点开始往下搜索，搜索所走过的路劲叫做引用链，当一个GC Roots没有任何引用链相连（图论说GC Roots到这个对象不可达），则证明这个对象不可用。如图 GcRoot是不可到达Obj4和Obj5的，尽管他们俩相连，但是这两个对象还是被判断为可回收对象。注意： 通过可达性分析判断不可达之后也不是一定宣告这个对象死亡，宣告这个对象死亡，至少还要经历两次标记过程。对象通过可达性分析后发现没有跟GC Roots相连，他会第一次被标记并进行一次筛选，筛选的条件就是此对象是否执行finalize()方法，当对象没有覆盖finalize()方法，或者finalize()方法已经被虚拟机调用过，虚拟机将这两种情况都视为“没有必要执行”。 如果这个对象被判定为有必要执行finalize()方法，那么这个对象将会放置在一个叫做F-Queue的队列之中，并在稍后由一个由虚拟机自动建立的、低优先级的Finalizer线程去执行它。这里所谓的“执行”是指虚拟机会触发这个方法，但并不承诺会等待它运行结束，这样做的原因是如果一个对象在finalize()方法中执行缓慢，或者发生了死循环（更极端的情况），将很可能会导致F-Queue队列中其他对象永久处于等待，甚至导致整个内存回收系统崩溃。 finalize()方法是对象逃脱死亡命运的最后一次机会，稍后GC将对F-Queue中的对象进行第二次小规模的标记，如果对象要在finalize()中成功拯救自己——只要重新与引用链上的任何一个对象建立关联即可，譬如把自己（this关键字）赋值给某个类变量或者对象的成员变量，那么在第二次标记时它将被移除出“即将回收”的集合；如果对象这时候还没有逃脱，那么基本上它就真的被回收了。 垃圾收集算法 标记-清除算法: 首先标记所有需要回收的对象，再标记完成后统一回收所有被标记的对象。缺陷：两个过程效率不高，标记清除之后会产生大量不连续的内存碎片，空间碎片太多会导致当程序需要为较大对象分配内存时无法找到足够的连续内存而不得不提前触发另一次垃圾收集动作。 复制算法： 为了解决效率问题，它将可用内存按容量划分为大小相等的两块，每次使用其中的一块，当这一块的内存用完了，就将还存活的对象复制到另一块上，然后把已经使用过的内存空间一次清理掉。这样每次只是对一半进行内存回收，内存分配时就不用考虑内存碎片，需要移动堆顶指针。 标记-整理算法： 它是在标记-清除算法上进行了改进，在标记状态是相同的，标记对象，后续步骤是让所有存活的对象像一端移动，然后直接清除掉端边界以外的内存。 分带收集算法: 一般把java堆划分成新生代和老生代，这样根据各个年代的特点采用最适当的收集算法。新生代一般采用复制算法，老生代使用标记-清除或者标记整理。 注意 **新生代：每次垃圾收集时都发现大批对象死去，只有少数存活，只需要付出少量的存活对象的成本就可以完成收集。 **老生代：对象存活率高，没有额外空间对他进行分配担保。 **永久代：Class被加载的时候就被放入永久区域，GC不会在主程序运行时对永久区域进行清理。]]></content>
+      <categories>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>垃圾回收算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[MarkDown常用语法]]></title>
+    <url>%2F2018%2F10%2F28%2FMarkDown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[#前言 写博客，老觉得markdown语法不怎么会，特意去查下资料，记录下常见的markdown语法 #正文 标题大小123# 一级标题## 二级标题### 三级标题（以此类推） 如： #一级标题 ##二级标题 字体样式字体前后用一个*号 文字倾斜如： *文字倾斜* 结果： 文字倾斜 文字前后用两个*号 文字加粗如： **文字加粗** 结果：文字加粗 文字前后用三个*号 文字倾斜加粗如： ***文字倾斜加粗*** 结果： *文字倾斜加粗 字体颜色和文字的字体都是使用html如： &lt;font face=&quot;幼圆&quot;&gt;幼圆字体&lt;/font&gt; 结果：幼圆字体&lt;font color=&quot;red&quot;&gt;红色&lt;/font&gt; 结果：红色 &lt;font size=20&gt;20字号字体&lt;/font&gt; 结果：20字号字体 分割线三个-或者*如 --- 和*** 结果如下： 列表无序列表用- + * 任意一种。注意符号后要有一个空格再接文字二级列表上下级之间敲三下空格如： A *空格A B *空格B C *空格C A -空格A B -空格B C -空格C D 三个空格-空格A E 三个空格*空格E ####引用引用是使用 &lt; 符号， 嵌套使用就是多个 &gt; 使用(注意嵌套使用的时候要多一个“过渡”)如：&gt;hello结果: hello 12345&gt;&gt;&gt;hello&gt;&gt;&gt;&gt;您好&gt;&gt;希望这些能帮到你 结果： hello 您好 希望这些能帮到你 代码单行代码 代码之间用 ` 号包起来1`print(&quot;hello&quot;)` 结果：print(&quot;hello&quot;) 代码块 前后用三个` 包起来(注意下面为特别能够显示之间有一个空格)1234567` `` public Class A()&#123; public static void main(String [] args)&#123; System.print.out(&quot;hello&quot;); &#125;&#125;` `` 结果：12345Public Class A()&#123; public static void main(String [] args)&#123; System.print.out(&quot;hello&quot;); &#125;&#125;]]></content>
+      <tags>
+        <tag>markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[SOA架构]]></title>
+    <url>%2F2018%2F10%2F27%2FSOA%E6%9E%B6%E6%9E%84%2F</url>
+    <content type="text"><![CDATA[前言借鉴网上博客资料学习并总结下借鉴:https://blog.csdn.net/changyinling520/article/details/54142616https://blog.csdn.net/u013343616/article/details/79460398?utm_source=blogxgwz3正文 SOA架构是什么？ SOA(Service Oriented Architecture)是一种面向服务的体系结构 SOA是做什么的？ SOA是一个组建模型，它将应用程序的不同功能单元（称为服务）通过这些服务之间定义良好的接口和契约联系起来。SOA又叫服务治理，SOA就是帮助我们把服务之间调用的乱七八糟的关系给治理起来，然后提供一个统一的标准，把我们的服务治理成下图所示，以前我们的服务是互相交互，现在是只对数据总线进行交互，这样系统就变得统一起来。 SOA的介绍？ SOA的接口是采用中立的方式进行定义的，这种中立的接口定义的特征称为服务之间的松耦合。（传统的面向对象的模型是紧耦合的）， SOA的特性？ 1. 可用性2. 松耦合3. 明确定义的接口4. 无状态的服务设计5. 基于开发标准 SOA的优点： 一，SOA可通过互联网服务器发布，从而突破企业内网的限制，实现与供应链上下游伙伴业务的紧密结合。通过SOA架构，企业可以与其业务伙伴直接建立新渠道，建立新伙伴的成本得以降低。二，SOA与平台无关，减少了业务应用实现的限制。要将企业的业务伙伴整合到企业的“大”业务系统中，对其业务伙伴具体采用什么技术没有限制。三， SOA具有低耦合性特点，业务伙伴对整个业务系统的影响较低。在企业与各业务伙伴关系不断发生变化的情况下，节省的费用会越来越多。四， SOA具有可按模块分阶段进行实施的优势。可以成功一步再做下一步，将实施对企业的冲击减少到最小。五， SOA的实施可能并不具有成本显著性 阿里巴巴的Dubbo是SOA的典型实现。]]></content>
+      <categories>
+        <category>架构</category>
+      </categories>
+      <tags>
+        <tag>SOA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[了解Eureka]]></title>
+    <url>%2F2018%2F10%2F25%2F%E4%BA%86%E8%A7%A3Eureka%2F</url>
+    <content type="text"><![CDATA[前言 了解分布式组件Eure 正文 Eureka是什么? Eureka是一款用于注册服务和发现的组件。 Eureka的基本架构？ Register Service(服务注册中心):这是一个Eureka server,提供服务注册和发现的功能。Provider Service(服务提供者):这是一个Eureka Client,提供服务；Consumer Service(服务消费者)：它是一个 Eureka Cient，消费服务。 Eureka的一些概念 1)Register—&gt;服务注册当Eureka Client向 Eureka Server注册时，Eureka Client提供自身的元数据.2) Renew—&gt;服务续约Eureka Client 在默认的情况下会每隔 30 秒发送一次心跳来进行服务续约。通过服务续约来告知 Eureka Server 该 Eureka Client 仍然可用，没有出现故障。正常情况下，如果Eureka Server 在90 秒内没有收到Eureka Client的心跳，Eureka Server 会将 Eureka Client 实例从注册列表中 删除。3）fetch Register–&gt;获取服务注册列表信息Eureka Client 从 Eureka Server 获取服务注册表信息，井将其缓存在本地。 Eureka Client 会使用服务注册列表信息查找其他服务的信息，从而进行远程调用。4）Cancel－一服务下线Eureka Client 在程序关闭时可以向 Eureka Server 发送下线请求。发送请求后，该客户端的 实例信息将从 Eureka Server 的服务注册列表中删除5）Eviction一一服务剔除在默认情况下，当 Eureka Client 连续 90 秒没有向 Eureka Server 发送服务续约（即心跳）时， Eureka Server]]></content>
+      <categories>
+        <category>分布式</category>
+      </categories>
+      <tags>
+        <tag>Eureka</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[PRC通信]]></title>
+    <url>%2F2018%2F10%2F25%2FPRC%E9%80%9A%E4%BF%A1%2F</url>
+    <content type="text"><![CDATA[前言 网上查资料，总结并摘抄笔记 正文 什么是RPC通信? RPC 的全称是 Remote Procedure Call 是一种远程过程调用协议。一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。RPC协议假定某些传输协议的存在，如TCP或UDP，为通信程序之间携带信息数据。在OSI网络通信模型中，RPC跨越了传输层和应用层。 RPC通信的好处？ 1.RPC使得开发包括网络分布式多程序在内的应用程序更加轻易。2.RPC信息协议由两个不同结构组成：调用信息和答复信息。 为什么要用RPC？ 其实这是应用开发到一定的阶段的强烈需求驱动的1.如果我们开发简单的单一应用，逻辑简单、用户不多、流量不大，那我们用不着；2.当我们的系统访问量增大、业务增多时，我们会发现一台单机运行此系统已经无法承受。此时，我们可以将业务拆分成几个互不关联的应用，分别部署在各自机器上，以划清逻辑并减小压力。此时，我们也可以不需要RPC，因为应用之间是互不关联的。3.当我们的业务越来越多、应用也越来越多时，自然的，我们会发现有些功能已经不能简单划分开来或者划分不出来。此时，可以将公共业务逻辑抽离出来，将之组成独立的服务Service应用 。而原有的、新增的应用都可以与那些独立的Service应用交互，以此来完成完整的业务功能。所以此时，我们急需一种高效的应用程序之间的通讯手段来完成这种需求，所以你看，RPC大显身手的时候来了！其实3描述的场景也是服务化 、微服务 和分布式系统架构 的基础场景。即RPC框架就是实现以上结构的有力方式。 RPC和消息队列的差异 1. 功能差异在架构上，RPC和Message的差异点是，Message有一个中间结点Message Queue，可以把消息存储。消息的特点1.Message Queue把请求的压力保存一下，逐渐释放出来，让处理者按照自己的节奏来处理。2.Message Queue引入一下新的结点，系统的可靠性会受Message Queue结点的影响。3.Message Queue是异步单向的消息。发送消息设计成是不需要等待消息处理的完成。所以对于有同步返回需求，用Message Queue则变得麻烦了。RPC的特点1.同步调用，对于要等待返回结果/处理结果的场景，RPC是可以非常自然直觉的使用方式(RPC也可以是异步调用)。由于等待结果，Consumer（Client）会有线程消耗。如果以异步RPC的方式使用，Consumer（Client）线程消耗可以去掉。但不能做到像消息一样暂存消息/请求，压力会直接传导到服务Provider。 2. 适用场合差异 1.希望同步得到结果的场合，RPC合适。2.希望使用简单，则RPC；RPC操作基于接口，使用简单，使用方式模拟本地调用。异步的方式编程比较复杂。3.不希望发送端（RPC Consumer、Message Sender）受限于处理端（RPC Provider、Message Receiver）的速度时，使用Message Queue。4.随着业务增长，有的处理端处理量会成为瓶颈，会进行同步调用到异步消息的改造。这样的改造实际上有调整业务的使用方式。比如原来一个操作页面提交后就下一个页面会看到处理结果；改造后异步消息后，下一个页面就会变成“操作已提交，完成后会得到通知”。 3. 不适用场合说明 1.RPC同步调用使用Message Queue来传输调用信息。 上面分析可以知道，这样的做法，发送端是在等待，同时占用一个中间点的资源。变得复杂了，但没有对等的收益。2.对于返回值是void的调用，可以这样做，因为实际上这个调用业务上往往不需要同步得到处理结果的，只要保证会处理即可。（RPC的方式可以保证调用返回即处理完成，使用消息方式后这一点不能保证了。）3.返回值是void的调用，使用消息，效果上是把消息的使用方式Wrap成了服务调用（服务调用使用方式成简单，基于业务接口）。]]></content>
+      <tags>
+        <tag>PRC通信</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[了解springcloud]]></title>
+    <url>%2F2018%2F10%2F24%2F%E4%BA%86%E8%A7%A3springcloud%2F</url>
+    <content type="text"><![CDATA[前言 看书，摘抄点笔记，方便记忆 正文 Spring Cloud 提供了开发分布式微服务系统的一些常用组件，例如服务注册和 发现、配置中心、熔断器、智能路由、微代理、控制总线、全局锁、分布式会话等。 常用组件 (1)服务注册和发现组件 Eureka 利用 Eureka 组件可以很轻松地实现服务的注册和发现的功能。Eureka 组件提供了服务的健 康监测，以及界面友好的 UI。通过 Eureka 组件提供的 UI, Eureka 组件可以让开发人员随时了解服务单元的运行情况。另外 Spring Cloud 也支持 Consul 和 Zookeeper，用于注册和发现服务。 (2)熔断组件 Hystrix Hystrix 它是一个熔断组件，它除了有一些基本的熔断器功能外，还能够实现服务降级、服 务限流的功能。另外 Hystrix 提供了熔断器的健康监测，以及熔断器健康数据的 API 接口。Hystrix Dashboard 组件提供了单个服务熔断器的健康状态数据的界面展示功能 ，Hystrix Turbine 组件提供了多个服务的熔断器的健康状态数据的界面展示功能。 (3)负载均衡组件 Ribbon Ribbon 它是一个负载均衡组件，它通常和 Eureka、 Zuul、 RestTemplate、 Feign 配合使用。Ribbon 和 Zuul 配合，很容易做到负载均衡，将请求根据负载均衡策略分配到不同的服务实例中。Ribbon 和I RestTemplate、 Feign 配合，在消费服务时能够做到负载均衡。 (4)路由网关 Zuul 路由网关Zuul 有智能路由和过滤的功能。内部服务的 API 接口通过Zuul 网关统一对外暴露，内部服务的 API 接口不直接暴露，防止了内部服务敏感信息对外暴露。在默认的情况下，Zuul 和Ribbon 相结合，能够做到负载均衡、 智能路由。 Zuul 的过滤功能是通过拦截请求来实现的,可以对一些用户的角色和权限进行判断，起到安全验证的作用， 同时也可以用于输山实时的请求日志。 上述的 4 个组件都来自于 Netflix 的公司 ， 统一称为 Spring Cloud Netflixo (5) Spring Cloud Config Spring Cloud Config 组件提供了配置文件统一管理的功能。Spring Cloud Config 包括Server 端和 Client 端,Server 端读取本地仓库或者远程仓库的配置文件，所有的 Client 向 Server 读 取配置信息，从而达到配置文件统一管理的目的。通常情况下， Spring Cloud Config 和 Spring Cloud Bus 相互配合刷新指定 Client 或所有 Client 的配置文件。 (6) Spring Cloud Security Spring Cloud Security 是对 Spring Security 组件的封装.Spring Cloud Security 向服务单元 提供了用户验证和权限认证。一般来说，单独在微服务系统中使用 Spring Cloud Security 是很 少见的，一般它会配合 Spring Security 0Auth2 组件一起使用，通过搭建授权服务，验证 Token 或者 JWT 这种形式对整个微服务系统进行安全验证。 (7) Spring Cloud Sleuth Spring Cloud Sleuth 是一个分布式链路追踪组件，它封装了 Dapper、 Zipkin 和 Kibana 等组件，通过它可以知道服务之间的相互依赖关系，并实时观察链路的调用情况。 (8) Spring Cloud Stream Spring Cloud Stream 是 Spring Cloud 框架的数据流操作包，可以封装 RabbitMq、ActiveMq、 Kafka、 Redis 等消息组件, 利用 Spring Cloud Stream 可以实现消息的接收和发送。 一个简单的由 Spring Cloud 构述的微服务系统，通常由服务注册中心 Eureka、网关 Zuul、配置中心 Config 和授权服务 Auth 构成.]]></content>
+      <categories>
+        <category>分布式</category>
+      </categories>
+      <tags>
+        <tag>springcloud</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python连接mongodb简单操作]]></title>
+    <url>%2F2018%2F10%2F23%2Fpython%E8%BF%9E%E6%8E%A5mongodb%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[前言 只读环境，python当脚本，简单操作 正文 python连接mongodb123456789101112131415161718192021222324import pymongofrom pymongo import MongoClientimport datetimefrom datetime import timedeltadef test(): #建立连接 client=MongoClient("127.0.0.1",27017) #连接所需要的数据库 test1111 testdb=client.test1111 #连接所需要的集合 goodsPrototype testcollect=testdb.goodsPrototype #向集合里添加一条新的数据 testcollect.insert(&#123;"id":"asdqwe","coverImgList":["12314","23213","22332"]&#125;) #删除集合里的数据 testcollect.remove(&#123;"id":"asdqwe"&#125;) #遍历集合里所有的数据 for item in testcollect.find(): print(item) #修改集合里的数据 testcollect.update(&#123;"id":"GPZB2018101604ew"&#125;,&#123;"$set":&#123;"coverImgList":["open","down"]&#125;&#125;)if __name__ == '__main__': test()]]></content>
+      <categories>
+        <category>mongodb</category>
+      </categories>
+      <tags>
+        <tag>mongodb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[了解kafka]]></title>
+    <url>%2F2018%2F10%2F19%2F%E4%BA%86%E8%A7%A3kafka%2F</url>
+    <content type="text"><![CDATA[前言 找资料学习后总结 正文 什么是kafka? kafka是一种高吞吐量的分布式发布订阅消息系统，它可以处理消费者规模的网站中的所有动作流数据。 kafka是用来做什么的? 高并发，大量数据请求会造成来不及同步处理，最后导致请求堆积，出现问题，而消息队列kafka可以异步请求，从而缓解系统压力 kafka专有名词 Producer :生产者Consumer:消费者Broker: 以集群的方式运行,可以由一个或多个服务组成，每个服务叫做一个brokerTopic(主题) : 消息以topic为类别记录Partition： 一个topic是由多个partition组成的，可以增加topic的数量进行横向扩容kafka会为partition选出一个leader，之后所有该partition的请求，实际操作的都是leader，然后再同步到其他的follower。一个Topic的多个partitions,被分布在kafka集群中的多个server上;每个server(kafka实例)负责partitions中消息的读写操作;此外kafka还可以配置partitions需要备份的个数(replicas),每个partition将会被备份到多台机器上,以提高可用性.任何发布到此partition的消息都会被直接追加到log文件的尾部，每条消息在文件中的位置称为offset（偏移量）。offset为一个long型数字，它是唯一标记一条消息。它唯一的标记一条消息。kafka并没有提供其他额外的索引机制来存储offset，因为在kafka中几乎不允许对消息进行“随机读写”。 通讯模式 点对点通讯: 点对点方式是最为传统和常见的通讯方式，它支持一对一、一对多、多对多、多对一等多种配置方式，支持树状、网状等多种拓扑结构。 多点通讯: 使用一条 MQ 指令将单一消息发送到多个目标站点，并确保为每一站点可靠地提供信息 发布/订阅 (Publish/Subscribe) 模式: 可以突破目的队列地理指向的限制，使消息按照特定的主题甚至内容进行分发，用户或应用程序可以根据主题或内容接收到所需要的消息。发布/订阅功能使得发送者和接收者之间的耦合关系变得更为松散，发送者不必关心接收者的目的地址，而接收者也不必关心消息的发送地址，而只是根据消息的主题进行消息的收发。 群集 (Cluster): 群集类似于一个域 (Domain)，群集内部的队列管理器之间通讯时，不需要两两之间建立消息通道，而是采用群集 (Cluster) 通道与其它成员通讯，从而大大简化了系统配置。此外，群集中的队列管理器之间能够自动进行负载均衡，当某一队列管理器出现故障时，其它队列管理器可以接管它的工作，从而大大提高系统的高可靠性。 Zookeeper在kafka的作用 1.无论是kafka集群，还是producer和consumer都依赖于zookeeper来保证系统可用性集群保存一些meta信息。2.Kafka使用zookeeper作为其分布式协调框架，很好的将消息生产、消息存储、消息消费的过程结合在一起。3.同时借助zookeeper，kafka能够生产者、消费者和broker在内的所以组件在无状态的情况下，建立起生产者和消费者的订阅关系，并实现生产者与消费者的负载均衡]]></content>
+      <categories>
+        <category>消息队列</category>
+      </categories>
+      <tags>
+        <tag>kafka</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[redis基本操作]]></title>
+    <url>%2F2018%2F10%2F19%2Fredis%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[前言 操作后理解总结下 正文 命令模式下的使用redis进入命令框 开启redis服务 redis-server.exe(win下)再开一个命令框 进入redis安装路径下，进入redis-cli.exe127.0.0.1:6379&gt; String类型 (redis本身就是一种key和value存在的形式)123set key valueget keydel key Hash类型 (hash结构因为redis本身就是一种key和value的形式存在，所以这里的hash是把他的value值套上了一层key和value值) 123456插入Hmset key 姓名 “张三” 年龄 18获取Hmget key 姓名删除Hdel key 姓名 列表类型(key和value的存在为一个元素,本身结构是一个列表,他可以从最后进入队列，从中插入队列) 123456789lpush key value插入Linsert key before|after ‘某个数据’ value 在某个具体某个数据的前面或者后面插入数据`遍历`Lrange key 0 10 遍历0到10的数据，不存在的就不遍历`删除`Lrem key cout value`修改`Lset key index value` 集合(set)类型**(本身就是一个key和value类型存在，然后结构是个set集合,所以他不能存放重复的成员) 123456插入`sadd key members1 members2` 删除一个数据`Srem key members`查询所有的set数据`Smembers key` 有序集合**（sorted set） 123456插入`Zadd key score1 members1 score2 members2 ps:score1是数字`删除`Zrem key member`查询`Zrange key start top`]]></content>
+      <categories>
+        <category>nosql</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[mongodb基本操作]]></title>
+    <url>%2F2018%2F10%2F16%2Fmongodb%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[前言 mongodb的shell命令，对数据的简单操作 正文 mongodb 基本操作代码 MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。 创建数据库use 数据库名字（use DATABASE_NAME,如果数据库不存在，则创建数据库，否则切换到指定数据库） 删除数据库db.dropDatabase() 删除当前数据库，默认为 test，你可以使用 db 命令查看当前数据库名。 创建集合Db.createcollections(name, options) name: 要创建的集合名称options: 可选参数, 指定有关内存大小及索引的选项 插入数据类似于json数据;1234db.集合名字.save([&#123;id:”123”,age:”233”&#125;,&#123;id:”2222”,age:”19”&#125;]);name=(&#123;name:&quot;123&quot;,password:&quot;111&quot;&#125;)db.teacher.insert(name) 修改数据123db. 集合名字.update(&#123;id:&quot;1&quot;&#125;,&#123;$set:&#123;name:&quot;张三2&quot;&#125;&#125;);相当于update 集合名字set name = ‘张三2&apos; where id=1; 查询数据Db.集合名字.find();Db.集合名字.find({id:”1”}); 删除数据db.teacher.remove({name:&quot;123&quot;})； 特别用法；db.teacher.find().limit(2).skip(1)； 查询两条结果，从第二条数据开始查询 条件操作符 $gt表示大于$lt表示小于$ge表示大于等于$le表示小于等于$ne表示不等于db.customizedorder.find({num:{$gt: 0}});db.teacher.find().sort({age:-1});对查询后的数据排序显示 1表示升序,-1表示降序]]></content>
+      <categories>
+        <category>nosql</category>
+      </categories>
+      <tags>
+        <tag>mongodb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[五层模型]]></title>
+    <url>%2F2018%2F10%2F08%2F%E4%BA%94%E5%B1%82%E6%A8%A1%E5%9E%8B%2F</url>
+    <content type="text"><![CDATA[正文 网络模型有说四层的，有说五层的。也有说七层的；就分别说说； 这里就说下五层模型 物理层 物理层是最底层的，电脑之间通过网线，通过0和1传输的。 数据链路层 物理层是用过0和1传输的，不方便识别，这时候出现了一个重要的协议以太网协议；以太网协议规定了一组电信号(帧)，数据链路层引入了帧的概念；帧又分标头和数据两部分标头是存放mac地址的，每台电脑连接网络需要网卡，网卡里记录MAC地址，而且网卡的MAC地址的地址是唯一的；以太网引入了广播技术，通过广播发送； 网络层 网络层出现是引入新的地址(ip地址)，这是为了区别不同计算机是否属于同一个子网，在帧的标头里增加一个ip地址信息，这就要说下ip协议； ip协议ip地址由32位二进制数组成，前24位为网络部分，后面8位为主机部分； 传输层 传输层在帧里增加了端口，通过端口号就可以知道具体哪个程序接受数据包，这就引入了Udp/Tcp协议；Udp是一种无连接的不安全(会丢包，而且不知道对方是否收到)的传输层协议；而TCP改进了，TCP是一种面向连接的可靠的，通过三次握手建立的传输层的协议； 应用层 应用程序收到”传输层”的数据，进行解读。]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[线程]]></title>
+    <url>%2F2018%2F10%2F03%2F%E7%BA%BF%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[前言 每天不忘学习，运动 正文 说到线程。我们首先要区别 进程，线程，程序， 进程进程就是说一段程序执行的过程 线程线程就是说一个进程中可以有若干个线程，一个进程至少要有一个线程， 进程作为分配资源的基本单位，而把线程作为独立运行和独立调度的基本单位 程序程序就是说指令和数据的有序集合，进程是包含程序的，进程的执行离不开程序 多线程多线程是为了同步完成多项任务，不是为了提高运行效率，而是为了提高资源使用效率来提高系统的效率 线程的创建实际上就两种方式1.继承Thread类创建2.实现Runnable接口创建 至于Callable接口的本质也是实现Runnable;FutureTask调用Callable接口，而FutureTask实现了Runnable接口,run方法调用call方法创建 继承Thread和实现Runnable的区别实现Runnable接口1）适合多个相同的程序代码的线程去处理同一个资源2）可以避免java中的单继承的限制3）增加程序的健壮性，代码可以被多个线程共享，代码和数据独立]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JVM内存]]></title>
+    <url>%2F2018%2F09%2F22%2FJVM%E5%86%85%E5%AD%98%2F</url>
+    <content type="text"><![CDATA[前言 jvm java虚拟机 正文 java运行时数据区划分为几部分，程序计数器，java栈，本地方法栈，堆，方法区五个部分; 程序计数器 程序计数器也有称做pc寄存器;程序计数器是用来指示执行哪条指令的，所以是线程私有的。当多线程运行时，每个线程切换后需要知道上一次所运行的状态、位置。 java栈 java栈也称虚拟机栈；java栈是由一个一个的栈帧组成，栈帧是在每一个方法调用时产生的。每一个栈帧由局部变量区、操作数栈等组成.当线程执行一个方法时，就会随之创建一个对应的栈帧。这部分也是线程私有的。 String s是在java栈中创建的； 本地方法栈 本地方法栈与Java栈的作用和原理非常相似。区别只不过是Java栈是为执行Java方法服务的，而本地方法栈则是为执行本地方法服务的。 堆 Java中的堆是用来存储对象本身的以及数组。这块区域也是垃圾回收器重点管理的区域，由于大多数垃圾回收器都采用分代回收算法,所有堆内存也分为 新生代、老年代，可以方便垃圾的准确回收。这块内存属于线程共享区域。 new String()是在堆中创建的； 方法区 方法区主要用于存放已经被虚拟机加载的类信息，如常量，静态变量。 这块区域也被称为永久代。这部分是共享的；方法区有一个非常重要的部分就是运行时常量池]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Set集合]]></title>
+    <url>%2F2018%2F09%2F18%2FSet%E9%9B%86%E5%90%88%2F</url>
+    <content type="text"><![CDATA[前言 多学点 正文Set set是无序不重复的 Hashset HashSet的底层的HashMap;HashSet存的值是一个，底层Map就存在key里，value就在底层创建了一个final的object; Treeset TreeSet的底层是TreeMap;TreeSet是可以排序的，存入对象实现Comparable接口，并重写接口中的compareTo方法；也可以TreeSet ts = new TreeSet(new myComparator());myComparator是自定义的比较器，比较器实现comparator接口并重写了compare方法]]></content>
+      <categories>
+        <category>集合</category>
+      </categories>
+      <tags>
+        <tag>set</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[map集合]]></title>
+    <url>%2F2018%2F09%2F17%2Fmap%E9%9B%86%E5%90%88%2F</url>
+    <content type="text"><![CDATA[前言 不管怎么样，不忘学习，加油！ 正文 Map接口与set和list不同他不实现Collection;map是存储键值对的一种储存结构； HashMap hashMap的底层是数据+链表(即哈希表、散列表),hashMap如果不指定长度就为16，默认加载因子为0.75(扩容为原来的1倍);hashMap线程是不安全的，而且hashMap的key和value值都能为null;hashMap要注意它是通过“拉链法”解决哈希冲突的。 HashTable hashTable的底层也是数据+链表(即哈希表、散列表)，hashTable的默认初始容器的11，他的加载的因子是0.75(扩容为原来的2倍加1);hashTable线程是安全的，HashTable的key和value的值都不能为空;HashTable的方法都加了同步锁的，所以他线程是安全的；因为HashTable给每个方法都加了同步锁所以他的效率很慢，而且几乎淘汰了，要用线程安全的考虑用ConcurrentHashMap； ConcurrentHashMap HashTable容器在竞争激烈的并发环境下表现出效率低下的原因，是因为所有访问HashTable的线程都必须竞争同一把锁；所以在jdk1.7的时候引入了一个分段锁的概念，HashTable是对整个方法锁了，而ConcurrentHashMap通过锁分段的技术，通过增大粒子数，给每一段数据上一把锁来实现并发情况，ConcurrentHashMap是Segment数组结构（内部为数组加链表)。默认下是有16个分段锁；ConcurrentHashMap在读的时候几乎不需要加锁，在理想的情况下支持16个线程并发情况下写操作。但是注意在jdk1.8后就发生了修改，他抛弃了Segment的概念，利用CAS+synchronized来保证并发更新的安全; ConcurrentHashMap的底层是数组和可变链表(当链表数变成8换变成红黑树)， 散列表结构 扩展Vector的默认容器的10，加载因子为1，扩容增大1倍；ArrayList的默认容器为10，扩容增大0.5倍加1；HashSet的默认容器为16，加载因子为0.75，扩容增大1倍；]]></content>
+      <categories>
+        <category>集合</category>
+      </categories>
+      <tags>
+        <tag>map</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[冒泡与选择排序]]></title>
+    <url>%2F2018%2F09%2F16%2F%E5%86%92%E6%B3%A1%E4%B8%8E%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%2F</url>
+    <content type="text"><![CDATA[前言 经典排序 正文 冒泡排序 冒泡排序就是比较两个相邻的元素，然后把小的往前调(默认从小到大排序);思想就是第一个数和第二数比较，小的放前面，然后第二个数和第三个数比较小的放前面，直到倒数第一个数和倒数第二个数比较；这就是第一遍，然后第一遍能把最大的数放到最后，这里可以优化第二层循环;然后再循环比较;例如：int []b={6,3,9,2,8,1};核心代码；结果： 选择排序选择排序思路就是第一个数和后面的数比较，找到最小的那个数然后与第一数交换;循环记录下标，根据下标交换例如：int []a={6,5,2,7,9,3,4,1,10,8};核心代码：结果：]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[快排]]></title>
+    <url>%2F2018%2F09%2F15%2F%E5%BF%AB%E6%8E%92%2F</url>
+    <content type="text"><![CDATA[前言 有空复习下简单常见的算法 正文 快排 快排的基本思想是通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。 快排需要取一个数为”基准”，一般取左边的第一个;然后第一遍结果是这个基准数的左边都比他小，右边都比他大;快排设置两个变量i,j;i表示从左边开始记录数字的位置，j表示从右边开始记录数字的位置;还有一个基准为key; 例如： 6 1 2 7 9 3 4 5 10 8 取基准key=6; i=0; j=9;(这个是递归结束条件是i=j) 从右边j=9开始取第一个比key小的数5与key值(6下面就省略了)交换为： 0 1 2 3 4 5 6 7 8 9 位置(下面省略) 5 1 2 7 9 3 4 6 10 8 同时i=0 ,j变成j=7; 从左边i=0开始取第一个比key大的数7与key值交换为: 5 1 2 6 9 3 4 7 10 8 同时i=3,j=7; 从右边j=7开始取第一个比key小的数4与key值交换为： 5 1 2 4 9 3 6 7 10 8 同时i=3,j=6; 从左边i=3开始取第一个比key大的数9与key值交换为: 5 1 2 4 6 3 9 7 10 8 同时i=4,j=6; 从右边j=6开始取第一个比key小的数3与key值交换为： 5 1 2 4 3 6 9 7 10 8 同时i=4,j=5; 从左边i=4开始取第一个比key大的数与key值交换为: 发现i=5=j;结束; 会发现key的左边都比他小，右边都比他大；然后再根据key划分成两部分再排序; 为了得到最终结果需要再次对key两边的数组分别排序，然后再分解数组，直到数组不能再分解为止（只有一个数据），才能得到正确结果。]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[mysql优化]]></title>
+    <url>%2F2018%2F09%2F15%2Fmysql%E4%BC%98%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[前言 去应聘的时候，技术面笔试都遇到了，整理下 正文 数据库查询慢怎么优化？建立索引; 使用explain; 明确一条查询结果返回使用limit 1,可以让数据库停止游标移动; 不要数据库做强制转换，这样会导致全表扫描;如 where id=111 应改成 where id=’111’; 避免sql出现不能使用索引的时候;如负向查询不能使用索引,join两表字段类型不同; 不要使用select * ; 垂直分割，把数据库的表按照列变成几张表的方法，降低表的复杂度和字段数;]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[抽象类和接口]]></title>
+    <url>%2F2018%2F09%2F14%2F%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%2F</url>
+    <content type="text"><![CDATA[前言 这个很经典。 正文 抽象类和接口的不同点 1.抽象类不一定有抽象方法2.抽象类有构造方法；3.抽象类可以有变量，但是接口一定的final修饰的常量；4.抽象类可以有普通方法，接口中不能含有静态代码块以及静态方法，而抽象类可以有静态代码块和静态方法；5.抽象类是继承，接口是实现(接口可以模拟多继承)；6.抽象类可以用public，protected符修饰，接口默认的方法修饰符是public abstract，接口中默认的属性修饰符是public static final；7.接口可以作用于值类型和引用类型；抽象类只能作用于引用类型。例如，Struct就可以继承接口，而不能继承类。 相同点 都不能被实例化； 不同的使用场合 java不支持多继承，可以用接口模拟多继承,基本方法不断改变，需要使用抽象类，如果使用接口，那么就要改变所有实现了该接口的类(即继承和实现的区别)]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[数据库锁机制]]></title>
+    <url>%2F2018%2F09%2F14%2F%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81%E6%9C%BA%E5%88%B6%2F</url>
+    <content type="text"><![CDATA[前言 整理下java中锁这个机制 正文 乐观锁 获取数据的时候不加锁；大多数是基于数据版本记录机制实现的，假设一开始版本号是1，事务A先获取版本号1，再操作后，版本号增加为2，满足 提交版本号大于当前版本号，数据更改，事务B先获取版本号1，再操作增加版本号为2，A执行后版本号为2，B执行后版本后没有满足 提交版本号大于当前版本号 ，因此B事务不执行。 悲观锁 每次拿数据的时候都认为别人会修改，每次拿数据的时候都会上所，然后别人取不到。这样悲观锁就消耗了较多的资源。 共享锁共享锁又称读锁,多个不同的事务，对同一个资源共享一个锁,只能读不能修改； 排它锁 排它锁又称写锁，对于多个不同的事务，对同一资源只能有一把锁。对一行数据，一个事务对这个数据加了排它锁后，其他事务就不能再在其上加其他锁； 注意： 共享锁就是多个事务对于同一数据可以共享一把锁，都能访问到数据，但是只能读不能修改,排他锁指的是一个事务在一行数据加上排他锁后，其他事务不能再在其上加其他的锁,排他锁就是不能与其他所并存，如一个事务获取了一个数据行的排他锁，其他事务就不能再获取该行的其他锁，包括共享锁和排他锁,但是获取排他锁的事务是可以对数据就行读取和修改。]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[单例模式]]></title>
+    <url>%2F2018%2F07%2F25%2F%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[前言 今天写demo的时候对单例有些疑问，就查资料总结下 正文 单例模式 单例模式是一种常用的设计模式，单例是某个类只能有一个实例，而且必须是它自己创建的一个实例。它必须对外提供一个静态方法来实现实例。单例分懒汉和饿汉。 饿汉式 饿汉式主要缺点，使用多线程的时候，就会实例化多次，占用资源。 懒汉式 懒汉式的缺点是线程不安全，一般情况下是不加锁的，第一个线程还没实例化，第二个线程就加进来了，这样就不属于单例的情况。但是加锁就会出现一个线程进去就加锁判断，再释放，再加锁释放，这样就造成了性能低下，所以使用双重判空。使用volatile可见性，是使Dome类创建的时候有序，在堆中创建一个对象，然后dome指向这个对象，最后赋值。避免还没赋值，cpu被强占，直接下一个进程进行判空，但dome还没有被赋值，导致程序崩溃了。这就是一个DCL失效问题。 静态内部类外部类加载时并不需要立即加载内部类，所以不占用内存。只用第一次被调用的时候，才会去初始化Dome。]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[tortoisegit使用]]></title>
+    <url>%2F2018%2F07%2F01%2Ftortoisegit%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[正文 Git 的分支模型 分支模型就是你可以把你的工作从开发主线上分离开来，以免影响开发主线。当一个版本库被创建成功时，它会默认的为我们创建一个 master 分支仓库。一个版本库中可以包含很多个分支仓库,一个分支仓库中存放着不同时间的版本备份文件。注意：多分支可以提高团队开发效率。项目会将功能拆分，每个人都拉分支，然后写各自的部分，然后合并都主分支上。拉分支能够回退，比如你写了半天发现逻辑错了，你就可以根据时间，回到你没修改之前。 TortoiseGit是什么？TortoiseGit是一个开放的git版本控制系统的源客户端. 创建一个分支 切换到分支 查看记录 回退版本 合并分支]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[github使用]]></title>
+    <url>%2F2018%2F06%2F23%2Fgithub%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[前言 绝大数刚开始使用github的人是不知道怎么使用 正文 github里的watch,star,fork是什么？ watch翻译是观察，这里可以看作是观看，默认是没有观看的,你可以选择观看中，然后只要这个这个项目发生变动，你个人中心就会有通知。star翻译是星，这里解释为点赞，github里有个列表，里面会记录你所有点赞的项目。这个就跟qq的收藏差不多的效果。fork翻译为餐叉，在github里的作用是拷贝一份项目到你的github上。你搜索别人的项目，然后fork，这样你的github里就会多一个仓库，这就拷贝到自己的仓库里，然后你再拷贝到你的本地，自己修改后，发布修改， pull request向源仓库管理者提出请求。（将你修改的东西源仓库管理者看） 首先你fork别人的项目，如果你觉得你修改的不错，提交pull request给这个项目的主人。 如果源仓库管理者merge（合并）你的分支，那么你的提交就被同步到了源仓库， issuesissues功能被用来追踪各种任务。我的理解就是一些临时性的讨论，之后可以关闭。 可以提出你的疑问,或者提供一些看到的bug，还可以与pull request结合一起使用。 wikiWiki是一种在网络上开放且可供多人协同创作的超文本系统,为项目提供更加完善的文档. 一般用的不多，可以设置给别人写的权限，一般就把一些好多issues放到wiki里 如何向github里的大牛学习1.watch、fork大牛的项目 2.对他们的项目提交pull request。 3.issues讨论 Github Pages GitHub Pages 是一个静态网站托管服务,GitHub Pages是设计用来托管你的个人页面,组织页面,或者Github仓库的项目页面，比如hexo与github搭建的博客，就是一个应用我们GitHub Pages用户遵循一下标准： GitHub Pages源代码存储库限制不超过1GB。 发布的GitHub Pages限制不超过1GB。 GitHub Pages网站限制每月不超过100GB的带宽或每月100000个请求。 GitHub Pages网站每小时最多构建10次。]]></content>
+      <categories>
+        <category>github</category>
+      </categories>
+      <tags>
+        <tag>github</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[github教程]]></title>
+    <url>%2F2018%2F06%2F22%2Fgithub%E6%95%99%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[前言折腾了好几回，才搞定，总结下正文 首先进入github官网进行注册，对于一些英语小白，那么谷歌浏览器和百度翻译可以帮助你！注册完了，登录增加一些主页信息就搞定了，你就拥有一个属于你自己的github。 gitHub是一个面向开源及私有软件项目的托管平台，因为只支持git 作为唯一的版本库格式进行托管，故名gitHub。github是一个托管平台那么你就需要创建一个属于你自己的仓库 新建仓库进入你的github新建一个仓库(repository)然后新建仓库接下来就在git官网下载git,并安装。安装成功后,鼠标右键会多git Bash Here，或者cmd输入 git –version 创建SSH接下来生成一个本地ssh key进入git输入 ssh-keygen-t rsa-C “your_email@youremail.com“ 然后就可以看到下面的图，第一个箭头处直接回车，第二个箭头处是输入你SSH key密码然后就会在C:\Users\administrator路径下生成一个.ssh文件夹。接下来要在github上创建一个SSH key，将本地的key复制进去。进入github界面点击右上角头像，然后进入Setting，点击左边的 SSH and GPG keys然后点击New SSH keys新建一个,title随便写。key值就复制.ssh文件夹里id_rsa.pub文件里的信息(记事本打开);然后add SSh key,这样就创建完成了。下面测试下ssh是否安装成功，进入git bash上输入 ssh -T git@github.com出现successfully字样说明成功了，接下来设置用户和email。 git config –global user.name “你的用户名”git config –global user.email “你的邮箱”输入上边的代码，name最好和GitHub上边的一样，email是一定要是注册GitHub的那个邮箱地址。这样就建好了本地与github仓库的联系。 上传接下来就是上传本地项目到github仓库里了，首先找个盘下或者文件夹下，然后进入git bash下 git clone 仓库路径仓库路径是你进入github点击仓库然后刷新文件夹，你会发现新建了一个以仓库名为文件夹名的文件夹这样你就把github仓库拷贝到了本地，然后将你需要上传的文件加入到这个文件夹。添加成功后,在文件夹里git bash here输入 git add -Agit commit -m “标记内容”之后和你可以看到显示修改的文件最后上传git push然后你在你的github仓库就能看到上传的文件了]]></content>
+      <categories>
+        <category>github</category>
+      </categories>
+      <tags>
+        <tag>github</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo部署]]></title>
+    <url>%2F2018%2F06%2F19%2F%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%2F</url>
+    <content type="text"><![CDATA[#前言更新hexo的时候入了坑，记录下！！ #注意在本地修改后要部署到github，那么很自然的输入命令：hexo g -d但是输入后没反应。这就要在这命令之前清理下 hexo clean如果出现下面错误error deployer not found:git就输入npm install hexo-deployer-git –save如果还是没用就更改站点配置的repository路径，然后再输入hexo g -d 观看是否部署成功,观看博客更改样式，也可以去github仓库上看修改时间。 如果都修改好了发现还没改变，那么就需要手动修改浏览器的缓存，然后再刷新一下。]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Test]]></title>
+    <url>%2F2017%2F04%2F19%2FTest%2F</url>
+    <content type="text"><![CDATA[#前言 这是一个简单的测试例子，本来是想写点教程，但是被我玩崩了，就随便写写来测试下]]></content>
+      <tags>
+        <tag>测试</tag>
+      </tags>
+  </entry>
+</search>
