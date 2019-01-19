@@ -526,11 +526,12 @@
           
 
   
-    <div class="comments" id="comments">
-      
-        <div id="gitment-container"></div>
-      
-    </div>
+   <div id="gitalk-container"></div>
+#    <div class="comments" id="comments">
+#      
+#        <div id="gitment-container"></div>
+#     
+#    </div>
 
   
 
@@ -894,6 +895,22 @@
 
 
 
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '2b4b6dfaf26608429e40',
+          clientSecret: '98fb0b25a03a5288529ecff1a827808d13645a9a',
+          repo: 'Growing111.github.io',
+          owner: 'Growing111',
+          admin: ['Growing111'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
 
   
