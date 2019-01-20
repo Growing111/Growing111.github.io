@@ -593,7 +593,7 @@ main: username=李四,password=222
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -865,7 +865,8 @@ main: username=李四,password=222
 
 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  #<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script src="https://rawgit.com/qhh0205/78e9e0b1f3114db6737f3ed8cdd51d3a/raw/3894c5be5aa2378336b1f5ee0f296fa0b22d06e9/md5.min.js"></script>
    <script type="text/javascript">
         var gitalk = new Gitalk({
           clientID: '2b4b6dfaf26608429e40',
@@ -873,7 +874,7 @@ main: username=李四,password=222
           repo: 'Growing111.github.io',
           owner: 'Growing111',
           admin: ['Growing111'],
-          id: location.pathname,
+          id: md5(location.pathname),
           distractionFreeMode: 'true'
         })
         gitalk.render('gitalk-container')           
