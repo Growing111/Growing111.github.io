@@ -2,8 +2,14 @@
 <search>
   <entry>
     <title><![CDATA[多线程之ForkJoinPool]]></title>
-    <url>%2F2019%2F01%2F20%2F%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8BForkJoinPool%2F</url>
-    <content type="text"></content>
+    <url>%2F2019%2F01%2F10%2F%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8BForkJoinPool%2F</url>
+    <content type="text"><![CDATA[原理 ForkJoinPool是jdk7新加的用法，它的优势在于充分的利用cpu，采用工作窃取算法,将一个大任务根据阈值分割成很多个子任务,最后根据场景是否要合并子任务运算结果。 构造12345678910111213141516public ForkJoinPool() &#123; this(Math.min(MAX_CAP, Runtime.getRuntime().availableProcessors()), defaultForkJoinWorkerThreadFactory, null, false); &#125; public ForkJoinPool(int parallelism, ForkJoinWorkerThreadFactory factory, UncaughtExceptionHandler handler, boolean asyncMode) &#123; this(checkParallelism(parallelism), checkFactory(factory), handler, asyncMode ? FIFO_QUEUE : LIFO_QUEUE, "ForkJoinPool-" + nextPoolId() + "-worker-"); checkPermission(); &#125; 根据是否需要合并子任务运算结果,任务需要继承抽象类RecursiveAction,RecursiveTask&lt;V&gt;,后者为需要合并子任务结果,泛型为结果类型;]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>多线程</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[mysql索引]]></title>
