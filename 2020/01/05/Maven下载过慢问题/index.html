@@ -92,18 +92,18 @@
 
 
 
-<meta name="description" content="最近创建新项目，由于maven下载jar好慢又卡半天，特意找了下处理方法，最后发现可以修改maven的配置。特意记录下。  解决方法：  修改maven安装目录conf下的setting镜像配置，在&amp;lt;mirrors&amp;gt;&amp;lt;/mirrors&amp;gt;里添加镜像配置。下载最快的应该是阿里的镜像   阿里镜像12345678&amp;lt;mirrors&amp;gt;    &amp;lt;mirror&amp;gt;">
+<meta name="description" content="最近创建新项目，由于maven下载jar好慢又卡半天，特意找了下处理方法，最后发现可以修改maven的配置。特意记录下。   解决方法：  修改maven安装目录conf下的setting镜像配置，在&amp;lt;mirrors&amp;gt;&amp;lt;/mirrors&amp;gt;里添加镜像配置。下载最快的应该是阿里的镜像    阿里镜像 12345678&amp;lt;mirrors&amp;gt;    &amp;lt;mirror&amp;">
 <meta name="keywords" content="Maven">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Maven下载过慢问题">
 <meta property="og:url" content="http://growing111.github.io/2020/01/05/Maven下载过慢问题/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="最近创建新项目，由于maven下载jar好慢又卡半天，特意找了下处理方法，最后发现可以修改maven的配置。特意记录下。  解决方法：  修改maven安装目录conf下的setting镜像配置，在&amp;lt;mirrors&amp;gt;&amp;lt;/mirrors&amp;gt;里添加镜像配置。下载最快的应该是阿里的镜像   阿里镜像12345678&amp;lt;mirrors&amp;gt;    &amp;lt;mirror&amp;gt;">
+<meta property="og:description" content="最近创建新项目，由于maven下载jar好慢又卡半天，特意找了下处理方法，最后发现可以修改maven的配置。特意记录下。   解决方法：  修改maven安装目录conf下的setting镜像配置，在&amp;lt;mirrors&amp;gt;&amp;lt;/mirrors&amp;gt;里添加镜像配置。下载最快的应该是阿里的镜像    阿里镜像 12345678&amp;lt;mirrors&amp;gt;    &amp;lt;mirror&amp;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-01-05T14:42:51.025Z">
+<meta property="og:updated_time" content="2020-01-05T14:46:06.947Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Maven下载过慢问题">
-<meta name="twitter:description" content="最近创建新项目，由于maven下载jar好慢又卡半天，特意找了下处理方法，最后发现可以修改maven的配置。特意记录下。  解决方法：  修改maven安装目录conf下的setting镜像配置，在&amp;lt;mirrors&amp;gt;&amp;lt;/mirrors&amp;gt;里添加镜像配置。下载最快的应该是阿里的镜像   阿里镜像12345678&amp;lt;mirrors&amp;gt;    &amp;lt;mirror&amp;gt;">
+<meta name="twitter:description" content="最近创建新项目，由于maven下载jar好慢又卡半天，特意找了下处理方法，最后发现可以修改maven的配置。特意记录下。   解决方法：  修改maven安装目录conf下的setting镜像配置，在&amp;lt;mirrors&amp;gt;&amp;lt;/mirrors&amp;gt;里添加镜像配置。下载最快的应该是阿里的镜像    阿里镜像 12345678&amp;lt;mirrors&amp;gt;    &amp;lt;mirror&amp;">
 
 
 
@@ -412,13 +412,13 @@
         <hr>
 <p>最近创建新项目，由于maven下载jar好慢又卡半天，特意找了下处理方法，最后发现可以修改maven的配置。特意记录下。</p>
 <hr>
-<p><strong>解决方法：</strong></p>
+<p><strong> 解决方法：</strong></p>
 <blockquote>
 <p>修改maven安装目录conf下的setting镜像配置，在<code>&lt;mirrors&gt;&lt;/mirrors&gt;</code>里添加镜像配置。<br>下载最快的应该是阿里的镜像 </p>
 </blockquote>
-<p><strong>阿里镜像</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirrors&gt;</span><br><span class="line">    &lt;mirror&gt;</span><br><span class="line">      &lt;id&gt;alimaven&lt;/id&gt;</span><br><span class="line">      &lt;name&gt;aliyun maven&lt;/name&gt;</span><br><span class="line">      &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span><br><span class="line">      &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;        </span><br><span class="line">    &lt;/mirror&gt;</span><br><span class="line">  &lt;/mirrors&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>ibiblio镜像</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirror&gt;</span><br><span class="line">    &lt;id&gt;ibiblio&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;Mirror from Maven ibiblio&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://mirrors.ibiblio.org/pub/mirrors/maven2/&lt;/url&gt;</span><br><span class="line">    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;</span><br><span class="line">&lt;/mirror&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>jboss镜像</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirror&gt;</span><br><span class="line">    &lt;id&gt;jboss-public-repository-group&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;JBoss Public Repository Group&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://repository.jboss.org/nexus/content/groups/public&lt;/url&gt;</span><br><span class="line">    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;</span><br><span class="line">&lt;/mirror&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong> 阿里镜像 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirrors&gt;</span><br><span class="line">    &lt;mirror&gt;</span><br><span class="line">      &lt;id&gt;alimaven&lt;/id&gt;</span><br><span class="line">      &lt;name&gt;aliyun maven&lt;/name&gt;</span><br><span class="line">      &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span><br><span class="line">      &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;        </span><br><span class="line">    &lt;/mirror&gt;</span><br><span class="line">  &lt;/mirrors&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong> ibiblio镜像 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirror&gt;</span><br><span class="line">    &lt;id&gt;ibiblio&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;Mirror from Maven ibiblio&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://mirrors.ibiblio.org/pub/mirrors/maven2/&lt;/url&gt;</span><br><span class="line">    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;</span><br><span class="line">&lt;/mirror&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong> jboss镜像 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirror&gt;</span><br><span class="line">    &lt;id&gt;jboss-public-repository-group&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;JBoss Public Repository Group&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://repository.jboss.org/nexus/content/groups/public&lt;/url&gt;</span><br><span class="line">    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;</span><br><span class="line">&lt;/mirror&gt;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
