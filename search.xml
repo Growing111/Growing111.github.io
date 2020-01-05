@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Maven下载过慢问题]]></title>
+    <url>%2F2020%2F01%2F05%2FMaven%E4%B8%8B%E8%BD%BD%E8%BF%87%E6%85%A2%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[最近创建新项目，由于maven下载jar好慢又卡半天，特意找了下处理方法，最后发现可以修改maven的配置。特意记录下。 **解决方法： 修改maven安装目录conf下的setting镜像配置，在&lt;mirrors&gt;&lt;/mirrors&gt;里添加镜像配置。下载最快的应该是阿里的镜像 **阿里镜像12345678&lt;mirrors&gt; &lt;mirror&gt; &lt;id&gt;alimaven&lt;/id&gt; &lt;name&gt;aliyun maven&lt;/name&gt; &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt; &lt;mirrorOf&gt;central&lt;/mirrorOf&gt; &lt;/mirror&gt; &lt;/mirrors&gt; **ibiblio 镜像123456&lt;mirror&gt; &lt;id&gt;ibiblio&lt;/id&gt; &lt;name&gt;Mirror from Maven ibiblio&lt;/name&gt; &lt;url&gt;http://mirrors.ibiblio.org/pub/mirrors/maven2/&lt;/url&gt; &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;&lt;/mirror&gt; **jboss镜像123456&lt;mirror&gt; &lt;id&gt;jboss-public-repository-group&lt;/id&gt; &lt;name&gt;JBoss Public Repository Group&lt;/name&gt; &lt;url&gt;http://repository.jboss.org/nexus/content/groups/public&lt;/url&gt; &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;&lt;/mirror&gt;]]></content>
+      <categories>
+        <category>Maven</category>
+      </categories>
+      <tags>
+        <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[多线程之ForkJoinPool]]></title>
     <url>%2F2019%2F01%2F10%2F%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8BForkJoinPool%2F</url>
     <content type="text"><![CDATA[原理 ForkJoinPool是jdk7新加的用法，它的优势在于充分的利用cpu，采用工作窃取算法,将一个大任务根据阈值分割成很多个子任务,最后根据场景是否要合并子任务运算结果。 构造12345678910111213141516public ForkJoinPool() &#123; this(Math.min(MAX_CAP, Runtime.getRuntime().availableProcessors()), defaultForkJoinWorkerThreadFactory, null, false); &#125; public ForkJoinPool(int parallelism, ForkJoinWorkerThreadFactory factory, UncaughtExceptionHandler handler, boolean asyncMode) &#123; this(checkParallelism(parallelism), checkFactory(factory), handler, asyncMode ? FIFO_QUEUE : LIFO_QUEUE, "ForkJoinPool-" + nextPoolId() + "-worker-"); checkPermission(); &#125; 根据是否需要合并子任务运算结果,任务需要继承抽象类RecursiveAction,RecursiveTask&lt;V&gt;,后者为需要合并子任务结果,泛型为结果类型;]]></content>
