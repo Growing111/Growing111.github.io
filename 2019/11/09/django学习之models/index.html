@@ -92,18 +92,18 @@
 
 
 
-<meta name="description" content="前言 学习django，并记录笔记。  django是什么？–  django是一门基于python的web框架。Django本身基于MVC模型，即Model（模型）+View（视图）+ Controller（控制器）设计模式。Python加Django是快速开发、设计、部署网站的最佳组合。Model: 用于封装与应用程序的业务逻辑相关的数据及对数据的处理方法，是Web应用程序中用于处理应用程序的">
+<meta name="description" content="前言 学习django，并记录笔记。  django是什么？ django是一门基于python的web框架。Django本身基于MVC模型，即Model（模型）+View（视图）+ Controller（控制器）设计模式。Python加Django是快速开发、设计、部署网站的最佳组合。Model: 用于封装与应用程序的业务逻辑相关的数据及对数据的处理方法，是Web应用程序中用于处理应用程序的数据">
 <meta name="keywords" content="django">
 <meta property="og:type" content="article">
 <meta property="og:title" content="django学习之models">
 <meta property="og:url" content="http://growing111.github.io/2019/11/09/django学习之models/index.html">
 <meta property="og:site_name" content="Liuy">
-<meta property="og:description" content="前言 学习django，并记录笔记。  django是什么？–  django是一门基于python的web框架。Django本身基于MVC模型，即Model（模型）+View（视图）+ Controller（控制器）设计模式。Python加Django是快速开发、设计、部署网站的最佳组合。Model: 用于封装与应用程序的业务逻辑相关的数据及对数据的处理方法，是Web应用程序中用于处理应用程序的">
+<meta property="og:description" content="前言 学习django，并记录笔记。  django是什么？ django是一门基于python的web框架。Django本身基于MVC模型，即Model（模型）+View（视图）+ Controller（控制器）设计模式。Python加Django是快速开发、设计、部署网站的最佳组合。Model: 用于封装与应用程序的业务逻辑相关的数据及对数据的处理方法，是Web应用程序中用于处理应用程序的数据">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-12T07:47:19.621Z">
+<meta property="og:updated_time" content="2020-02-12T07:53:48.408Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="django学习之models">
-<meta name="twitter:description" content="前言 学习django，并记录笔记。  django是什么？–  django是一门基于python的web框架。Django本身基于MVC模型，即Model（模型）+View（视图）+ Controller（控制器）设计模式。Python加Django是快速开发、设计、部署网站的最佳组合。Model: 用于封装与应用程序的业务逻辑相关的数据及对数据的处理方法，是Web应用程序中用于处理应用程序的">
+<meta name="twitter:description" content="前言 学习django，并记录笔记。  django是什么？ django是一门基于python的web框架。Django本身基于MVC模型，即Model（模型）+View（视图）+ Controller（控制器）设计模式。Python加Django是快速开发、设计、部署网站的最佳组合。Model: 用于封装与应用程序的业务逻辑相关的数据及对数据的处理方法，是Web应用程序中用于处理应用程序的数据">
 
 
 
@@ -412,21 +412,137 @@
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
 <p>学习django，并记录笔记。</p>
 </blockquote>
-<h1 id="django是什么？"><a href="#django是什么？" class="headerlink" title="django是什么？"></a>django是什么？</h1><p>–</p>
-<blockquote>
+<h1 id="django是什么？"><a href="#django是什么？" class="headerlink" title="django是什么？"></a>django是什么？</h1><blockquote>
 <p>django是一门基于python的web框架。Django本身基于MVC模型，即Model（模型）+View（视图）+ Controller（控制器）设计模式。Python加Django是快速开发、设计、部署网站的最佳组合。<br>Model: 用于封装与应用程序的业务逻辑相关的数据及对数据的处理方法，是Web应用程序中用于处理应用程序的数据逻辑的部分，Model只提供功能性的接口，通过这些接口可以获取Model的所有功能。</p>
 </blockquote>
-<h1 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h1><p>–</p>
-<blockquote>
-<p>安装好python环境后。<br>1.安装pip. <a href="https://pypi.org/project/pip/#files" target="_blank" rel="noopener">https://pypi.org/project/pip/#files</a> 下载pip的tar.gz文件<br>解压安装后进入解压文件目录下cmd运行python setup.py install。查看到有success即安装成功。<br>查看安装是否成功: cmd  pip –version<br>2.安装diango。有网络情况下载直接cmd pip install django或者指定版本pip install django==2.2<br>查看安装是否成功 cmd  pip list 查看是否有django<br>3.创建diango项目<br>django-admin startproject HelloWorld<br>创建之后可以看到以下目录结构：<br>$ cd HelloWorld/<br>$ tree<br>|– HelloWorld<br>|   |– <strong>init</strong>.py<br>|   |– settings.py<br>|   |– urls.py<br>|   <code>-- wsgi.py</code>– manage.py<br>目录说明：<br>HelloWorld: 项目的容器。<br>manage.py: 一个实用的命令行工具，可让你以各种方式与该 Django 项目进行交互。<br>HelloWorld/<strong>init</strong>.py: 一个空文件，告诉 Python 该目录是一个 Python 包。<br>HelloWorld/settings.py: 该 Django 项目的设置/配置。<br>HelloWorld/urls.py: 该 Django 项目的 URL 声明; 一份由 Django 驱动的网站”目录”。<br>HelloWorld/wsgi.py: 一个 WSGI 兼容的 Web 服务器的入口，以便运行你的项目。</p>
+<h1 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h1><blockquote>
+<p>安装好python环境后。<br>1.安装pip. <a href="https://pypi.org/project/pip/#files" target="_blank" rel="noopener">https://pypi.org/project/pip/#files</a> 下载pip的tar.gz文件<br>解压安装后进入解压文件目录下cmd运行python setup.py install。查看到有success即安装成功。<br>查看安装是否成功: cmd  pip –version<br>2.安装diango。有网络情况下载直接cmd pip install django或者指定版本pip install django==2.2<br>查看安装是否成功 cmd  pip list 查看是否有django<br>3.创建diango项目<br>django-admin startproject HelloWorld<br>创建之后可以看到以下目录结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ cd HelloWorld/</span><br><span class="line">$ tree</span><br><span class="line">|-- HelloWorld</span><br><span class="line">|   |-- __init__.py</span><br><span class="line">|   |-- settings.py</span><br><span class="line">|   |-- urls.py</span><br><span class="line">|   `-- wsgi.py</span><br><span class="line">`-- manage.py</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<h1 id="Django模型"><a href="#Django模型" class="headerlink" title="Django模型"></a>Django模型</h1><p>–</p>
-<blockquote>
-<p>Django 对各种数据库提供了很好的支持，包括：PostgreSQL、MySQL、SQLite、Oracle。<br>首先需要在settings.py文件里设置数据库连接配置<br>DATABASES = {<br>    ‘default’: {<br>        ‘ENGINE’: ‘django.db.backends.mysql’,<br>        ‘NAME’: ‘test’,<br>        ‘USER’: ‘test’,<br>        ‘PASSWORD’: ‘test123’,<br>        ‘HOST’:’localhost’,<br>        ‘PORT’:’3306’,<br>    }<br>}<br>一个模型（model）就是一个单独的、确定的数据的信息源，包含了数据的字段和操作方法。通常，每个模型映射为一张数据库中的表。<br>基本的原则如下：<br>每个模型在Django中的存在形式为一个Python类<br>每个模型都是django.db.models.Model的子类<br>模型的每个字段（属性）代表数据表的某一列<br>Django将自动为你生成数据库访问API<br>在model.py创建以下示例：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    first_name = models.CharField(max_length=<span class="number">30</span>)</span><br><span class="line">    last_name = models.CharField(max_length=<span class="number">30</span>)</span><br></pre></td></tr></table></figure></p>
+<p>目录说明：<br>HelloWorld: 项目的容器。<br>manage.py: 一个实用的命令行工具，可让你以各种方式与该 Django 项目进行交互。<br>HelloWorld/<strong>init</strong>.py: 一个空文件，告诉 Python 该目录是一个 Python 包。<br>HelloWorld/settings.py: 该 Django 项目的设置/配置。<br>HelloWorld/urls.py: 该 Django 项目的 URL 声明; 一份由 Django 驱动的网站”目录”。<br>HelloWorld/wsgi.py: 一个 WSGI 兼容的 Web 服务器的入口，以便运行你的项目。</p>
+<h1 id="Django模型"><a href="#Django模型" class="headerlink" title="Django模型"></a>Django模型</h1><blockquote>
+<p>Django 对各种数据库提供了很好的支持，包括：PostgreSQL、MySQL、SQLite、Oracle。<br>首先需要在settings.py文件里设置数据库连接配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    &apos;default&apos;: &#123;</span><br><span class="line">        &apos;ENGINE&apos;: &apos;django.db.backends.mysql&apos;, </span><br><span class="line">        &apos;NAME&apos;: &apos;test&apos;,</span><br><span class="line">        &apos;USER&apos;: &apos;test&apos;,</span><br><span class="line">        &apos;PASSWORD&apos;: &apos;test123&apos;,</span><br><span class="line">        &apos;HOST&apos;:&apos;localhost&apos;,</span><br><span class="line">        &apos;PORT&apos;:&apos;3306&apos;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
+<p>一个模型（model）就是一个单独的、确定的数据的信息源，包含了数据的字段和操作方法。通常，每个模型映射为一张数据库中的表。<br>基本的原则如下：<br>每个模型在Django中的存在形式为一个Python类<br>每个模型都是django.db.models.Model的子类<br>模型的每个字段（属性）代表数据表的某一列<br>Django将自动为你生成数据库访问API<br>在model.py创建以下示例：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    first_name = models.CharField(max_length=<span class="number">30</span>)</span><br><span class="line">    last_name = models.CharField(max_length=<span class="number">30</span>)</span><br></pre></td></tr></table></figure></p>
 <p>上面的代码，相当于下面的原生SQL语句：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE myapp_person (</span><br><span class="line">    &quot;id&quot; serial NOT NULL PRIMARY KEY,</span><br><span class="line">    &quot;first_name&quot; varchar(30) NOT NULL,</span><br><span class="line">    &quot;last_name&quot; varchar(30) NOT NULL</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<h1 id="model常用字段类型"><a href="#model常用字段类型" class="headerlink" title="model常用字段类型"></a>model常用字段类型</h1><p>–<br>类型    | 说明<br>-|-|-<br>AutoField    |一个自动增加的整数类型字段。通常你不需要自己编写它，Django会自动帮你添加字段：id = models.AutoField(primary_key=True)，这是一个自增字段，从1开始计数。如果你非要自己设置主键，那么请务必将字段设置为primary_key=True。Django在一个模型中只允许有一个自增字段，并且该字段必须为主键！<br>BigAutoField |    (1.10新增)64位整数类型自增字段，数字范围更大，从1到9223372036854775807<br>BigIntegerField |64位整数字段（看清楚，非自增），类似IntegerField ，-9223372036854775808 到9223372036854775807。在Django的模板表单里体现为一个textinput标签。<br>BinaryField    |二进制数据类型。使用受限，少用。<br>BooleanField    |布尔值类型。默认值是None。在HTML表单中体现为CheckboxInput标签。如果要接收null值，请使用NullBooleanField。<br>CharField|    字符串类型。必须接收一个max_length参数，表示字符串长度不能超过该值。默认的表单标签是input text。最常用的filed，没有之一！<br>CommaSeparatedIntegerField|    逗号分隔的整数类型。必须接收一个max_length参数。常用于表示较大的金额数目，例如1,000,000元。<br>DateField    | <code>class DateField(auto_now=False, auto_now_add=False, **options)</code>日期类型。一个Python中的datetime.date的实例。在HTML中表现为TextInput标签。在admin后台中，Django会帮你自动添加一个JS的日历表和一个“Today”快捷方式，以及附加的日期合法性验证。两个重要参数：（参数互斥，不能共存） auto_now:每当对象被保存时将字段设为当前日期，常用于保存最后修改时间。auto_now_add：每当对象被创建时，设为当前日期，常用于保存创建日期(注意，它是不可修改的)。设置上面两个参数就相当于给field添加了editable=False和blank=True属性。如果想具有修改属性，请用default参数。例子：pub_time = models.DateField(auto_now_add=True)，自动添加发布时间。<br>DateTimeField    |日期时间类型。Python的datetime.datetime的实例。与DateField相比就是多了小时、分和秒的显示，其它功能、参数、用法、默认值等等都一样。<br>DecimalField    |固定精度的十进制小数。相当于Python的Decimal实例，必须提供两个指定的参数！参数max_digits：最大的位数，必须大于或等于小数点位数 。decimal_places：小数点位数，精度。 当localize=False时，它在HTML表现为NumberInput标签，否则是text类型。例子：储存最大不超过999，带有2位小数位精度的数，定义如下：models.DecimalField(…, max_digits=5, decimal_places=2)。<br>DurationField|    持续时间类型。存储一定期间的时间长度。类似Python中的timedelta。在不同的数据库实现中有不同的表示方法。常用于进行时间之间的加减运算。但是小心了，这里有坑，PostgreSQL等数据库之间有兼容性问题！<br>EmailField|    邮箱类型，默认max_length最大长度254位。使用这个字段的好处是，可以使用DJango内置的EmailValidator进行邮箱地址合法性验证。<br>FileField|    class FileField(upload_to=None, max_length=100, <strong>options)上传文件类型，后面单独介绍。<br>FilePathField|    文件路径类型，后面单独介绍<br>FloatField|    浮点数类型，参考整数类型<br>ImageField|    图像类型，后面单独介绍。<br>IntegerField|    整数类型，最常用的字段之一。取值范围-2147483648到2147483647。在HTML中表现为NumberInput标签。<br>GenericIPAddressField|    class GenericIPAddressField(protocol=’both’, unpack_ipv4=False, </strong>options)[source],IPV4或者IPV6地址，字符串形式，例如192.0.2.30或者2a02:42fe::4在HTML中表现为TextInput标签。参数protocol默认值为‘both’，可选‘IPv4’或者‘IPv6’，表示你的IP地址类型。<br>NullBooleanField|    类似布尔字段，只不过额外允许NULL作为选项之一。<br>PositiveIntegerField|    正整数字段，包含0,最大2147483647。<br>PositiveSmallIntegerField|    较小的正整数字段，从0到32767。<br>SlugField|    slug是一个新闻行业的术语。一个slug就是一个某种东西的简短标签，包含字母、数字、下划线或者连接线，通常用于URLs中。可以设置max_length参数，默认为50。<br>SmallIntegerField|    小整数，包含-32768到32767。<br>TextField|    大量文本内容，在HTML中表现为Textarea标签，最常用的字段类型之一！如果你为它设置一个max_length参数，那么在前端页面中会受到输入字符数量限制，然而在模型和数据库层面却不受影响。只有CharField才能同时作用于两者。<br>TimeField|    时间字段，Python中datetime.time的实例。接收同DateField一样的参数，只作用于小时、分和秒。<br>URLField|    一个用于保存URL地址的字符串类型，默认最大长度200。<br>UUIDField|    用于保存通用唯一识别码（Universally Unique Identifier）的字段。使用Python的UUID类。在PostgreSQL数据库中保存为uuid类型，其它数据库中为char(32)。这个字段是自增主键的最佳替代品，后面有例子展示。</p>
+<h1 id="model常用字段类型"><a href="#model常用字段类型" class="headerlink" title="model常用字段类型"></a>model常用字段类型</h1><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AutoField</td>
+<td>一个自动增加的整数类型字段。通常你不需要自己编写它，Django会自动帮你添加字段：id = models.AutoField(primary_key=True)，这是一个自增字段，从1开始计数。如果你非要自己设置主键，那么请务必将字段设置为primary_key=True。Django在一个模型中只允许有一个自增字段，并且该字段必须为主键！</td>
+</tr>
+<tr>
+<td>BigAutoField</td>
+<td>(1.10新增)64位整数类型自增字段，数字范围更大，从1到9223372036854775807</td>
+</tr>
+<tr>
+<td>BigIntegerField</td>
+<td>64位整数字段（看清楚，非自增），类似IntegerField ，-9223372036854775808 到9223372036854775807。在Django的模板表单里体现为一个textinput标签。</td>
+</tr>
+<tr>
+<td>BinaryField</td>
+<td>二进制数据类型。使用受限，少用。</td>
+</tr>
+<tr>
+<td>BooleanField</td>
+<td>布尔值类型。默认值是None。在HTML表单中体现为CheckboxInput标签。如果要接收null值，请使用NullBooleanField。</td>
+</tr>
+<tr>
+<td>CharField</td>
+<td>字符串类型。必须接收一个max_length参数，表示字符串长度不能超过该值。默认的表单标签是input text。最常用的filed，没有之一！</td>
+</tr>
+<tr>
+<td>CommaSeparatedIntegerField</td>
+<td>逗号分隔的整数类型。必须接收一个max_length参数。常用于表示较大的金额数目，例如1,000,000元。</td>
+</tr>
+<tr>
+<td>DateField</td>
+<td><code>class DateField(auto_now=False, auto_now_add=False, **options)</code>日期类型。一个Python中的datetime.date的实例。在HTML中表现为TextInput标签。在admin后台中，Django会帮你自动添加一个JS的日历表和一个“Today”快捷方式，以及附加的日期合法性验证。两个重要参数：（参数互斥，不能共存） auto_now:每当对象被保存时将字段设为当前日期，常用于保存最后修改时间。auto_now_add：每当对象被创建时，设为当前日期，常用于保存创建日期(注意，它是不可修改的)。设置上面两个参数就相当于给field添加了editable=False和blank=True属性。如果想具有修改属性，请用default参数。例子：pub_time = models.DateField(auto_now_add=True)，自动添加发布时间。</td>
+</tr>
+<tr>
+<td>DateTimeField</td>
+<td>日期时间类型。Python的datetime.datetime的实例。与DateField相比就是多了小时、分和秒的显示，其它功能、参数、用法、默认值等等都一样。</td>
+</tr>
+<tr>
+<td>DecimalField</td>
+<td>固定精度的十进制小数。相当于Python的Decimal实例，必须提供两个指定的参数！参数max_digits：最大的位数，必须大于或等于小数点位数 。decimal_places：小数点位数，精度。 当localize=False时，它在HTML表现为NumberInput标签，否则是text类型。例子：储存最大不超过999，带有2位小数位精度的数，定义如下：models.DecimalField(…, max_digits=5, decimal_places=2)。</td>
+</tr>
+<tr>
+<td>DurationField</td>
+<td>持续时间类型。存储一定期间的时间长度。类似Python中的timedelta。在不同的数据库实现中有不同的表示方法。常用于进行时间之间的加减运算。但是小心了，这里有坑，PostgreSQL等数据库之间有兼容性问题！</td>
+</tr>
+<tr>
+<td>EmailField</td>
+<td>邮箱类型，默认max_length最大长度254位。使用这个字段的好处是，可以使用DJango内置的EmailValidator进行邮箱地址合法性验证。</td>
+</tr>
+<tr>
+<td>FileField</td>
+<td>class FileField(upload_to=None, max_length=100, **options)上传文件类型，后面单独介绍。</td>
+</tr>
+<tr>
+<td>FilePathField</td>
+<td>文件路径类型，后面单独介绍</td>
+</tr>
+<tr>
+<td>FloatField</td>
+<td>浮点数类型，参考整数类型</td>
+</tr>
+<tr>
+<td>ImageField</td>
+<td>图像类型，后面单独介绍。</td>
+</tr>
+<tr>
+<td>IntegerField</td>
+<td>整数类型，最常用的字段之一。取值范围-2147483648到2147483647。在HTML中表现为NumberInput标签。</td>
+</tr>
+<tr>
+<td>GenericIPAddressField</td>
+<td>class GenericIPAddressField(protocol=’both’, unpack_ipv4=False, **options)[source],IPV4或者IPV6地址，字符串形式，例如192.0.2.30或者2a02:42fe::4在HTML中表现为TextInput标签。参数protocol默认值为‘both’，可选‘IPv4’或者‘IPv6’，表示你的IP地址类型。</td>
+</tr>
+<tr>
+<td>NullBooleanField</td>
+<td>类似布尔字段，只不过额外允许NULL作为选项之一。</td>
+</tr>
+<tr>
+<td>PositiveIntegerField</td>
+<td>正整数字段，包含0,最大2147483647。</td>
+</tr>
+<tr>
+<td>PositiveSmallIntegerField</td>
+<td>较小的正整数字段，从0到32767。</td>
+</tr>
+<tr>
+<td>SlugField</td>
+<td>slug是一个新闻行业的术语。一个slug就是一个某种东西的简短标签，包含字母、数字、下划线或者连接线，通常用于URLs中。可以设置max_length参数，默认为50。</td>
+</tr>
+<tr>
+<td>SmallIntegerField</td>
+<td>小整数，包含-32768到32767。</td>
+</tr>
+<tr>
+<td>TextField</td>
+<td>大量文本内容，在HTML中表现为Textarea标签，最常用的字段类型之一！如果你为它设置一个max_length参数，那么在前端页面中会受到输入字符数量限制，然而在模型和数据库层面却不受影响。只有CharField才能同时作用于两者。</td>
+</tr>
+<tr>
+<td>TimeField</td>
+<td>时间字段，Python中datetime.time的实例。接收同DateField一样的参数，只作用于小时、分和秒。</td>
+</tr>
+<tr>
+<td>URLField</td>
+<td>一个用于保存URL地址的字符串类型，默认最大长度200。</td>
+</tr>
+<tr>
+<td>UUIDField</td>
+<td>用于保存通用唯一识别码（Universally Unique Identifier）的字段。使用Python的UUID类。在PostgreSQL数据库中保存为uuid类型，其它数据库中为char(32)。这个字段是自增主键的最佳替代品，后面有例子展示。</td>
+</tr>
+</tbody>
+</table>
 <h1 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h1><p>–</p>
 <blockquote>
 <p>正向生成表 根据model创建表<br><code>$ python manage.py migrate   # 创建表结构</code><br><code>$ python manage.py makemigrations TestModel  # 让 Django 知道我们在我们的模型有一些变更</code><br>逆向生成。 根据表生成model。<br><code>python manage.py inspectdb</code></p>
